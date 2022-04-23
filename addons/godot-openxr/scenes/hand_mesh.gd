@@ -1,10 +1,17 @@
 tool
 extends Spatial
 
+onready var output_node = get_node("../../OutputNode")
+
 enum MOTION_RANGE {
 	UNUBSTRUCTED = 0,
 	CONFORM_TO_CONTROLLER = 1
 }
+
+export var hand : String
+
+var held_object = null
+var held_object_data = {"mode":RigidBody.MODE_RIGID, "layer":1, "mask":1}
 
 export (MOTION_RANGE) var motion_range setget set_motion_range
 export (Texture) var albedo_texture setget set_albedo_texture
@@ -58,11 +65,58 @@ func _process(delta):
 	
 func _on_Palm_Area_area_entered(area):
 	if area.get_name() == "RightHandMiddleFingerTipArea":
-		get_node("../../OutputNode/Viewport/Label").text = "Right Hand Gripping"
+		output_node.change_grip_label_text("Right Hand Gripping")
+		grab_object()
 	elif area.get_name() == "LeftHandMiddleFingerTipArea":
-		get_node("../../OutputNode/Viewport/Label").text = "Left Hand Gripping"
+		output_node.change_grip_label_text("Left Hand Gripping")
 
 
 func _on_Palm_Area_area_exited(area):
 	if area.get_name() == "RightHandMiddleFingerTipArea" or area.get_name() == "LeftHandMiddleFingerTipArea":
-		get_node("../../OutputNode/Viewport/Label").text = "Not Gripping"
+		output_node.change_grip_label_text("NotGripping")
+		drop_object()
+		
+		
+
+func grab_object():
+	if hand == "Right":
+		if !held_object:
+			var palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
+			var bodies = palm_area.get_overlapping_bodies()
+			var rigid_body = null
+			if len(bodies) > 0:
+				for body in bodies:
+					if body is RigidBody:
+						rigid_body = body
+						break
+		
+			if rigid_body:
+				get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
+				held_object = rigid_body
+				held_object_data["mode"] = held_object.mode
+				held_object_data["layer"] = held_object.collision_layer
+				held_object_data["mask"] = held_object.collision_mask
+				
+				held_object.mode = RigidBody.MODE_STATIC
+				held_object.collision_layer = 0
+				held_object.collision_mask = 0
+				
+				var parent = get_parent()
+				parent.add_child(held_object)
+		else:
+			held_object.mode = held_object_data["mode"]
+			held_object.collision_layer = held_object_data["layer"]
+			held_object.collision_mask = held_object_data["mask"]
+			
+			held_object = null
+
+func drop_object():
+	held_object.mode = held_object_data["mode"]
+	held_object.collision_layer = held_object_data["layer"]
+	held_object.collision_mask = held_object_data["mask"]
+	held_object = null
+	
+	var parent = get_parent()
+	parent.remove_child(held_object)
+	
+	get_node("../../OutputNode/Viewport/OtherLabel").text = ""

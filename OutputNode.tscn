@@ -12,9 +12,17 @@ script = ExtResource( 1 )
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 300, 300 )
 
-[node name="Label" type="Label" parent="Viewport"]
+[node name="GripLabel" type="Label" parent="Viewport"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+text = "Text"
+align = 1
+valign = 1
+
+[node name="OtherLabel" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 100.0
 text = "Text"
 align = 1
 valign = 1

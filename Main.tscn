@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-openxr/scenes/left_hand_mesh.tscn" type="PackedScene" id=2]
@@ -7,14 +7,25 @@
 [ext_resource path="res://box.gd" type="Script" id=5]
 [ext_resource path="res://Main.gd" type="Script" id=6]
 [ext_resource path="res://OutputNode.tscn" type="PackedScene" id=7]
+[ext_resource path="res://IndexRaycast.gd" type="Script" id=8]
 
 [sub_resource type="SphereShape" id=9]
 radius = 0.065788
 
 [sub_resource type="SphereShape" id=11]
 
+[sub_resource type="CubeMesh" id=12]
+size = Vector3( 0.005, 2, 0.005 )
+
+[sub_resource type="SphereMesh" id=13]
+radius = 0.04
+height = 0.08
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_color = Color( 0, 1, 0, 1 )
+
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.05, 0.05, 0.05 )
+extents = Vector3( 0.0250738, 0.0250371, 0.0248237 )
 
 [sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 1, 0, 0, 1 )
@@ -23,14 +34,41 @@ albedo_color = Color( 1, 0, 0, 1 )
 material = SubResource( 5 )
 size = Vector3( 0.05, 0.05, 0.05 )
 
+[sub_resource type="BoxShape" id=18]
+extents = Vector3( 0.035315, 0.0348225, 0.0351416 )
+
+[sub_resource type="CubeMesh" id=19]
+size = Vector3( 0.07, 0.07, 0.07 )
+
+[sub_resource type="SpatialMaterial" id=20]
+albedo_color = Color( 0, 1, 0, 1 )
+
+[sub_resource type="BoxShape" id=21]
+extents = Vector3( 0.0193418, 0.0207481, 0.020035 )
+
+[sub_resource type="CubeMesh" id=22]
+size = Vector3( 0.04, 0.04, 0.04 )
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_color = Color( 0, 0, 1, 1 )
+
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 30, 0.05, 30 )
+extents = Vector3( 10, 0.1, 10 )
 
 [sub_resource type="CubeMesh" id=4]
 size = Vector3( 30, 0.05, 30 )
 
 [sub_resource type="ViewportTexture" id=10]
 viewport_path = NodePath("OutputNode/Viewport")
+
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 0.5, 0.0115333, 0.5 )
+
+[sub_resource type="CubeMesh" id=16]
+size = Vector3( 1, 0.02, 1 )
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_color = Color( 0.533333, 0.533333, 0.533333, 1 )
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 6 )
@@ -41,13 +79,8 @@ script = ExtResource( 6 )
 color_space = 0
 refresh_rate = 0.0
 
-[node name="LeftHand" parent="FPController" instance=ExtResource( 2 )]
-albedo_texture = ExtResource( 4 )
-
-[node name="IndexTip" parent="FPController/LeftHand/HandModel/Armature001/Skeleton" index="1"]
-transform = Transform( 0.19221, -0.669965, -0.717079, 0.977075, 0.19881, 0.076153, 0.0915428, -0.715277, 0.692819, 0.0345973, 0.0355402, -0.164767 )
-
 [node name="RightHand" parent="FPController" instance=ExtResource( 3 )]
+hand = "Right"
 albedo_texture = ExtResource( 4 )
 
 [node name="Skeleton" parent="FPController/RightHand/HandModel/Armature" index="0"]
@@ -61,7 +94,7 @@ transform = Transform( 0.19221, 0.669966, 0.717078, -0.091543, -0.715277, 0.6928
 transform = Transform( 0.0836059, 0.97618, -0.200207, -0.0165156, 0.20224, 0.979197, 0.996362, -0.0785602, 0.0330306, 0.00943317, -0.0503988, -0.00825832 )
 bone_name = "Palm_R"
 
-[node name="Palm_Area" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/Palm"]
+[node name="Palm_Area" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/Palm" groups=["RightHandFingers"]]
 
 [node name="CollisionShape" type="CollisionShape" parent="FPController/RightHand/HandModel/Armature/Skeleton/Palm/Palm_Area"]
 shape = SubResource( 9 )
@@ -76,16 +109,59 @@ bone_name = "Middle_Tip_R"
 transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0 )
 shape = SubResource( 11 )
 
-[node name="box" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.844, 0 )
+[node name="LeftHand" parent="FPController" instance=ExtResource( 2 )]
+hand = "Left"
+albedo_texture = ExtResource( 4 )
+
+[node name="IndexTip" parent="FPController/LeftHand/HandModel/Armature001/Skeleton" index="1"]
+transform = Transform( 0.19221, -0.669965, -0.717079, 0.977075, 0.19881, 0.076153, 0.0915428, -0.715277, 0.692819, 0.0345973, 0.0355402, -0.164767 )
+
+[node name="IndexRaycast" type="Spatial" parent="FPController/LeftHand/HandModel/Armature001/Skeleton/IndexTip" index="0"]
+visible = false
+script = ExtResource( 8 )
+
+[node name="RayCast" type="RayCast" parent="FPController/LeftHand/HandModel/Armature001/Skeleton/IndexTip/IndexRaycast"]
+transform = Transform( 0.97539, 0.0566149, 0.213094, 0.217557, -0.0900961, -0.97188, -0.0358238, 0.994322, -0.100196, 0, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="FPController/LeftHand/HandModel/Armature001/Skeleton/IndexTip/IndexRaycast/RayCast"]
+transform = Transform( 1, 0, 0, 0, 1, 5.96046e-08, 0, 2.98023e-08, 1, 0, -1, 0 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="CollisionPoint" type="MeshInstance" parent="FPController/LeftHand/HandModel/Armature001/Skeleton/IndexTip/IndexRaycast"]
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
+
+[node name="RedBox" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.758, 2, -0.916 )
 script = ExtResource( 5 )
 
-[node name="CollisionShape" type="CollisionShape" parent="box"]
+[node name="CollisionShape" type="CollisionShape" parent="RedBox"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="box"]
+[node name="MeshInstance" type="MeshInstance" parent="RedBox"]
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="GreenBox" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.565956, 2, -0.772799 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GreenBox"]
+shape = SubResource( 18 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GreenBox"]
+mesh = SubResource( 19 )
+material/0 = SubResource( 20 )
+
+[node name="BlueBox" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.962587, 2, -0.849115 )
+
+[node name="CollisionShape" type="CollisionShape" parent="BlueBox"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance" type="MeshInstance" parent="BlueBox"]
+mesh = SubResource( 22 )
+material/0 = SubResource( 23 )
 
 [node name="Floor" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0856336, 0 )
@@ -94,7 +170,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0856336, 0 )
 shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Floor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.073018, -0.771698, -0.0311446 )
 mesh = SubResource( 4 )
 material/0 = null
 
@@ -104,18 +179,28 @@ shadow_enabled = true
 
 [node name="OutputNode" parent="." instance=ExtResource( 7 )]
 
-[node name="Label" parent="OutputNode/Viewport" index="0"]
-text = "Not Gripping"
+[node name="OtherLabel" parent="OutputNode/Viewport" index="1"]
+text = "0"
 
 [node name="Sprite3D" parent="OutputNode" index="1"]
 texture = SubResource( 10 )
+
+[node name="Table" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.757596, 1.02849, -0.915861 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Table"]
+shape = SubResource( 15 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Table"]
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
 
 [connection signal="area_entered" from="FPController/RightHand/HandModel/Armature/Skeleton/Palm/Palm_Area" to="FPController/RightHand" method="_on_Palm_Area_area_entered"]
 [connection signal="area_exited" from="FPController/RightHand/HandModel/Armature/Skeleton/Palm/Palm_Area" to="FPController/RightHand" method="_on_Palm_Area_area_exited"]
 
 [editable path="FPController"]
-[editable path="FPController/LeftHand"]
-[editable path="FPController/LeftHand/HandModel"]
 [editable path="FPController/RightHand"]
 [editable path="FPController/RightHand/HandModel"]
+[editable path="FPController/LeftHand"]
+[editable path="FPController/LeftHand/HandModel"]
 [editable path="OutputNode"]
