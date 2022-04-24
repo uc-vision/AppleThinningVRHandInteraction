@@ -12,6 +12,9 @@ export var hand : String
 
 var held_object = null
 var held_object_data = {"mode":RigidBody.MODE_RIGID, "layer":1, "mask":1}
+var grab_point_velocity = Vector3(0, 0, 0)
+var prior_grab_point_velocities = []
+var prior_grab_point_position = Vector3(0, 0, 0)
 
 export (MOTION_RANGE) var motion_range setget set_motion_range
 export (Texture) var albedo_texture setget set_albedo_texture
@@ -59,9 +62,7 @@ func _ready():
 	_update_motion_range()
 	_update_albedo_texture()
 	_update_normal_texture()
-	
-func _process(delta):
-	pass
+
 	
 func _on_Palm_Area_area_entered(area):
 	if area.get_name() == "RightHandMiddleFingerTipArea":
@@ -100,9 +101,6 @@ func grab_object():
 				held_object.mode = RigidBody.MODE_STATIC
 				held_object.collision_layer = 0
 				held_object.collision_mask = 0
-				
-				var parent = get_parent()
-				parent.add_child(held_object)
 		else:
 			held_object.mode = held_object_data["mode"]
 			held_object.collision_layer = held_object_data["layer"]
@@ -114,9 +112,31 @@ func drop_object():
 	held_object.mode = held_object_data["mode"]
 	held_object.collision_layer = held_object_data["layer"]
 	held_object.collision_mask = held_object_data["mask"]
+	held_object.apply_impulse(Vector3(0, 0, 0), grab_point_velocity)
 	held_object = null
 	
-	var parent = get_parent()
-	parent.remove_child(held_object)
-	
 	get_node("../../OutputNode/Viewport/OtherLabel").text = ""
+	
+	
+func _physics_process(delta):
+	if held_object:
+		var grab_point = $HandModel/Armature/Skeleton/Palm/GrabPoint
+		var palm_global_transform = grab_point.global_transform
+		held_object.transform = palm_global_transform
+		
+		# Get grab point velocity. Useful when wanting to throw objects
+		grab_point_velocity = Vector3(0, 0, 0)
+		if prior_grab_point_velocities.size() > 0:
+			for vel in prior_grab_point_velocities:
+				grab_point_velocity += vel
+
+			# Get the average velocity, instead of just adding them together.
+			grab_point_velocity = grab_point_velocity / prior_grab_point_velocities.size()
+
+		prior_grab_point_velocities.append((palm_global_transform.origin - prior_grab_point_position) / delta)
+
+		grab_point_velocity += (palm_global_transform.origin - prior_grab_point_position) / delta
+		prior_grab_point_position = palm_global_transform.origin
+
+		if prior_grab_point_velocities.size() > 30:
+			prior_grab_point_velocities.remove(0)
