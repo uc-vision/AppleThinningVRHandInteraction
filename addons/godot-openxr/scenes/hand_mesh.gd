@@ -62,6 +62,10 @@ func _ready():
 	_update_motion_range()
 	_update_albedo_texture()
 	_update_normal_texture()
+	
+	if hand == "Right":
+		var skeleton = $HandModel/Armature/Skeleton
+		_clear_bone_rest(skeleton);
 
 	
 func _on_Palm_Area_area_entered(area):
@@ -140,3 +144,76 @@ func _physics_process(delta):
 
 		if prior_grab_point_velocities.size() > 30:
 			prior_grab_point_velocities.remove(0)
+
+
+#GESTURE DETECTION STUFF
+
+enum boneIndexes {
+	Wrist = 0,
+	Thumb_Metacarpal = 1,
+	Thumb_Proximal = 2,
+	Thumb_Distal = 3,
+	Thumb_Tip = 4,
+	Index_Metacarpal = 5,
+	Index_Proximal = 6,
+	Index_Intermediate = 7,
+	Index_Distal = 8,
+	Index_Tip = 9,
+	Middle_Metacarpal = 10,
+	Middle_Proximal = 11,
+	Middle_Intermediate = 12,
+	Middle_Distal = 13,
+	Middle_Tip = 14,
+	Ring_Metacarpal = 15,
+	Ring_Proximal = 16,
+	Ring_Intermediate = 17,
+	Ring_Distal = 18,
+	Ring_Tip = 19,
+	Little_Metacarpal = 20,
+	Little_Proximal = 21,
+	Little_Intermediate = 22,
+	Little_Distal = 23,
+	Little_Tip = 24,
+	Palm = 25
+}
+
+# we need the inverse neutral pose to compute the estimates for gesture detection
+var _vrapi_inverse_neutral_pose = []; # this is filled when clearing the rest pose
+var _vrapi_bone_orientations = [];
+
+func _clear_bone_rest(skeleton : Skeleton):
+	_vrapi_inverse_neutral_pose.resize(skeleton.get_bone_count());
+	_vrapi_bone_orientations.resize(skeleton.get_bone_count());
+	skeleton.set_bone_rest(0, Transform()); # only base pose needs to be reset
+	for i in range(0, skeleton.get_bone_count()):
+		var bone_rest = skeleton.get_bone_rest(i);
+		_vrapi_inverse_neutral_pose[i] = bone_rest.basis.get_rotation_quat().inverse();
+		_vrapi_bone_orientations[i]  = bone_rest.basis.get_rotation_quat();
+
+func _set_bone_orientations(skeleton: Skeleton):
+	skeleton.set_bone_rest(0, Transform()); # only base pose needs to be reset
+	for i in range(0, skeleton.get_bone_count()):
+		var bone_rest = skeleton.get_bone_pose(i);
+		_vrapi_bone_orientations[i]  = bone_rest.basis.get_rotation_quat();
+
+func _get_bone_angle_diff(ovrHandBone_id):
+	#print(_vrapi_inverse_neutral_pose.size())
+	var quat_diff = _vrapi_bone_orientations[ovrHandBone_id] * _vrapi_inverse_neutral_pose[ovrHandBone_id];
+	var a = acos(clamp(quat_diff.w, -1.0, 1.0));
+	return rad2deg(a);
+	
+	
+func get_finger_angle():
+	var angle = 0.0;
+	angle += _get_bone_angle_diff(boneIndexes.Index_Proximal);
+	angle += _get_bone_angle_diff(boneIndexes.Index_Intermediate);
+	angle += _get_bone_angle_diff(boneIndexes.Index_Distal);
+	angle += _get_bone_angle_diff(boneIndexes.Index_Tip);
+	return angle
+
+func _process(delta):
+	if hand == "Right":
+		var skeleton = $HandModel/Armature/Skeleton
+		_set_bone_orientations(skeleton);
+		get_node("../../OutputNode/Viewport/OtherLabel").text = get_finger_angle() as String
+		#get_node("../../OutputNode/Viewport/OtherLabel").text = skeleton.get_bone_pose(7) as String

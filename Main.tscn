@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-openxr/scenes/left_hand_mesh.tscn" type="PackedScene" id=2]
@@ -8,6 +8,20 @@
 [ext_resource path="res://Main.gd" type="Script" id=6]
 [ext_resource path="res://OutputNode.tscn" type="PackedScene" id=7]
 [ext_resource path="res://IndexRaycast.gd" type="Script" id=8]
+
+[sub_resource type="SpatialMaterial" id=27]
+albedo_color = Color( 0.368627, 0.368627, 0.368627, 1 )
+
+[sub_resource type="CubeMesh" id=28]
+material = SubResource( 27 )
+size = Vector3( 0.05, 0.05, 0.05 )
+
+[sub_resource type="SpatialMaterial" id=29]
+albedo_color = Color( 0.368627, 0.368627, 0.368627, 1 )
+
+[sub_resource type="CubeMesh" id=30]
+material = SubResource( 29 )
+size = Vector3( 0.05, 0.05, 0.05 )
 
 [sub_resource type="CapsuleShape" id=26]
 radius = 0.0395677
@@ -88,19 +102,37 @@ script = ExtResource( 6 )
 color_space = 0
 refresh_rate = 0.0
 
+[node name="LeftHandController" parent="FPController" index="2"]
+visible = true
+
+[node name="MeshInstance" type="MeshInstance" parent="FPController/LeftHandController" index="0"]
+mesh = SubResource( 28 )
+material/0 = null
+
+[node name="RightHandController" parent="FPController" index="3"]
+visible = true
+
+[node name="MeshInstance" type="MeshInstance" parent="FPController/RightHandController" index="0"]
+mesh = SubResource( 30 )
+material/0 = null
+
 [node name="RightHand" parent="FPController" instance=ExtResource( 3 )]
 hand = "Right"
 albedo_texture = ExtResource( 4 )
 
+[node name="HandModel" parent="FPController/RightHand" index="0"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 1, -0.5 )
+
 [node name="Skeleton" parent="FPController/RightHand/HandModel/Armature" index="0"]
+bones/0/rest = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 bones/14/bound_children = [ NodePath("MiddleFingerTip") ]
 bones/25/bound_children = [ NodePath("Palm") ]
 
 [node name="IndexTip" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="1"]
-transform = Transform( 0.19221, 0.669966, 0.717078, -0.091543, -0.715277, 0.69282, 0.977075, -0.19881, -0.0761527, -0.0345978, -0.164767, -0.0355401 )
+transform = Transform( 0.977075, -0.19881, -0.0761527, 0.19221, 0.669966, 0.717078, -0.091543, -0.715277, 0.69282, -0.035572, -0.0347575, -0.165393 )
 
 [node name="Palm" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="2"]
-transform = Transform( 0.0836059, 0.97618, -0.200207, -0.0165156, 0.20224, 0.979197, 0.996362, -0.0785602, 0.0330306, 0.00943317, -0.0503988, -0.00825832 )
+transform = Transform( 0.996362, -0.0785602, 0.0330307, 0.083606, 0.97618, -0.200207, -0.0165157, 0.20224, 0.979197, -0.00829025, 0.00927338, -0.0510245 )
 bone_name = "Palm_R"
 
 [node name="Palm_Area" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/Palm" groups=["RightHandFingers"]]
@@ -120,7 +152,7 @@ skeleton = NodePath("../..")
 material/0 = null
 
 [node name="MiddleFingerTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="3"]
-transform = Transform( 0.0812011, 0.650531, 0.755126, -0.0155557, -0.756708, 0.653568, 0.996576, -0.0648169, -0.0513262, -0.032112, -0.171612, -0.00654216 )
+transform = Transform( 0.996576, -0.064817, -0.0513262, 0.0812012, 0.650531, 0.755126, -0.0155557, -0.756708, 0.653568, -0.0065741, -0.0322718, -0.172238 )
 bone_name = "Middle_Tip_R"
 
 [node name="RightHandMiddleFingerTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/MiddleFingerTip"]
@@ -200,7 +232,7 @@ shadow_enabled = true
 [node name="OutputNode" parent="." instance=ExtResource( 7 )]
 
 [node name="OtherLabel" parent="OutputNode/Viewport" index="1"]
-text = "0"
+text = "29.344748"
 
 [node name="Sprite3D" parent="OutputNode" index="1"]
 texture = SubResource( 10 )
