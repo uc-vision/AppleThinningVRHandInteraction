@@ -51,7 +51,7 @@ func _update_normal_texture():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	material = $HandModel/Armature/Skeleton/vr_glove_left_slim.mesh.surface_get_material(0)
+	material = $HandModel/Armature/Skeleton/vr_glove_slim.mesh.surface_get_material(0)
 
 	_update_motion_range()
 	_update_albedo_texture()
@@ -68,7 +68,7 @@ func _on_Palm_Area_area_entered(area):
 func _on_Palm_Area_area_exited(area):
 	var palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
 	if getFingersGripping(palm_area) == 0:
-		output_node.change_grip_label_text("NotGripping")
+		output_node.change_grip_label_text("Not Gripping")
 		drop_object()
 
 

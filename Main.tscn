@@ -364,7 +364,7 @@ bones/9/name = "Index_Tip_R"
 bones/9/parent = 8
 bones/9/rest = Transform( 1, -5.21541e-08, 8.19564e-08, 5.21541e-08, 1, -2.95229e-07, -8.19564e-08, 2.95229e-07, 1, -7.40401e-08, -1.43424e-07, -0.0228214 )
 bones/9/enabled = true
-bones/9/bound_children = [ NodePath("IndexTip"), NodePath("RightIndexTip") ]
+bones/9/bound_children = [ NodePath("RightIndexTip") ]
 bones/10/name = "Middle_Metacarpal_R"
 bones/10/parent = 0
 bones/10/rest = Transform( 0.996362, -0.0785602, 0.0330307, 0.083606, 0.97618, -0.200207, -0.0165156, 0.20224, 0.979197, -0.00711951, 0.0021773, -0.0163189 )
@@ -448,13 +448,10 @@ bones/25/bound_children = [ NodePath("Palm") ]
 script = ExtResource( 10 )
 hand = 1
 
-[node name="vr_glove_right_slim" type="MeshInstance" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
+[node name="vr_glove_slim" type="MeshInstance" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = null
-
-[node name="IndexTip" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="1"]
-transform = Transform( 0.977075, -0.19881, -0.0761527, 0.19221, 0.669966, 0.717078, -0.091543, -0.715277, 0.69282, -0.035572, -0.0347575, -0.165393 )
 
 [node name="Palm" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
 transform = Transform( 0.996362, -0.0785602, 0.0330307, 0.083606, 0.97618, -0.200207, -0.0165157, 0.20224, 0.979197, -0.00829025, 0.00927338, -0.0510245 )
@@ -484,7 +481,7 @@ transform = Transform( 1, -2.32831e-08, 1.30385e-08, -6.28643e-09, 1, 4.47035e-0
 shape = SubResource( 35 )
 
 [node name="RightThumbTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.0184905, -0.991216, -0.130949, 0.937246, -0.0284255, 0.347508, -0.348179, -0.129157, 0.928488, -0.0561228, -0.0500275, -0.113403 )
+transform = Transform( 0.0184905, -0.991216, -0.130949, 0.937245, -0.0284258, 0.347508, -0.348179, -0.129157, 0.928487, -0.0561229, -0.0500275, -0.113403 )
 bone_name = "Thumb_Tip_R"
 
 [node name="RightThumbTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightThumbTip"]
@@ -494,7 +491,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="RightIndexTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.977075, -0.19881, -0.0761527, 0.19221, 0.669966, 0.717078, -0.091543, -0.715277, 0.69282, -0.035572, -0.0347575, -0.165393 )
+transform = Transform( 0.977075, -0.198811, -0.0761525, 0.19221, 0.669965, 0.717078, -0.0915427, -0.715276, 0.69282, -0.0355721, -0.0347575, -0.165393 )
 bone_name = "Index_Tip_R"
 
 [node name="RightIndexTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightIndexTip"]
@@ -504,7 +501,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="RightMiddleTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.996576, -0.064817, -0.0513262, 0.0812012, 0.650531, 0.755126, -0.0155557, -0.756708, 0.653568, -0.0065741, -0.0322718, -0.172238 )
+transform = Transform( 0.996576, -0.064817, -0.0513261, 0.0812011, 0.650531, 0.755126, -0.0155557, -0.756709, 0.653568, -0.0065741, -0.0322718, -0.172238 )
 bone_name = "Middle_Tip_R"
 
 [node name="RightMiddleTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightMiddleTip"]
@@ -514,7 +511,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="RightRingTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.98335, 0.154228, -0.0961052, -0.0304371, 0.661178, 0.749611, 0.179154, -0.734205, 0.654864, 0.0253611, -0.0348431, -0.157548 )
+transform = Transform( 0.98335, 0.154227, -0.0961051, -0.030437, 0.661178, 0.749612, 0.179154, -0.734206, 0.654864, 0.0253611, -0.0348432, -0.157548 )
 bone_name = "Ring_Tip_R"
 
 [node name="RightRingTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightRingTip"]
@@ -524,7 +521,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="RightPinkyTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.941219, 0.335934, -0.0354298, -0.244295, 0.749373, 0.615434, 0.233295, -0.570603, 0.787391, 0.0462579, -0.0272563, -0.134091 )
+transform = Transform( 0.941219, 0.335933, -0.03543, -0.244295, 0.749373, 0.615435, 0.233295, -0.570603, 0.787392, 0.0462578, -0.0272563, -0.134091 )
 bone_name = "Little_Tip_R"
 
 [node name="RightPinkyTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightPinkyTip"]
@@ -564,7 +561,7 @@ bones/4/name = "Thumb_Tip_L"
 bones/4/parent = 3
 bones/4/rest = Transform( 1, 9.03383e-08, -8.96398e-09, -9.03383e-08, 1, 3.81842e-08, 8.96398e-09, -3.81842e-08, 1, 3.62401e-07, -4.65428e-07, -0.0304623 )
 bones/4/enabled = true
-bones/4/bound_children = [  ]
+bones/4/bound_children = [ NodePath("LeftThumbTip") ]
 bones/5/name = "Index_Metacarpal_L"
 bones/5/parent = 0
 bones/5/rest = Transform( 0.964214, 0.14633, -0.221085, -0.185985, 0.967611, -0.1707, 0.188946, 0.20571, 0.9602, 0.0210732, -0.00155731, -0.0147869 )
@@ -589,7 +586,7 @@ bones/9/name = "Index_Tip_L"
 bones/9/parent = 8
 bones/9/rest = Transform( 1, 1.11758e-08, 5.25266e-07, -1.11759e-08, 1, 2.44938e-07, -5.25266e-07, -2.44938e-07, 1, -6.05359e-09, -1.86264e-09, -0.0228215 )
 bones/9/enabled = true
-bones/9/bound_children = [ NodePath("IndexTip") ]
+bones/9/bound_children = [ NodePath("LeftIndexTip") ]
 bones/10/name = "Middle_Metacarpal_L"
 bones/10/parent = 0
 bones/10/rest = Transform( 0.996362, 0.0785602, -0.0330305, -0.083606, 0.97618, -0.200206, 0.0165155, 0.20224, 0.979197, 0.00711952, 0.00217732, -0.0163189 )
@@ -614,7 +611,7 @@ bones/14/name = "Middle_Tip_L"
 bones/14/parent = 13
 bones/14/rest = Transform( 1, 1.25728e-08, 2.20258e-07, -1.25729e-08, 1, 5.29573e-07, -2.20258e-07, -5.29573e-07, 1, -4.88944e-09, -1.4581e-08, -0.0258923 )
 bones/14/enabled = true
-bones/14/bound_children = [  ]
+bones/14/bound_children = [ NodePath("LeftMiddleTip") ]
 bones/15/name = "Ring_Metacarpal_L"
 bones/15/parent = 0
 bones/15/rest = Transform( 0.99457, -0.025077, 0.101005, 0.0390914, 0.989484, -0.139257, -0.0964512, 0.14245, 0.985092, -0.00654516, 0.000513424, -0.0163477 )
@@ -639,7 +636,7 @@ bones/19/name = "Ring_Tip_L"
 bones/19/parent = 18
 bones/19/rest = Transform( 1, -6.0536e-08, 5.58794e-09, 6.0536e-08, 1, -1.00117e-07, -5.58793e-09, 1.00117e-07, 1, 2.79397e-09, 4.19095e-08, -0.0224302 )
 bones/19/enabled = true
-bones/19/bound_children = [  ]
+bones/19/bound_children = [ NodePath("LeftRingTip") ]
 bones/20/name = "Little_Metacarpal_L"
 bones/20/parent = 0
 bones/20/rest = Transform( 0.927157, -0.22841, 0.296999, 0.240122, 0.970738, -0.00304424, -0.287613, 0.0741386, 0.954873, -0.0189814, -0.00247812, -0.0152135 )
@@ -664,7 +661,7 @@ bones/24/name = "Little_Tip_L"
 bones/24/parent = 23
 bones/24/rest = Transform( 1, -2.75671e-07, 1.71363e-07, 2.75672e-07, 1, -3.4133e-07, -1.71363e-07, 3.4133e-07, 1, -6.75214e-08, 1.58418e-06, -0.0180182 )
 bones/24/enabled = true
-bones/24/bound_children = [  ]
+bones/24/bound_children = [ NodePath("LeftPinkyTip") ]
 bones/25/name = "Palm_L"
 bones/25/parent = 0
 bones/25/rest = Transform( 0.996362, 0.0785602, -0.0330305, -0.083606, 0.97618, -0.200207, 0.0165154, 0.20224, 0.979197, 0.0082902, 0.00927313, -0.0510244 )
@@ -672,17 +669,13 @@ bones/25/enabled = true
 bones/25/bound_children = [ NodePath("Palm") ]
 script = ExtResource( 10 )
 
-[node name="vr_glove_left_slim" type="MeshInstance" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
+[node name="vr_glove_slim" type="MeshInstance" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
 mesh = SubResource( 31 )
 skin = SubResource( 32 )
 material/0 = null
 
-[node name="IndexTip" parent="FPController/LeftHand/HandModel/Armature/Skeleton" index="1"]
-transform = Transform( 0.19221, -0.669965, -0.717079, 0.977075, 0.19881, 0.076153, 0.0915428, -0.715277, 0.692819, 0.0345973, 0.0355402, -0.164767 )
-bone_name = "Index_Tip_L"
-
 [node name="Palm" type="BoneAttachment" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.0836059, -0.97618, 0.200207, 0.996362, 0.07856, -0.0330307, 0.0165157, 0.20224, 0.979197, -0.00943292, 0.00825829, -0.0503987 )
+transform = Transform( 0.0836059, -0.97618, 0.200207, 0.996362, 0.07856, -0.0330308, 0.0165157, 0.20224, 0.979197, -0.00943292, 0.00825829, -0.0503987 )
 bone_name = "Palm_L"
 
 [node name="Palm_Area" type="Area" parent="FPController/LeftHand/HandModel/Armature/Skeleton/Palm" groups=["RightHandFingers"]]
@@ -709,7 +702,7 @@ transform = Transform( 1, -2.32831e-08, 1.30385e-08, -6.28643e-09, 1, 4.47035e-0
 shape = SubResource( 35 )
 
 [node name="LeftThumbTip" type="BoneAttachment" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.937246, 0.0284254, -0.347508, 0.0184905, 0.991216, 0.130949, 0.348178, -0.129157, 0.928487, 0.0498668, 0.0560917, -0.112777 )
+transform = Transform( 0.937246, 0.0284259, -0.347508, 0.0184905, 0.991216, 0.130951, 0.348178, -0.129157, 0.928488, 0.0498668, 0.0560916, -0.112777 )
 bone_name = "Thumb_Tip_L"
 
 [node name="LeftThumbTipArea" type="Area" parent="FPController/LeftHand/HandModel/Armature/Skeleton/LeftThumbTip"]
@@ -719,7 +712,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="LeftIndexTip" type="BoneAttachment" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.19221, -0.669965, -0.717079, 0.977075, 0.19881, 0.076153, 0.0915428, -0.715277, 0.692819, 0.0345973, 0.0355402, -0.164767 )
+transform = Transform( 0.19221, -0.669965, -0.71708, 0.977075, 0.19881, 0.0761536, 0.0915428, -0.715277, 0.69282, 0.0345972, 0.0355401, -0.164767 )
 bone_name = "Index_Tip_L"
 
 [node name="LeftIndexTipArea" type="Area" parent="FPController/LeftHand/HandModel/Armature/Skeleton/LeftIndexTip"]
@@ -729,7 +722,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="LeftMiddleTip" type="BoneAttachment" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
-transform = Transform( 0.0812012, -0.650531, -0.755125, 0.996576, 0.064817, 0.051326, 0.0155558, -0.756708, 0.653567, 0.0321119, 0.00654224, -0.171612 )
+transform = Transform( 0.0812012, -0.650531, -0.755127, 0.996577, 0.064817, 0.0513261, 0.0155559, -0.756708, 0.653568, 0.0321121, 0.00654224, -0.171612 )
 bone_name = "Middle_Tip_L"
 
 [node name="LeftMiddleTipArea" type="Area" parent="FPController/LeftHand/HandModel/Armature/Skeleton/LeftMiddleTip"]
@@ -739,7 +732,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="LeftRingTip" type="BoneAttachment" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
-transform = Transform( -0.0304372, -0.661178, -0.749611, 0.98335, -0.154228, 0.0961051, -0.179153, -0.734205, 0.654863, 0.0346844, -0.0253935, -0.156926 )
+transform = Transform( -0.0304373, -0.661177, -0.749611, 0.98335, -0.154228, 0.0961049, -0.179154, -0.734207, 0.654864, 0.0346845, -0.0253935, -0.156926 )
 bone_name = "Ring_Tip_L"
 
 [node name="LeftRingTipArea" type="Area" parent="FPController/LeftHand/HandModel/Armature/Skeleton/LeftRingTip"]
@@ -749,7 +742,7 @@ transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65
 shape = SubResource( 11 )
 
 [node name="LeftPinkyTip" type="BoneAttachment" parent="FPController/LeftHand/HandModel/Armature/Skeleton"]
-transform = Transform( -0.244295, -0.749373, -0.615435, 0.941219, -0.335934, 0.0354295, -0.233296, -0.570604, 0.787391, 0.0270961, -0.0462907, -0.133468 )
+transform = Transform( -0.244295, -0.749372, -0.615435, 0.941218, -0.335933, 0.0354297, -0.233295, -0.570604, 0.787391, 0.0270962, -0.0462907, -0.133468 )
 bone_name = "Little_Tip_L"
 
 [node name="LeftPinkyTipArea" type="Area" parent="FPController/LeftHand/HandModel/Armature/Skeleton/LeftPinkyTip"]
@@ -800,7 +793,7 @@ mesh = SubResource( 4 )
 material/0 = null
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.440088, 0.204434, -0.507151, -0.83726, 1.5186, 4.42147, -7.50201 )
+transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.440088, 0.204434, -0.507151, -0.83726, 1.5186, 124.325, -240.98 )
 shadow_enabled = true
 
 [node name="OutputNode" parent="." instance=ExtResource( 7 )]
@@ -813,7 +806,6 @@ texture = SubResource( 10 )
 
 [node name="Table" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.757596, 1.02849, -0.915861 )
-visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Table"]
 shape = SubResource( 15 )
