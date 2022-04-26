@@ -29,11 +29,7 @@ func set_motion_range(value):
 		_update_motion_range()
 
 func _update_motion_range():
-	# for some reason not consistantly named between the two hands..
-	if $HandModel.find_node("Armature001"):
-		$HandModel/Armature001/Skeleton.motion_range = motion_range
-	else:
-		$HandModel/Armature/Skeleton.motion_range = motion_range
+	$HandModel/Armature/Skeleton.motion_range = motion_range
 
 func set_albedo_texture(value):
 	albedo_texture = value
@@ -55,39 +51,25 @@ func _update_normal_texture():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if $HandModel.find_node("Armature001"):
-		material = $HandModel/Armature001/Skeleton/vr_glove_left_slim.mesh.surface_get_material(0)
-	else:
-		material = $HandModel/Armature/Skeleton/vr_glove_right_slim.mesh.surface_get_material(0)
+	material = $HandModel/Armature/Skeleton/vr_glove_left_slim.mesh.surface_get_material(0)
 
 	_update_motion_range()
 	_update_albedo_texture()
 	_update_normal_texture()
-	
-	if hand_name == "Right":
-		var skeleton = $HandModel/Armature/Skeleton
 
 
 func _on_Palm_Area_area_entered(area):
-	#output_node.change_grip_label_text(hand_name + " Hand Gripping")
-	if hand_name == "Right":
-		var right_palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
-		if getFingersGripping(right_palm_area) > 0 and not gripping:
-			output_node.change_grip_label_text(hand_name + " Hand Gripping")
-			grab_object()
-	#if area.get_name() == "RightHandMiddleFingerTipArea":
-	#	output_node.change_grip_label_text("Right Hand Gripping")
-	#	grab_object()
-	#elif area.get_name() == "LeftHandMiddleFingerTipArea":
-	#	output_node.change_grip_label_text("Left Hand Gripping")
+	var palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
+	if getFingersGripping(palm_area) > 0 and not gripping:
+		output_node.change_grip_label_text(hand_name + " Hand Gripping")
+		grab_object()
 
 
 func _on_Palm_Area_area_exited(area):
-	if hand_name == "Right":
-		var right_palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
-		if getFingersGripping(right_palm_area) == 0:
-			output_node.change_grip_label_text("NotGripping")
-			drop_object()
+	var palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
+	if getFingersGripping(palm_area) == 0:
+		output_node.change_grip_label_text("NotGripping")
+		drop_object()
 
 
 func getFingersGripping(palm_area):
@@ -100,34 +82,30 @@ func getFingersGripping(palm_area):
 
 
 func grab_object():
-	if hand_name == "Right":
-		if !held_object:
-			var palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
-			var bodies = palm_area.get_overlapping_bodies()
-			var rigid_body = null
-			if len(bodies) > 0:
-				for body in bodies:
-					if body is RigidBody:
-						rigid_body = body
-						break
-		
-			if rigid_body:
-				#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
-				held_object = rigid_body
-				gripping = true
-				held_object_data["mode"] = held_object.mode
-				held_object_data["layer"] = held_object.collision_layer
-				held_object_data["mask"] = held_object.collision_mask
-				
-				held_object.mode = RigidBody.MODE_STATIC
-				held_object.collision_layer = 0
-				held_object.collision_mask = 0
-		else:
-			held_object.mode = held_object_data["mode"]
-			held_object.collision_layer = held_object_data["layer"]
-			held_object.collision_mask = held_object_data["mask"]
-			
-			held_object = null
+	if !held_object:
+		var palm_area = $HandModel/Armature/Skeleton/Palm/Grab_Range
+		var bodies = palm_area.get_overlapping_bodies()
+		var rigid_body = null
+		if len(bodies) > 0:
+			for body in bodies:
+				if body is RigidBody:
+					rigid_body = body
+					break
+		if rigid_body:
+			get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
+			held_object = rigid_body
+			gripping = true
+			held_object_data["mode"] = held_object.mode
+			held_object_data["layer"] = held_object.collision_layer
+			held_object_data["mask"] = held_object.collision_mask
+			held_object.mode = RigidBody.MODE_STATIC
+			held_object.collision_layer = 0
+			held_object.collision_mask = 0
+	else:
+		held_object.mode = held_object_data["mode"]
+		held_object.collision_layer = held_object_data["layer"]
+		held_object.collision_mask = held_object_data["mask"]
+		held_object = null
 
 func drop_object():
 	held_object.mode = held_object_data["mode"]
@@ -137,7 +115,7 @@ func drop_object():
 	held_object = null
 	gripping = false
 	
-	#get_node("../../OutputNode/Viewport/OtherLabel").text = ""
+	get_node("../../OutputNode/Viewport/OtherLabel").text = ""
 	
 	
 func _physics_process(delta):
