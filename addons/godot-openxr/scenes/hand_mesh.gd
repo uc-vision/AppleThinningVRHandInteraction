@@ -8,8 +8,9 @@ enum MOTION_RANGE {
 	CONFORM_TO_CONTROLLER = 1
 }
 
-export var hand : String
+export var hand_name : String
 
+var gripping = false
 var held_object = null
 var held_object_data = {"mode":RigidBody.MODE_RIGID, "layer":1, "mask":1}
 var grab_point_velocity = Vector3(0, 0, 0)
@@ -63,28 +64,43 @@ func _ready():
 	_update_albedo_texture()
 	_update_normal_texture()
 	
-	if hand == "Right":
+	if hand_name == "Right":
 		var skeleton = $HandModel/Armature/Skeleton
-		_clear_bone_rest(skeleton);
 
-	
+
 func _on_Palm_Area_area_entered(area):
-	if area.get_name() == "RightHandMiddleFingerTipArea":
-		output_node.change_grip_label_text("Right Hand Gripping")
-		grab_object()
-	elif area.get_name() == "LeftHandMiddleFingerTipArea":
-		output_node.change_grip_label_text("Left Hand Gripping")
+	#output_node.change_grip_label_text(hand_name + " Hand Gripping")
+	if hand_name == "Right":
+		var right_palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
+		if getFingersGripping(right_palm_area) > 0 and not gripping:
+			output_node.change_grip_label_text(hand_name + " Hand Gripping")
+			grab_object()
+	#if area.get_name() == "RightHandMiddleFingerTipArea":
+	#	output_node.change_grip_label_text("Right Hand Gripping")
+	#	grab_object()
+	#elif area.get_name() == "LeftHandMiddleFingerTipArea":
+	#	output_node.change_grip_label_text("Left Hand Gripping")
 
 
 func _on_Palm_Area_area_exited(area):
-	if area.get_name() == "RightHandMiddleFingerTipArea" or area.get_name() == "LeftHandMiddleFingerTipArea":
-		output_node.change_grip_label_text("NotGripping")
-		drop_object()
-		
-		
+	if hand_name == "Right":
+		var right_palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
+		if getFingersGripping(right_palm_area) == 0:
+			output_node.change_grip_label_text("NotGripping")
+			drop_object()
+
+
+func getFingersGripping(palm_area):
+	var fingers_gripping = 0
+	var areas = palm_area.get_overlapping_areas()
+	for area in areas:
+		if hand_name in area.get_name() and "Tip" in area.get_name():
+			fingers_gripping += 1
+	return fingers_gripping
+
 
 func grab_object():
-	if hand == "Right":
+	if hand_name == "Right":
 		if !held_object:
 			var palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
 			var bodies = palm_area.get_overlapping_bodies()
@@ -96,8 +112,9 @@ func grab_object():
 						break
 		
 			if rigid_body:
-				get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
+				#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
 				held_object = rigid_body
+				gripping = true
 				held_object_data["mode"] = held_object.mode
 				held_object_data["layer"] = held_object.collision_layer
 				held_object_data["mask"] = held_object.collision_mask
@@ -118,8 +135,9 @@ func drop_object():
 	held_object.collision_mask = held_object_data["mask"]
 	held_object.apply_impulse(Vector3(0, 0, 0), grab_point_velocity)
 	held_object = null
+	gripping = false
 	
-	get_node("../../OutputNode/Viewport/OtherLabel").text = ""
+	#get_node("../../OutputNode/Viewport/OtherLabel").text = ""
 	
 	
 func _physics_process(delta):
@@ -144,76 +162,3 @@ func _physics_process(delta):
 
 		if prior_grab_point_velocities.size() > 30:
 			prior_grab_point_velocities.remove(0)
-
-
-#GESTURE DETECTION STUFF
-
-enum boneIndexes {
-	Wrist = 0,
-	Thumb_Metacarpal = 1,
-	Thumb_Proximal = 2,
-	Thumb_Distal = 3,
-	Thumb_Tip = 4,
-	Index_Metacarpal = 5,
-	Index_Proximal = 6,
-	Index_Intermediate = 7,
-	Index_Distal = 8,
-	Index_Tip = 9,
-	Middle_Metacarpal = 10,
-	Middle_Proximal = 11,
-	Middle_Intermediate = 12,
-	Middle_Distal = 13,
-	Middle_Tip = 14,
-	Ring_Metacarpal = 15,
-	Ring_Proximal = 16,
-	Ring_Intermediate = 17,
-	Ring_Distal = 18,
-	Ring_Tip = 19,
-	Little_Metacarpal = 20,
-	Little_Proximal = 21,
-	Little_Intermediate = 22,
-	Little_Distal = 23,
-	Little_Tip = 24,
-	Palm = 25
-}
-
-# we need the inverse neutral pose to compute the estimates for gesture detection
-var _vrapi_inverse_neutral_pose = []; # this is filled when clearing the rest pose
-var _vrapi_bone_orientations = [];
-
-func _clear_bone_rest(skeleton : Skeleton):
-	_vrapi_inverse_neutral_pose.resize(skeleton.get_bone_count());
-	_vrapi_bone_orientations.resize(skeleton.get_bone_count());
-	skeleton.set_bone_rest(0, Transform()); # only base pose needs to be reset
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_rest = skeleton.get_bone_rest(i);
-		_vrapi_inverse_neutral_pose[i] = bone_rest.basis.get_rotation_quat().inverse();
-		_vrapi_bone_orientations[i]  = bone_rest.basis.get_rotation_quat();
-
-func _set_bone_orientations(skeleton: Skeleton):
-	skeleton.set_bone_rest(0, Transform()); # only base pose needs to be reset
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_rest = skeleton.get_bone_pose(i);
-		_vrapi_bone_orientations[i]  = bone_rest.basis.get_rotation_quat();
-
-func _get_bone_angle_diff(ovrHandBone_id):
-	#print(_vrapi_inverse_neutral_pose.size())
-	var quat_diff = _vrapi_bone_orientations[ovrHandBone_id] * _vrapi_inverse_neutral_pose[ovrHandBone_id];
-	var a = acos(clamp(quat_diff.w, -1.0, 1.0));
-	return rad2deg(a);
-	
-	
-func get_finger_angle():
-	var angle = 0.0;
-	angle += _get_bone_angle_diff(boneIndexes.Index_Proximal);
-	angle += _get_bone_angle_diff(boneIndexes.Index_Intermediate);
-	angle += _get_bone_angle_diff(boneIndexes.Index_Distal);
-	angle += _get_bone_angle_diff(boneIndexes.Index_Tip);
-	return angle
-
-func _process(delta):
-	if hand == "Right":
-		var skeleton = $HandModel/Armature/Skeleton
-		_set_bone_orientations(skeleton);
-		get_node("../../OutputNode/Viewport/OtherLabel").text = get_finger_angle() as String
-		#get_node("../../OutputNode/Viewport/OtherLabel").text = skeleton.get_bone_pose(7) as String

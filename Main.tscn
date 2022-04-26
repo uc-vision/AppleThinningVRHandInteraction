@@ -117,7 +117,7 @@ mesh = SubResource( 30 )
 material/0 = null
 
 [node name="RightHand" parent="FPController" instance=ExtResource( 3 )]
-hand = "Right"
+hand_name = "Right"
 albedo_texture = ExtResource( 4 )
 
 [node name="HandModel" parent="FPController/RightHand" index="0"]
@@ -125,7 +125,11 @@ transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 1,
 
 [node name="Skeleton" parent="FPController/RightHand/HandModel/Armature" index="0"]
 bones/0/rest = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-bones/14/bound_children = [ NodePath("MiddleFingerTip") ]
+bones/4/bound_children = [ NodePath("RightThumbTip") ]
+bones/9/bound_children = [ NodePath("IndexTip"), NodePath("RightIndexTip") ]
+bones/14/bound_children = [ NodePath("RightMiddleTip") ]
+bones/19/bound_children = [ NodePath("RightRingTip") ]
+bones/24/bound_children = [ NodePath("RightPinkyTip") ]
 bones/25/bound_children = [ NodePath("Palm") ]
 
 [node name="IndexTip" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="1"]
@@ -151,18 +155,58 @@ mesh = SubResource( 25 )
 skeleton = NodePath("../..")
 material/0 = null
 
-[node name="MiddleFingerTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="3"]
+[node name="RightThumbTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="3"]
+transform = Transform( 0.0184905, -0.991216, -0.130949, 0.937246, -0.0284255, 0.347508, -0.348179, -0.129157, 0.928488, -0.0561228, -0.0500275, -0.113403 )
+bone_name = "Thumb_Tip_R"
+
+[node name="RightThumbTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightThumbTip"]
+
+[node name="CollisionShape" type="CollisionShape" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightThumbTip/RightThumbTipArea"]
+transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65661e-10, -2.18279e-11, 0, 0.01, 0, 0, 0 )
+shape = SubResource( 11 )
+
+[node name="RightIndexTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="4"]
+transform = Transform( 0.977075, -0.19881, -0.0761527, 0.19221, 0.669966, 0.717078, -0.091543, -0.715277, 0.69282, -0.035572, -0.0347575, -0.165393 )
+bone_name = "Index_Tip_R"
+
+[node name="RightIndexTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightIndexTip"]
+
+[node name="CollisionShape" type="CollisionShape" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightIndexTip/RightIndexTipArea"]
+transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65661e-10, -2.18279e-11, 0, 0.01, 0, 0, 0 )
+shape = SubResource( 11 )
+
+[node name="RightMiddleTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="5"]
 transform = Transform( 0.996576, -0.064817, -0.0513262, 0.0812012, 0.650531, 0.755126, -0.0155557, -0.756708, 0.653568, -0.0065741, -0.0322718, -0.172238 )
 bone_name = "Middle_Tip_R"
 
-[node name="RightHandMiddleFingerTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/MiddleFingerTip"]
+[node name="RightMiddleTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightMiddleTip"]
 
-[node name="CollisionShape" type="CollisionShape" parent="FPController/RightHand/HandModel/Armature/Skeleton/MiddleFingerTip/RightHandMiddleFingerTipArea"]
-transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightMiddleTip/RightMiddleTipArea"]
+transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65661e-10, -2.18279e-11, 0, 0.01, 0, 0, 0 )
+shape = SubResource( 11 )
+
+[node name="RightRingTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="6"]
+transform = Transform( 0.98335, 0.154228, -0.0961052, -0.0304371, 0.661178, 0.749611, 0.179154, -0.734205, 0.654864, 0.0253611, -0.0348431, -0.157548 )
+bone_name = "Ring_Tip_R"
+
+[node name="RightRingTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightRingTip"]
+
+[node name="CollisionShape" type="CollisionShape" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightRingTip/RightRingTipArea"]
+transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65661e-10, -2.18279e-11, 0, 0.01, 0, 0, 0 )
+shape = SubResource( 11 )
+
+[node name="RightPinkyTip" type="BoneAttachment" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="7"]
+transform = Transform( 0.941219, 0.335934, -0.0354298, -0.244295, 0.749373, 0.615434, 0.233295, -0.570603, 0.787391, 0.0462579, -0.0272563, -0.134091 )
+bone_name = "Little_Tip_R"
+
+[node name="RightPinkyTipArea" type="Area" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightPinkyTip"]
+
+[node name="CollisionShape" type="CollisionShape" parent="FPController/RightHand/HandModel/Armature/Skeleton/RightPinkyTip/RightPinkyTipArea"]
+transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65661e-10, -2.18279e-11, 0, 0.01, 0, 0, 0 )
 shape = SubResource( 11 )
 
 [node name="LeftHand" parent="FPController" instance=ExtResource( 2 )]
-hand = "Left"
+hand_name = "Left"
 albedo_texture = ExtResource( 4 )
 
 [node name="IndexTip" parent="FPController/LeftHand/HandModel/Armature001/Skeleton" index="1"]
@@ -232,7 +276,7 @@ shadow_enabled = true
 [node name="OutputNode" parent="." instance=ExtResource( 7 )]
 
 [node name="OtherLabel" parent="OutputNode/Viewport" index="1"]
-text = "29.344748"
+text = "0"
 
 [node name="Sprite3D" parent="OutputNode" index="1"]
 texture = SubResource( 10 )
