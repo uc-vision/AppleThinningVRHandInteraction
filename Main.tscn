@@ -1,8 +1,8 @@
 [gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/godot-openxr/scenes/left_hand_mesh.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/godot-openxr/scenes/right_hand_mesh.tscn" type="PackedScene" id=3]
+[ext_resource path="res://left_hand_mesh.tscn" type="PackedScene" id=2]
+[ext_resource path="res://right_hand_mesh.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot-openxr/assets/valve_hand_models/textures/vr_glove_color.jpg" type="Texture" id=4]
 [ext_resource path="res://box.gd" type="Script" id=5]
 [ext_resource path="res://Main.gd" type="Script" id=6]
@@ -530,6 +530,12 @@ bone_name = "Little_Tip_R"
 transform = Transform( 0.01, -1.45519e-11, -6.54836e-11, 2.91038e-11, 0.01, 4.65661e-10, -2.18279e-11, 0, 0.01, 0, 0, 0 )
 shape = SubResource( 11 )
 
+[node name="Skeleton" parent="FPController/RightHand/HandModel/Armature" index="0"]
+bones/9/bound_children = [ NodePath("IndexTip") ]
+
+[node name="IndexTip" parent="FPController/RightHand/HandModel/Armature/Skeleton" index="1"]
+transform = Transform( 0.19221, 0.669966, 0.717078, -0.091543, -0.715277, 0.69282, 0.977075, -0.19881, -0.0761527, -0.0345978, -0.164767, -0.0355401 )
+
 [node name="LeftHand" parent="FPController" instance=ExtResource( 2 )]
 hand_name = "Left"
 albedo_texture = ExtResource( 4 )
@@ -821,5 +827,7 @@ material/0 = SubResource( 17 )
 
 [editable path="FPController"]
 [editable path="FPController/RightHand"]
+[editable path="FPController/RightHand/HandModel"]
 [editable path="FPController/LeftHand"]
+[editable path="FPController/LeftHand/HandModel"]
 [editable path="OutputNode"]

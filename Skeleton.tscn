@@ -237,28 +237,28 @@ bone_name = "b_r_ring_1"
 transform = Transform( -0.0282366, -0.0669204, -0.997359, -0.997359, 0.0686829, 0.0236282, 0.0669203, 0.995391, -0.0686829, -3.89961, -2.38419e-06, -2.38419e-07 )
 
 [node name="BoneAttachment 4" type="BoneAttachment" parent="."]
-transform = Transform( 0.965994, 0.0123385, -0.25827, 0.249915, -0.300747, 0.920377, -0.0663179, -0.953624, -0.293604, -12.6403, -4.89548, 2.09719 )
+transform = Transform( 0.965993, 0.0123385, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663177, -0.953624, -0.293603, -12.6403, -4.89549, 2.09719 )
 bone_name = "b_r_pinky_3"
 
 [node name="r_pinky_finger_pad_marker" type="Spatial" parent="BoneAttachment 4"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, -1.71082, -0.513475, -0.0999031 )
 
 [node name="BoneAttachment 5" type="BoneAttachment" parent="."]
-transform = Transform( 0.965994, 0.0123385, -0.25827, 0.249915, -0.300747, 0.920377, -0.0663179, -0.953624, -0.293604, -12.6403, -4.89548, 2.09719 )
+transform = Transform( 0.965993, 0.0123385, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663177, -0.953624, -0.293603, -12.6403, -4.89549, 2.09719 )
 bone_name = "b_r_pinky_3"
 
 [node name="r_pinky_fingernail_marker" type="Spatial" parent="BoneAttachment 5"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, -1.52892, 0.562854, 0.0540838 )
 
 [node name="BoneAttachment 6" type="BoneAttachment" parent="."]
-transform = Transform( 0.935448, -0.0330067, -0.351919, 0.32432, -0.315731, 0.891701, -0.140544, -0.948275, -0.284645, -10.7403, -4.23675, 1.81173 )
+transform = Transform( 0.935447, -0.0330066, -0.351919, 0.32432, -0.315731, 0.891701, -0.140543, -0.948275, -0.284645, -10.7403, -4.23675, 1.81172 )
 bone_name = "b_r_pinky_2"
 
 [node name="r_pinky_dip_fe_axis_marker" type="Spatial" parent="BoneAttachment 6"]
 transform = Transform( 0.0526116, 0.00145558, -0.998614, -0.998614, -0.00138092, -0.0526137, -0.00145558, 0.999998, 0.00138086, -2.03114, 4.76837e-07, 2.38419e-07 )
 
 [node name="BoneAttachment 7" type="BoneAttachment" parent="."]
-transform = Transform( 0.960504, -0.0815259, -0.266055, 0.238063, -0.254293, 0.937369, -0.144076, -0.963685, -0.224841, -7.78959, -3.50541, 1.36912 )
+transform = Transform( 0.960504, -0.0815259, -0.266055, 0.238063, -0.254293, 0.937369, -0.144076, -0.963685, -0.224841, -7.78958, -3.50541, 1.36912 )
 bone_name = "b_r_pinky_1"
 
 [node name="r_pinky_pip_fe_axis_marker" type="Spatial" parent="BoneAttachment 7"]
