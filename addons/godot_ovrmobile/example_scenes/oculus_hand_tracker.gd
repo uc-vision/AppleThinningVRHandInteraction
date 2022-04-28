@@ -55,6 +55,8 @@ var _t = 0.0
 
 onready var hand_model : Spatial = $HandModel
 onready var hand_pointer : Spatial = $HandModel/HandPointer
+onready var grabPoint: Spatial = $GrabPoint
+var defaultClickLocationColour = null
 
 func _ready():
 	_initialize_hands()
@@ -159,34 +161,35 @@ func _update_hand_pointer(model: Spatial):
 			model.visible = false
 
 func _on_LeftHand_pinch_pressed(button):
-	#if (button == FINGER_PINCH.INDEX_PINCH): 
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Index Pinching"
-	#if (button == FINGER_PINCH.MIDDLE_PINCH):
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Middle Pinching"
-
-	#if (button == FINGER_PINCH.PINKY_PINCH): 
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Pinky Pinching"
-	#if (button == FINGER_PINCH.RING_PINCH): 
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Ring Pinching"
-	pass
+	if (button == FINGER_PINCH.INDEX_PINCH): 
+		var clickLocation = $HandModel/HandPointer/RayCast/RayReticle
+		var material = clickLocation.get_surface_material(0)
+		defaultClickLocationColour = material.albedo_color
+		material.albedo_color = Color(1, 0, 0)
+		#does not work??
+		clickLocation.set_surface_material(0, material)
 
 
 func _on_RightHand_pinch_pressed(button):
-	#if (button == FINGER_PINCH.INDEX_PINCH): 
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Index Pinching"
-	#if (button == FINGER_PINCH.MIDDLE_PINCH):
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Middle Pinching"
-	#if (button == FINGER_PINCH.PINKY_PINCH): 
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Pinky Pinching"
-	#if (button == FINGER_PINCH.RING_PINCH): 
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Ring Pinching"
-	pass
+	if (button == FINGER_PINCH.INDEX_PINCH): 
+		var clickLocation = $HandModel/HandPointer/RayCast/RayReticle
+		var material = clickLocation.get_surface_material(0)
+		defaultClickLocationColour = material.albedo_color
+		material.albedo_color = Color(1, 0, 0)
+		#does not work??
+		clickLocation.set_surface_material(0, material)
 
 
 func _on_finger_pinch_release(button):
-	#if (button == FINGER_PINCH.INDEX_PINCH):
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = ""
-	pass
+	if (button == FINGER_PINCH.INDEX_PINCH):
+		var clickLocation = $HandModel/HandPointer/RayCast/RayReticle
+		var material = clickLocation.get_surface_material(0)
+		if defaultClickLocationColour:
+			material.albedo_color = defaultClickLocationColour
+		else:
+			material.albedo_color = Color(1, 1, 1)
+		#does not work??
+		clickLocation.set_surface_material(0, material)
 
 
 
@@ -323,11 +326,11 @@ func drop_object():
 
 func _physics_process(delta):
 	if held_object:
-		var grab_point = hand_skel.get_node("Palm/GrabPoint")
-		var palm_global_transform = grab_point.global_transform
-		held_object.global_transform.origin = grab_point.global_transform.origin
-		#held_object.global_transform = grab_point.global_transform #WHY DOES THIS NOT WORK???!?!?!??!?!?!?!?!?!?
-		
+		var palm_global_transform = grabPoint.global_transform
+		held_object.global_transform = grabPoint.global_transform
+		#held_object.global_transform = grabPoint.global_transform #WHY DOES THIS NOT WORK???!?!?!??!?!?!?!?!?!?
+		#held_object.transform.basis = transform.basis.rotated(Vector3(50.5, 0, 0), PI)
+			
 		
 		
 		# Get grab point velocity. Useful when wanting to throw objects
