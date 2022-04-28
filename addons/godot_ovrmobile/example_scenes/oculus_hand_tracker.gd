@@ -69,7 +69,7 @@ func _ready():
 func _process(delta_t):
 	_update_hand_model(hand_model, hand_skel);
 	_update_hand_pointer(hand_pointer)
-	get_node("../../OutputNode/Viewport/GripLabel").text = detect_simple_gesture()
+	get_node("../../OutputNode/Viewport/OtherLabel").text = detect_gripping()
 
 	# If we are on desktop or don't have hand tracking we set a debug pose on the left hand
 	if (controller_id == LEFT_TRACKER_ID && !ovr_hand_tracking):
@@ -143,33 +143,35 @@ func _update_hand_pointer(model: Spatial):
 		else:
 			model.visible = false
 
-
 func _on_LeftHand_pinch_pressed(button):
-	if (button == FINGER_PINCH.INDEX_PINCH): 
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Left Index Pinching"
-	if (button == FINGER_PINCH.MIDDLE_PINCH):
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Left Middle Pinching"
+	#if (button == FINGER_PINCH.INDEX_PINCH): 
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Index Pinching"
+	#if (button == FINGER_PINCH.MIDDLE_PINCH):
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Middle Pinching"
 
-	if (button == FINGER_PINCH.PINKY_PINCH): 
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Left Pinky Pinching"
-	if (button == FINGER_PINCH.RING_PINCH): 
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Left Ring Pinching"
+	#if (button == FINGER_PINCH.PINKY_PINCH): 
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Pinky Pinching"
+	#if (button == FINGER_PINCH.RING_PINCH): 
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Left Ring Pinching"
+	pass
 
 
 func _on_RightHand_pinch_pressed(button):
-	if (button == FINGER_PINCH.INDEX_PINCH): 
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Right Index Pinching"
-	if (button == FINGER_PINCH.MIDDLE_PINCH):
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Right Middle Pinching"
-	if (button == FINGER_PINCH.PINKY_PINCH): 
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Right Pinky Pinching"
-	if (button == FINGER_PINCH.RING_PINCH): 
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Right Ring Pinching"
+	#if (button == FINGER_PINCH.INDEX_PINCH): 
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Index Pinching"
+	#if (button == FINGER_PINCH.MIDDLE_PINCH):
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Middle Pinching"
+	#if (button == FINGER_PINCH.PINKY_PINCH): 
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Pinky Pinching"
+	#if (button == FINGER_PINCH.RING_PINCH): 
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Right Ring Pinching"
+	pass
 
 
 func _on_finger_pinch_release(button):
-	if (button == FINGER_PINCH.INDEX_PINCH):
-		get_node("../../OutputNode/Viewport/GripLabel").text = ""
+	#if (button == FINGER_PINCH.INDEX_PINCH):
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = ""
+	pass
 
 
 
@@ -249,76 +251,22 @@ func _get_bone_angle_diff(ovrHandBone_id):
 	var a = acos(clamp(quat_diff.w, -1.0, 1.0));
 	return rad2deg(a);
 
-# For simple gesture detection we can just look at the state of the fingers
-# and distinguish between bent and straight
-enum SimpleFingerState {
-	Bent = 0,
-	Straight = 1,
-	Inbetween = 2,
-}
-
-# this is a very basic heuristic to detect if a finger is straight or not.
-# It is a bit unprecise on the thumb and pinky but overall is enough for very simple
-# gesture detection; it uses the accumulated angle of the 3 bones in each finger
-func get_finger_state_estimate(finger):
+func get_finger_angle_estimate(finger):
 	var angle = 0.0;
 	angle += _get_bone_angle_diff(_ovrHandFingers_Bone1Start[finger]+0);
 	angle += _get_bone_angle_diff(_ovrHandFingers_Bone1Start[finger]+1);
 	angle += _get_bone_angle_diff(_ovrHandFingers_Bone1Start[finger]+2);
-	
-	# !!TODO: thresholds need some finetuning here
-	if (finger == ovrHandFingers.Thumb):
-		if (angle <= 30): return SimpleFingerState.Straight;
-		if (angle >= 35): return SimpleFingerState.Bent; # very low threshold here...
-	elif (finger == ovrHandFingers.Pinky):
-		if (angle <= 40): return SimpleFingerState.Straight;
-		if (angle >= 60): return SimpleFingerState.Bent;
-	else:
-		if (angle <= 35): return SimpleFingerState.Straight;
-		if (angle >= 75): return SimpleFingerState.Bent;
-	return SimpleFingerState.Inbetween;
+	return angle;
 
-# for now we put the gestures in a dicitonary and use deciaml values as key
-# this is a bit clunky and will change in the future with a more elegant solution I hope
-# (but it allows to add gestures at runtime by adding them to this dicitonary :-)
-var SimpleGestures = {
-	00000 : "Fist",
-	00001 : "One",
-	00011 : "Two",
-	00111 : "Three",
-	01111 : "Four",
-	11111 : "Five",
-	00010 : "Point",
-	00100 : "FYou",
-	00110 : "V",
-	10010 : "Rock",
-	10011 : "Spiderman",
-	11120 : "OK",
-	10001 : "Shaka",
-}
-
-# this will compute the finger state and check if the gesture is in the SimpleGestures
-# dictionary. If it is not found it returns the empty string
-
-var _last_detected_gesture = "";
-
-func detect_simple_gesture():
-	
-	# this is to make sure we do keep the state when we loose tracking
-	if (tracking_confidence <= 0.5): return _last_detected_gesture;
-	
-	var m = 1;
-	var gesture = 0;
+func detect_gripping():
 	for i in range(0, 5):
-		var finger_state = get_finger_state_estimate(i);
-		gesture += m * finger_state;
-		m *= 10; # ??? No idea what I'm thinking here to solve it this way... needs some less stupid solution in the future
+		var finger_angle = get_finger_angle_estimate(i)
+		if finger_angle > 60:
+			#if not gripping:
+				#grab_object()
+			#else:
+				#return
+			return "Gripping"
 	
-	_last_detected_gesture = "";
-	if SimpleGestures.has(int(gesture)):
-		_last_detected_gesture = SimpleGestures[int(gesture)];
-		
-		
-	#_debug_show_finger_estimate();
-
-	return _last_detected_gesture;
+	#drop_object()
+	return "Not Gripping"
