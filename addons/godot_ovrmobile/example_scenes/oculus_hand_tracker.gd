@@ -280,7 +280,7 @@ func detect_gripping():
 	
 	for i in range(0, 5):
 		var finger_angle = get_finger_angle_estimate(i)
-		if finger_angle > 60:
+		if finger_angle > 70:
 			last_detected_gripping = true
 			return true
 	last_detected_gripping = false
@@ -325,7 +325,10 @@ func _physics_process(delta):
 	if held_object:
 		var grab_point = hand_skel.get_node("Palm/GrabPoint")
 		var palm_global_transform = grab_point.global_transform
-		held_object.transform = palm_global_transform
+		held_object.global_transform.origin = grab_point.global_transform.origin
+		#held_object.global_transform = grab_point.global_transform #WHY DOES THIS NOT WORK???!?!?!??!?!?!?!?!?!?
+		
+		
 		
 		# Get grab point velocity. Useful when wanting to throw objects
 		grab_point_velocity = Vector3(0, 0, 0)
