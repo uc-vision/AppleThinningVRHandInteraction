@@ -7,7 +7,7 @@ var held_object_data = {"mode":RigidBody.MODE_RIGID, "layer":1, "mask":1}
 var grab_point_velocity = Vector3(0, 0, 0)
 var prior_grab_point_velocities = []
 var prior_grab_point_position = Vector3(0, 0, 0)
-var pinching = false
+var gripping = false
 
 # Current hand pinch mapping for the tracked hands
 # Godot itself also exposes some of these constants via JOY_VR_* and JOY_OCULUS_*
@@ -69,8 +69,23 @@ func _ready():
 func _process(delta_t):
 	_update_hand_model(hand_model, hand_skel);
 	_update_hand_pointer(hand_pointer)
-	get_node("../../OutputNode/Viewport/OtherLabel").text = detect_gripping()
-
+	
+	gripping = detect_gripping()
+	if gripping and not held_object:
+		grab_object()
+	elif not gripping and held_object:
+		drop_object()
+	
+	if held_object:
+		get_node("../../OutputNode/Viewport/OtherLabel").text = held_object.get_name()
+	else:
+		get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
+	
+	if gripping:
+		get_node("../../OutputNode/Viewport/GripLabel").text = "Gripping"
+	else:
+		get_node("../../OutputNode/Viewport/GripLabel").text = "Not Gripping"
+	
 	# If we are on desktop or don't have hand tracking we set a debug pose on the left hand
 	if (controller_id == LEFT_TRACKER_ID && !ovr_hand_tracking):
 		for i in range(0, _hand_bone_mappings.size()):
@@ -258,15 +273,73 @@ func get_finger_angle_estimate(finger):
 	angle += _get_bone_angle_diff(_ovrHandFingers_Bone1Start[finger]+2);
 	return angle;
 
+onready var last_detected_gripping = false
+
 func detect_gripping():
+	if (tracking_confidence <= 0.5): return last_detected_gripping;
+	
 	for i in range(0, 5):
 		var finger_angle = get_finger_angle_estimate(i)
 		if finger_angle > 60:
-			#if not gripping:
-				#grab_object()
-			#else:
-				#return
-			return "Gripping"
+			last_detected_gripping = true
+			return true
+	last_detected_gripping = false
+	return false
+
+
+func grab_object():
+	if !held_object:
+		var palm_area = hand_skel.get_node("Palm/Grab_Range")
+		var bodies = palm_area.get_overlapping_bodies()
+		var rigid_body = null
+		if len(bodies) > 0:
+			for body in bodies:
+				if body is RigidBody:
+					rigid_body = body
+					break
+		if rigid_body:
+			#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
+			held_object = rigid_body
+			held_object_data["mode"] = held_object.mode
+			held_object_data["layer"] = held_object.collision_layer
+			held_object_data["mask"] = held_object.collision_mask
+			held_object.mode = RigidBody.MODE_STATIC
+			held_object.collision_layer = 0
+			held_object.collision_mask = 0
+	else:
+		held_object.mode = held_object_data["mode"]
+		held_object.collision_layer = held_object_data["layer"]
+		held_object.collision_mask = held_object_data["mask"]
+		held_object = null
 	
-	#drop_object()
-	return "Not Gripping"
+func drop_object():
+	held_object.mode = held_object_data["mode"]
+	held_object.collision_layer = held_object_data["layer"]
+	held_object.collision_mask = held_object_data["mask"]
+	held_object.apply_impulse(Vector3(0, 0, 0), grab_point_velocity)
+	held_object = null
+	
+	#get_node("../../OutputNode/Viewport/OtherLabel").text = ""
+
+func _physics_process(delta):
+	if held_object:
+		var grab_point = hand_skel.get_node("Palm/GrabPoint")
+		var palm_global_transform = grab_point.global_transform.origin
+		held_object.transform = palm_global_transform
+		
+		# Get grab point velocity. Useful when wanting to throw objects
+		grab_point_velocity = Vector3(0, 0, 0)
+		if prior_grab_point_velocities.size() > 0:
+			for vel in prior_grab_point_velocities:
+				grab_point_velocity += vel
+
+			# Get the average velocity, instead of just adding them together.
+			grab_point_velocity = grab_point_velocity / prior_grab_point_velocities.size()
+
+		prior_grab_point_velocities.append((palm_global_transform.origin - prior_grab_point_position) / delta)
+
+		grab_point_velocity += (palm_global_transform.origin - prior_grab_point_position) / delta
+		prior_grab_point_position = palm_global_transform.origin
+
+		if prior_grab_point_velocities.size() > 30:
+			prior_grab_point_velocities.remove(0)
