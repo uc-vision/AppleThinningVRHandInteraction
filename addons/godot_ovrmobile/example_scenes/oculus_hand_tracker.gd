@@ -324,7 +324,7 @@ func drop_object():
 func _physics_process(delta):
 	if held_object:
 		var grab_point = hand_skel.get_node("Palm/GrabPoint")
-		var palm_global_transform = grab_point.global_transform.origin
+		var palm_global_transform = grab_point.global_transform
 		held_object.transform = palm_global_transform
 		
 		# Get grab point velocity. Useful when wanting to throw objects
