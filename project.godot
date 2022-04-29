@@ -77,7 +77,7 @@ _global_script_classes=[ {
 "base": "OculusTracker",
 "class": "OculusHandTracker",
 "language": "GDScript",
-"path": "res://addons/godot_ovrmobile/example_scenes/oculus_hand_tracker.gd"
+"path": "res://scripts/hand_tracking.gd"
 }, {
 "base": "OculusTracker",
 "class": "OculusTouchController",
@@ -93,11 +93,6 @@ _global_script_classes=[ {
 "class": "PlayerBody",
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/assets/PlayerBody.gd"
-}, {
-"base": "RigidBody",
-"class": "VR_Interactable_Rigidbody",
-"language": "GDScript",
-"path": "res://VR_Interactable_Rigidbody.gd"
 }, {
 "base": "Reference",
 "class": "VelocityAverager",
@@ -167,7 +162,6 @@ _global_script_class_icons={
 "OculusTouchController": "",
 "OculusTracker": "",
 "PlayerBody": "",
-"VR_Interactable_Rigidbody": "",
 "VelocityAverager": "",
 "VelocityAveragerLinear": "",
 "VirtualKeyboard2D": "",
@@ -183,7 +177,7 @@ _global_script_class_icons={
 [application]
 
 config/name="VR Hand Interaction"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [gdnative]
