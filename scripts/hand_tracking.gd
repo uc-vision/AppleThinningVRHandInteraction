@@ -316,7 +316,7 @@ func grab_object():
 		held_object = null
 	
 func drop_object():
-	held_object.mode = held_object_data["mode"]
+	held_object.mode = RigidBody.MODE_RIGID
 	held_object.collision_layer = held_object_data["layer"]
 	held_object.collision_mask = held_object_data["mask"]
 	held_object.apply_impulse(Vector3(0, 0, 0), grab_point_velocity)
