@@ -3,7 +3,7 @@ extends OculusTracker
 # Extension of the OculusTracker class to support Oculus hands tracking.
 
 var held_object = null
-var held_object_data = {"mode":RigidBody.MODE_RIGID, "layer":1, "mask":1}
+var held_object_original_parent = null
 var grab_point_velocity = Vector3(0, 0, 0)
 var prior_grab_point_velocities = []
 var prior_grab_point_position = Vector3(0, 0, 0)
@@ -83,10 +83,10 @@ func _process(delta_t):
 	else:
 		get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
 	
-	if gripping:
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Gripping"
-	else:
-		get_node("../../OutputNode/Viewport/GripLabel").text = "Not Gripping"
+	#if gripping:
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Gripping"
+	#else:
+	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Not Gripping"
 	
 	# If we are on desktop or don't have hand tracking we set a debug pose on the left hand
 	if (controller_id == LEFT_TRACKER_ID && !ovr_hand_tracking):
@@ -280,20 +280,24 @@ onready var last_detected_gripping = false
 
 func detect_gripping():
 	if (tracking_confidence <= 0.5): return last_detected_gripping;
+	var fingers_gripping = 0
 	
 	for i in range(0, 5):
 		var finger_angle = get_finger_angle_estimate(i)
-		if finger_angle > 70:
-			last_detected_gripping = true
-			return true
+		if finger_angle > 60:
+			fingers_gripping += 1
+	get_node("../../OutputNode/Viewport/GripLabel").text = fingers_gripping as String
+	if fingers_gripping > 2:
+		last_detected_gripping = true
+		return true
 	last_detected_gripping = false
 	return false
 
-func get_closest_rigidbody(palm_area, bodies):
+func get_closest_rigidbody(grab_range, bodies):
 	var closest_body: RigidBody = null
 	var closest_distance = null
 	for body in bodies:
-		var curr_distance = palm_area.global_transform.origin.distance_to(body.global_transform.origin)
+		var curr_distance = grab_range.global_transform.origin.distance_to(body.global_transform.origin)
 		# closest_body == null is first case
 		if body is RigidBody and (closest_body == null or curr_distance < closest_distance):
 			closest_body = body
@@ -302,39 +306,42 @@ func get_closest_rigidbody(palm_area, bodies):
 	
 func grab_object():
 	if !held_object:
-		var palm_area = hand_skel.get_node("Palm/Grab_Range")
-		var bodies = palm_area.get_overlapping_bodies()
-		var rigid_body = get_closest_rigidbody(palm_area, bodies)
+		var grab_range = hand_skel.get_node("Palm/Grab_Range")
+		var bodies = grab_range.get_overlapping_bodies()
+		var rigid_body = get_closest_rigidbody(grab_range, bodies)
 		if rigid_body:
 			#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
 			held_object = rigid_body
-			held_object_data["mode"] = held_object.mode
-			held_object_data["layer"] = held_object.collision_layer
-			held_object_data["mask"] = held_object.collision_mask
 			held_object.mode = RigidBody.MODE_STATIC
-			held_object.collision_layer = 0
-			held_object.collision_mask = 0
-	else:
-		held_object.mode = held_object_data["mode"]
-		held_object.collision_layer = held_object_data["layer"]
-		held_object.collision_mask = held_object_data["mask"]
-		held_object = null
+			var original_position = held_object.global_transform
+			
+			held_object_original_parent  = held_object.get_parent()
+			
+			held_object_original_parent.remove_child(held_object)
+			grabPoint.add_child(held_object)
+			held_object.set_owner(grabPoint)
+			held_object.global_transform = original_position
 	
 func drop_object():
-	held_object.mode = RigidBody.MODE_RIGID
-	held_object.collision_layer = held_object_data["layer"]
-	held_object.collision_mask = held_object_data["mask"]
-	held_object.apply_impulse(Vector3(0, 0, 0), grab_point_velocity)
-	held_object = null
+	var original_position = held_object.global_transform
 	
-	#get_node("../../OutputNode/Viewport/OtherLabel").text = ""
+	grabPoint.remove_child(held_object)
+	held_object_original_parent.add_child(held_object)
+	held_object.set_owner(held_object_original_parent)
+	held_object_original_parent  = null
+	
+	held_object.mode = RigidBody.MODE_RIGID
+	held_object.global_transform = original_position
+	held_object.apply_impulse(Vector3(0, 0, 0), grab_point_velocity)
+	
+	
+	
+	held_object = null
 
 func _physics_process(delta):
 	if held_object:
 		var palm_global_transform = grabPoint.global_transform
-		held_object.global_transform = grabPoint.global_transform
-		#held_object.global_transform = grabPoint.global_transform #WHY DOES THIS NOT WORK???!?!?!??!?!?!?!?!?!?
-		#held_object.transform.basis = transform.basis.rotated(Vector3(50.5, 0, 0), PI)
+		#held_object.global_transform = grabPoint.global_transform
 			
 		
 		
