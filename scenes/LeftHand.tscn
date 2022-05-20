@@ -1,15 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/godot_ovrmobile/example_scenes/hand_pointer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/hand_tracking.gd" type="Script" id=2]
-
-[sub_resource type="SpatialMaterial" id=24]
-albedo_color = Color( 0.968627, 0, 1, 1 )
-
-[sub_resource type="SphereMesh" id=25]
-material = SubResource( 24 )
-radius = 0.01
-height = 0.02
 
 [sub_resource type="SpatialMaterial" id=1]
 resource_name = "HandMaterial"
@@ -108,21 +100,19 @@ bind/23/name = "b_l_forearm_stub"
 bind/23/bone = -1
 bind/23/pose = Transform( 100, 0, 0, 0, 6.51683e-05, -100, 0, 100, 6.51683e-05, 0, 0, 0 )
 
-[sub_resource type="SphereShape" id=35]
+[sub_resource type="SphereMesh" id=4]
+
+[sub_resource type="SphereMesh" id=5]
+
+[sub_resource type="SphereMesh" id=6]
+
+[sub_resource type="SphereMesh" id=7]
+
+[sub_resource type="SphereMesh" id=8]
 
 [node name="LeftHand" type="ARVRController"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.2, 1.727, -0.4 )
 script = ExtResource( 2 )
-
-[node name="GrabPoint" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.073, 0.036, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="GrabPoint"]
-transform = Transform( 1, -2.25846e-07, 1.11759e-07, 4.5402e-08, 1, 1.19209e-07, 1.32248e-07, -1.78814e-07, 1, 0, 0, 0 )
-visible = false
-mesh = SubResource( 25 )
-skeleton = NodePath("../..")
-material/0 = null
 
 [node name="HandModel" type="Spatial" parent="."]
 
@@ -333,18 +323,47 @@ mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = null
 
-[node name="Palm" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
-transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0 )
-bone_name = "b_l_wrist"
+[node name="ThuimbTip" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
+transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.057092, -0.349873, -0.310124, 0.883975, 9.16781, -7.78987, -4.89121 )
+bone_name = "b_l_thumb_null"
 
-[node name="Grab_Range" type="Area" parent="HandModel/ArmatureLeft/Skeleton/Palm"]
-transform = Transform( 1, -1.42027e-08, 9.31323e-09, -1.42027e-08, 1, 2.98023e-08, 5.58794e-09, -2.98023e-08, 1, 6.104, 2.91501, 0 )
+[node name="MeshInstance" type="MeshInstance" parent="HandModel/ArmatureLeft/Skeleton/ThuimbTip"]
+mesh = SubResource( 4 )
+material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="HandModel/ArmatureLeft/Skeleton/Palm/Grab_Range"]
-transform = Transform( 1, -2.32831e-08, 1.30385e-08, -6.28643e-09, 1, 4.47035e-08, 7.45058e-09, -2.98023e-08, 1, 0.000233054, -0.00285378, -0.0138173 )
-shape = SubResource( 35 )
+[node name="IndexTip" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109344, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 16.9417, -1.94251, -1.21591 )
+bone_name = "b_l_index_null"
 
-[node name="HandPointer" type="Spatial" parent="HandModel" instance=ExtResource( 1 )]
+[node name="MeshInstance" type="MeshInstance" parent="HandModel/ArmatureLeft/Skeleton/IndexTip"]
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="MiddleTip" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
+transform = Transform( 0.987593, 0.0968452, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843528, -0.991142, -0.102587, 17.7408, 0.730237, -0.876337 )
+bone_name = "b_l_middle_null"
+
+[node name="MeshInstance" type="MeshInstance" parent="HandModel/ArmatureLeft/Skeleton/MiddleTip"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="RingTip" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
+transform = Transform( 0.978622, -0.029105, -0.203596, 0.195193, -0.180434, 0.964025, -0.0647939, -0.983156, -0.170895, 16.3572, 3.55226, -1.49422 )
+bone_name = "b_l_ring_null"
+
+[node name="MeshInstance" type="MeshInstance" parent="HandModel/ArmatureLeft/Skeleton/RingTip"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="PinkyTip" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
+transform = Transform( 0.965993, 0.0123384, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663178, -0.953624, -0.293603, 13.7907, 5.19311, -2.17617 )
+bone_name = "b_l_pinky_null"
+
+[node name="MeshInstance" type="MeshInstance" parent="HandModel/ArmatureLeft/Skeleton/PinkyTip"]
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="HandPointer" parent="HandModel" instance=ExtResource( 1 )]
 visible = false
 
 [connection signal="button_pressed" from="." to="." method="_on_LeftHand_pinch_pressed"]
