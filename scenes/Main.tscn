@@ -1,0 +1,215 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://addons/godot_ovrmobile/example_scenes/touch_controller.dae" type="PackedScene" id=1]
+[ext_resource path="res://scenes/LeftHand.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/RightHand.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/arvr_origin.gd" type="Script" id=4]
+[ext_resource path="res://addons/godot_ovrmobile/example_scenes/oculus_touch_controller.gd" type="Script" id=5]
+[ext_resource path="res://scripts/Main.gd" type="Script" id=6]
+[ext_resource path="res://scenes/OutputNode.tscn" type="PackedScene" id=7]
+
+[sub_resource type="SphereShape" id=35]
+
+[sub_resource type="SphereShape" id=37]
+
+[sub_resource type="BoxShape" id=33]
+extents = Vector3( 0.0250738, 0.0250371, 0.0248237 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=34]
+material = SubResource( 5 )
+size = Vector3( 0.05, 0.05, 0.05 )
+
+[sub_resource type="BoxShape" id=18]
+extents = Vector3( 0.035315, 0.0348225, 0.0351416 )
+
+[sub_resource type="CubeMesh" id=19]
+size = Vector3( 0.07, 0.07, 0.07 )
+
+[sub_resource type="SpatialMaterial" id=20]
+albedo_color = Color( 0, 1, 0, 1 )
+
+[sub_resource type="BoxShape" id=21]
+extents = Vector3( 0.0193418, 0.0207481, 0.020035 )
+
+[sub_resource type="CubeMesh" id=22]
+size = Vector3( 0.04, 0.04, 0.04 )
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_color = Color( 0, 0, 1, 1 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 10, 0.1, 10 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 30, 0.05, 30 )
+
+[sub_resource type="ViewportTexture" id=10]
+viewport_path = NodePath("OutputNode/Viewport")
+
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 0.5, 0.0115333, 0.5 )
+
+[sub_resource type="CubeMesh" id=16]
+size = Vector3( 1, 0.02, 1 )
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_color = Color( 0.533333, 0.533333, 0.533333, 1 )
+
+[node name="Main" type="Spatial"]
+script = ExtResource( 6 )
+
+[node name="ARVROrigin" type="ARVROrigin" parent="."]
+script = ExtResource( 4 )
+
+[node name="ARVRCamera" type="ARVRCamera" parent="ARVROrigin"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72656, 0 )
+
+[node name="LeftTouchController" type="ARVRController" parent="ARVROrigin"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.72656, -0.4 )
+script = ExtResource( 5 )
+
+[node name="TouchControllerModel" parent="ARVROrigin/LeftTouchController" instance=ExtResource( 1 )]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
+
+[node name="RightTouchController" type="ARVRController" parent="ARVROrigin"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.72656, -0.4 )
+controller_id = 2
+script = ExtResource( 5 )
+
+[node name="TouchControllerModel" parent="ARVROrigin/RightTouchController" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="LeftHand" parent="ARVROrigin" instance=ExtResource( 2 )]
+
+[node name="Skeleton" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft" index="0"]
+bones/0/bound_children = [ NodePath("BoneAttachment 11"), NodePath("Palm") ]
+bones/2/bound_children = [ NodePath("BoneAttachment") ]
+bones/6/bound_children = [ NodePath("BoneAttachment 6") ]
+bones/7/bound_children = [ NodePath("BoneAttachment 5") ]
+bones/8/bound_children = [ NodePath("BoneAttachment 2"), NodePath("BoneAttachment 3"), NodePath("BoneAttachment 4") ]
+bones/11/bound_children = [ NodePath("BoneAttachment 10") ]
+bones/12/bound_children = [ NodePath("BoneAttachment 7"), NodePath("BoneAttachment 8"), NodePath("BoneAttachment 9") ]
+
+[node name="BoneAttachment" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="0"]
+transform = Transform( 0.715416, 0.480301, 0.507437, -0.520631, 0.850801, -0.0712857, -0.465966, -0.213188, 0.858735, 3.59585, -2.80285, -1.91577 )
+
+[node name="BoneAttachment 2" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="1"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
+
+[node name="BoneAttachment 3" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="2"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
+
+[node name="BoneAttachment 4" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="3"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
+
+[node name="BoneAttachment 5" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="4"]
+transform = Transform( 0.994319, -0.0918411, -0.0538007, 0.0547371, 0.00770642, 0.998471, -0.091286, -0.995744, 0.0126898, 13.3754, -2.20219, -1.05505 )
+
+[node name="BoneAttachment 7" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="6"]
+transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
+
+[node name="BoneAttachment 8" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="7"]
+transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
+
+[node name="BoneAttachment 9" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="8"]
+transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
+
+[node name="BoneAttachment 10" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton" index="9"]
+transform = Transform( 0.988767, -0.0960949, -0.114484, 0.110551, -0.0453155, 0.992837, -0.100594, -0.99434, -0.034183, 13.8116, 0.264028, -0.702144 )
+
+[node name="CollisionShape" parent="ARVROrigin/LeftHand/HandModel/ArmatureLeft/Skeleton/Palm/Grab_Range" index="0"]
+shape = SubResource( 35 )
+
+[node name="RightHand" parent="ARVROrigin" instance=ExtResource( 3 )]
+
+[node name="Skeleton" parent="ARVROrigin/RightHand/HandModel/ArmatureRight" index="0"]
+bones/0/bound_children = [ NodePath("BoneAttachment 5"), NodePath("BoneAttachment 6"), NodePath("BoneAttachment 7"), NodePath("BoneAttachment 8"), NodePath("BoneAttachment 9"), NodePath("BoneAttachment 10"), NodePath("BoneAttachment 11"), NodePath("BoneAttachment 12"), NodePath("BoneAttachment 13"), NodePath("BoneAttachment 14"), NodePath("BoneAttachment 15"), NodePath("BoneAttachment 16") ]
+bones/2/bound_children = [ NodePath("BoneAttachment 3") ]
+bones/3/bound_children = [ NodePath("BoneAttachment 2") ]
+bones/4/bound_children = [ NodePath("BoneAttachment") ]
+bones/10/bound_children = [ NodePath("BoneAttachment 4") ]
+
+[node name="BoneAttachment" parent="ARVROrigin/RightHand/HandModel/ArmatureRight/Skeleton" index="0"]
+transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.0570919, -0.349873, -0.310125, 0.883974, -8.31233, 6.69126, 4.37118 )
+
+[node name="BoneAttachment 2" parent="ARVROrigin/RightHand/HandModel/ArmatureRight/Skeleton" index="1"]
+transform = Transform( 0.707382, 0.518598, 0.480278, -0.649744, 0.744603, 0.152968, -0.278287, -0.420265, 0.863674, -5.92187, 4.49557, 3.43076 )
+
+[node name="BoneAttachment 3" parent="ARVROrigin/RightHand/HandModel/ArmatureRight/Skeleton" index="2"]
+transform = Transform( 0.715415, 0.480301, 0.507437, -0.520631, 0.850801, -0.0712857, -0.465966, -0.213189, 0.858734, -3.59585, 2.80285, 1.91577 )
+
+[node name="CollisionShape" parent="ARVROrigin/RightHand/HandModel/ArmatureRight/Skeleton/Palm/Grab_Range" index="0"]
+shape = SubResource( 37 )
+
+[node name="RedBox" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0101171, 2, -0.50724 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RedBox"]
+shape = SubResource( 33 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RedBox"]
+mesh = SubResource( 34 )
+material/0 = null
+
+[node name="GreenBox" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202161, 2, -0.364039 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GreenBox"]
+shape = SubResource( 18 )
+
+[node name="MeshInstance" type="MeshInstance" parent="GreenBox"]
+mesh = SubResource( 19 )
+material/0 = SubResource( 20 )
+
+[node name="BlueBox" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19447, 2, -0.440355 )
+
+[node name="CollisionShape" type="CollisionShape" parent="BlueBox"]
+shape = SubResource( 21 )
+
+[node name="MeshInstance" type="MeshInstance" parent="BlueBox"]
+mesh = SubResource( 22 )
+material/0 = SubResource( 23 )
+
+[node name="Floor" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0856336, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.440088, 0.204434, -0.507151, -0.83726, 1.5186, 124.325, -240.98 )
+shadow_enabled = true
+
+[node name="OutputNode" parent="." instance=ExtResource( 7 )]
+
+[node name="OtherLabel" parent="OutputNode/Viewport" index="1"]
+text = "0"
+
+[node name="Sprite3D" parent="OutputNode" index="1"]
+texture = SubResource( 10 )
+
+[node name="Table" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0105211, 1.02849, -0.507101 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Table"]
+shape = SubResource( 15 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Table"]
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
+
+[connection signal="button_pressed" from="ARVROrigin/LeftTouchController" to="ARVROrigin/LeftTouchController" method="_on_LeftTouchController_button_pressed"]
+[connection signal="button_pressed" from="ARVROrigin/RightTouchController" to="ARVROrigin/RightTouchController" method="_on_RightTouchController_button_pressed"]
+[connection signal="button_release" from="ARVROrigin/RightTouchController" to="ARVROrigin/RightTouchController" method="_on_RightTouchController_button_release"]
+
+[editable path="ARVROrigin/LeftHand"]
+[editable path="ARVROrigin/RightHand"]
+[editable path="OutputNode"]
