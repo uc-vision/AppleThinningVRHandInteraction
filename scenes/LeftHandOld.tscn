@@ -1,13 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://addons/godot_ovrmobile/example_scenes/hand_pointer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/hand_tracking.gd" type="Script" id=2]
 
-[sub_resource type="SpatialMaterial" id=24]
+[sub_resource type="SpatialMaterial" id=36]
 albedo_color = Color( 0.968627, 0, 1, 1 )
 
 [sub_resource type="SphereMesh" id=25]
-material = SubResource( 24 )
+material = SubResource( 36 )
 radius = 0.01
 height = 0.02
 
@@ -108,9 +108,7 @@ bind/23/name = "b_l_forearm_stub"
 bind/23/bone = -1
 bind/23/pose = Transform( 100, 0, 0, 0, 6.51683e-05, -100, 0, 100, 6.51683e-05, 0, 0, 0 )
 
-[sub_resource type="SphereMesh" id=4]
-
-[sub_resource type="SphereShape" id=7]
+[sub_resource type="SphereShape" id=35]
 
 [node name="LeftHand" type="ARVRController"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.2, 1.727, -0.4 )
@@ -128,10 +126,10 @@ material/0 = null
 
 [node name="HandModel" type="Spatial" parent="."]
 
-[node name="Armature" type="Spatial" parent="HandModel"]
+[node name="ArmatureLeft" type="Spatial" parent="HandModel"]
 transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0 )
 
-[node name="Skeleton" type="Skeleton" parent="HandModel/Armature"]
+[node name="Skeleton" type="Skeleton" parent="HandModel/ArmatureLeft"]
 bones/0/name = "b_l_wrist"
 bones/0/parent = -1
 bones/0/rest = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0 )
@@ -253,185 +251,101 @@ bones/23/rest = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 bones/23/enabled = true
 bones/23/bound_children = [  ]
 
-[node name="BoneAttachment" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.715416, 0.480301, 0.507437, -0.520631, 0.850801, -0.0712857, -0.465966, -0.213188, 0.858735, 3.59585, -2.80285, -1.91577 )
 bone_name = "b_l_thumb_1"
 
-[node name="l_thumb_mcp_fe_axis_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment"]
+[node name="l_thumb_mcp_fe_axis_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment"]
 transform = Transform( -0.0717591, -0.165807, -0.983544, -0.983544, 0.175686, 0.0421417, 0.165807, 0.970383, -0.175686, 3.25129, 7.15256e-07, 2.08616e-07 )
 
-[node name="BoneAttachment 2" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 2" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
 bone_name = "b_l_index_3"
 
-[node name="l_index_finger_pad_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 2"]
+[node name="l_index_finger_pad_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 2"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 1.52304, 0.569926, 0.00834668 )
 
-[node name="BoneAttachment 3" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 3" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
 bone_name = "b_l_index_3"
 
-[node name="l_index_finger_tip_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 3"]
+[node name="l_index_finger_tip_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 3"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 2.23634, -0.102506, 0.0295608 )
 
-[node name="BoneAttachment 4" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 4" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
 bone_name = "b_l_index_3"
 
-[node name="l_index_fingernail_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 4"]
+[node name="l_index_fingernail_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 4"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 1.54044, -0.616482, 0.0309144 )
 
-[node name="BoneAttachment 5" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 5" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.994319, -0.0918411, -0.0538007, 0.0547371, 0.00770642, 0.998471, -0.091286, -0.995744, 0.0126898, 13.3754, -2.20219, -1.05505 )
 bone_name = "b_l_index_2"
 
-[node name="l_index_dip_fe_axis_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 5"]
+[node name="l_index_dip_fe_axis_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 5"]
 transform = Transform( -0.0309187, -0.0328986, -0.99898, -0.99898, 0.0339136, 0.029802, 0.0328986, 0.998883, -0.0339135, 2.43036, -9.53674e-07, -1.19209e-07 )
 
-[node name="BoneAttachment 6" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 6" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.995542, -0.0875827, -0.0349953, 0.0403074, 0.0596366, 0.997406, -0.0852684, -0.994371, 0.062901, 9.59962, -2.35507, -0.731646 )
 bone_name = "b_l_index_1"
 
-[node name="l_index_pip_fe_axis_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 6"]
+[node name="l_index_pip_fe_axis_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 6"]
 transform = Transform( -0.0123791, -0.0516529, -0.998588, -0.998588, 0.0522265, 0.00967753, 0.051653, 0.997299, -0.0522265, 3.79273, 1.19209e-06, 2.98023e-07 )
 
-[node name="BoneAttachment 7" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 7" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
 bone_name = "b_l_middle_3"
 
-[node name="l_middle_finger_pad_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 7"]
+[node name="l_middle_finger_pad_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 7"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 1.76139, 0.628725, 0.00737548 )
 
-[node name="BoneAttachment 8" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 8" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
 bone_name = "b_l_middle_3"
 
-[node name="l_middle_finger_tip_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 8"]
+[node name="l_middle_finger_tip_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 8"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 2.49649, -0.11373, 0.0308652 )
 
-[node name="BoneAttachment 9" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 9" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
 bone_name = "b_l_middle_3"
 
-[node name="l_middle_fingernail_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 9"]
+[node name="l_middle_fingernail_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 9"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 1.70008, -0.658921, 0.0144212 )
 
-[node name="BoneAttachment 10" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 10" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 0.988767, -0.0960949, -0.114484, 0.110551, -0.0453155, 0.992837, -0.100594, -0.99434, -0.034183, 13.8116, 0.264028, -0.702144 )
 bone_name = "b_l_middle_2"
 
-[node name="l_middle_dip_fe_axis_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 10"]
+[node name="l_middle_dip_fe_axis_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 10"]
 transform = Transform( -0.098079, -0.0867519, -0.99139, -0.99139, 0.0953577, 0.0897346, 0.086752, 0.991656, -0.0953574, 2.75496, -2.38419e-07, 0 )
 
-[node name="BoneAttachment 11" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
+[node name="BoneAttachment 11" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
 transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0 )
 bone_name = "b_l_wrist"
 
-[node name="l_index_palm_knuckle_marker" type="Spatial" parent="HandModel/Armature/Skeleton/BoneAttachment 11"]
+[node name="l_index_palm_knuckle_marker" type="Spatial" parent="HandModel/ArmatureLeft/Skeleton/BoneAttachment 11"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 10.0162, 2.38383, -2.42547 )
 
-[node name="l_handMeshNode" type="MeshInstance" parent="HandModel/Armature/Skeleton"]
+[node name="l_handMeshNode" type="MeshInstance" parent="HandModel/ArmatureLeft/Skeleton"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = null
 
-[node name="ThumbTip" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
-transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.057092, -0.349873, -0.310124, 0.883975, 9.16781, -7.78987, -4.89121 )
-bone_name = "b_l_thumb_null"
+[node name="Palm" type="BoneAttachment" parent="HandModel/ArmatureLeft/Skeleton"]
+transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0 )
+bone_name = "b_l_wrist"
 
-[node name="Area" type="Area" parent="HandModel/Armature/Skeleton/ThumbTip"]
-collision_layer = 2
-collision_mask = 2
+[node name="Grab_Range" type="Area" parent="HandModel/ArmatureLeft/Skeleton/Palm"]
+transform = Transform( 1, -1.42027e-08, 9.31323e-09, -1.42027e-08, 1, 2.98023e-08, 5.58794e-09, -2.98023e-08, 1, 6.104, 2.91501, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/ThumbTip/Area"]
-transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
-mesh = SubResource( 4 )
-skeleton = NodePath("../..")
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="HandModel/Armature/Skeleton/ThumbTip/Area"]
-shape = SubResource( 7 )
-
-[node name="IndexTip" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
-transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109344, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 16.9417, -1.94251, -1.21591 )
-bone_name = "b_l_index_null"
-
-[node name="Area" type="Area" parent="HandModel/Armature/Skeleton/IndexTip"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/IndexTip/Area"]
-transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
-mesh = SubResource( 4 )
-skeleton = NodePath("../..")
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="HandModel/Armature/Skeleton/IndexTip/Area"]
-shape = SubResource( 7 )
-
-[node name="MiddleTip" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
-transform = Transform( 0.987593, 0.0968452, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843528, -0.991142, -0.102587, 17.7408, 0.730237, -0.876337 )
-bone_name = "b_l_middle_null"
-
-[node name="Area" type="Area" parent="HandModel/Armature/Skeleton/MiddleTip"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/MiddleTip/Area"]
-transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
-mesh = SubResource( 4 )
-skeleton = NodePath("../..")
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="HandModel/Armature/Skeleton/MiddleTip/Area"]
-shape = SubResource( 7 )
-
-[node name="RingTip" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
-transform = Transform( 0.978622, -0.029105, -0.203596, 0.195193, -0.180434, 0.964025, -0.0647939, -0.983156, -0.170895, 16.3572, 3.55226, -1.49422 )
-bone_name = "b_l_ring_null"
-
-[node name="Area" type="Area" parent="HandModel/Armature/Skeleton/RingTip"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/RingTip/Area"]
-transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
-mesh = SubResource( 4 )
-skeleton = NodePath("../..")
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="HandModel/Armature/Skeleton/RingTip/Area"]
-shape = SubResource( 7 )
-
-[node name="PinkyTip" type="BoneAttachment" parent="HandModel/Armature/Skeleton"]
-transform = Transform( 0.965993, 0.0123384, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663178, -0.953624, -0.293603, 13.7907, 5.19311, -2.17617 )
-bone_name = "b_l_pinky_null"
-
-[node name="Area" type="Area" parent="HandModel/Armature/Skeleton/PinkyTip"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/PinkyTip/Area"]
-transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
-mesh = SubResource( 4 )
-skeleton = NodePath("../..")
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="HandModel/Armature/Skeleton/PinkyTip/Area"]
-shape = SubResource( 7 )
+[node name="CollisionShape" type="CollisionShape" parent="HandModel/ArmatureLeft/Skeleton/Palm/Grab_Range"]
+transform = Transform( 1, -2.32831e-08, 1.30385e-08, -6.28643e-09, 1, 4.47035e-08, 7.45058e-09, -2.98023e-08, 1, 0.000233054, -0.00285378, -0.0138173 )
+shape = SubResource( 35 )
 
 [node name="HandPointer" parent="HandModel" instance=ExtResource( 1 )]
 visible = false
 
 [connection signal="button_pressed" from="." to="." method="_on_LeftHand_pinch_pressed"]
 [connection signal="button_release" from="." to="." method="_on_finger_pinch_release"]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/ThumbTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "ThumbTip" ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/ThumbTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "ThumbTip" ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/IndexTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "IndexTip" ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/IndexTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "IndexTip" ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/MiddleTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "MiddleTip" ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/MiddleTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "MiddleTip" ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/RingTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "RingTip" ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/RingTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "RingTip" ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/PinkyTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "PinkyTip" ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/PinkyTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "PinkyTip" ]]

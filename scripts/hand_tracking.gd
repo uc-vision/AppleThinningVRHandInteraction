@@ -7,7 +7,6 @@ var held_object_original_parent = null
 var grab_point_velocity = Vector3(0, 0, 0)
 var prior_grab_point_velocities = []
 var prior_grab_point_position = Vector3(0, 0, 0)
-var gripping = false
 
 # Current hand pinch mapping for the tracked hands
 # Godot itself also exposes some of these constants via JOY_VR_* and JOY_OCULUS_*
@@ -75,47 +74,6 @@ func _ready():
 
 	ovr_utilities = load("res://addons/godot_ovrmobile/OvrUtilities.gdns")
 	if (ovr_utilities): ovr_utilities = ovr_utilities.new()
-
-
-func _process(delta_t):
-	_update_hand_model(hand_model, hand_skel);
-	_update_hand_pointer(hand_pointer)
-	
-	#gripping = detect_gripping()
-	#if gripping and not held_object:
-	#	grab_object()
-	#elif not gripping and held_object:
-	#	drop_object()
-	
-	#if controller_id == LEFT_TRACKER_ID:
-		#get_node("../../OutputNode/Viewport/OtherLabel").text = enteredBodies as String
-	
-	if held_object:
-		get_node("../../OutputNode/Viewport/OtherLabel").text = held_object.get_name()
-	else:
-		get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
-	
-	#if gripping:
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Gripping"
-	#else:
-	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Not Gripping"
-	
-	# If we are on desktop or don't have hand tracking we set a debug pose on the left hand
-	if (controller_id == LEFT_TRACKER_ID && !ovr_hand_tracking):
-		for i in range(0, _hand_bone_mappings.size()):
-			hand_skel.set_bone_pose(_hand_bone_mappings[i], Transform(_test_pose_left_ThumbsUp[i]));
-
-	_t += delta_t;
-	if (_t > 1.0):
-		_t = 0.0;
-
-		# here we print every second the state of the pinches
-		print("%s Pinches: %.3f %.3f %.3f %.3f" %
-			["Left" if controller_id == LEFT_TRACKER_ID else "Right",
-			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.INDEX),
-			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.MIDDLE),
-			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.RING),
-			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.PINKY)]);
 
 
 func _initialize_hands():
@@ -259,49 +217,31 @@ func _on_body_exited_finger_area(body, fingerName):
 func detect_grabbing_object():
 	var objects = enteredBodies.keys()
 	var num_fingers = 0
-	var grippingObject = null
+	var grabbingObject = null
 	
 	
 	for object in enteredBodies:
 		var fingers = enteredBodies[object]
 		if num_fingers < len(fingers) and len(fingers) >= 2:
 			num_fingers = len(fingers)
-			grippingObject = object
+			grabbingObject = object
 	
-	held_object = grippingObject
+	return grabbingObject
 
 	
 	
-
-
-func get_closest_rigidbody(grab_range, bodies):
-	var closest_body: RigidBody = null
-	var closest_distance = null
-	for body in bodies:
-		var curr_distance = grab_range.global_transform.origin.distance_to(body.global_transform.origin)
-		# closest_body == null is first case
-		if body is RigidBody and (closest_body == null or curr_distance < closest_distance):
-			closest_body = body
-			closest_distance = curr_distance
-	return closest_body
+func grab_object(object_to_pickup):
+	#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
+	held_object = object_to_pickup
+	held_object.mode = RigidBody.MODE_STATIC
+	var original_position = held_object.global_transform
 	
-func grab_object():
-	if !held_object:
-		var grab_range = hand_skel.get_node("Palm/Grab_Range")
-		var bodies = grab_range.get_overlapping_bodies()
-		var rigid_body = get_closest_rigidbody(grab_range, bodies)
-		if rigid_body:
-			#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
-			held_object = rigid_body
-			held_object.mode = RigidBody.MODE_STATIC
-			var original_position = held_object.global_transform
-			
-			held_object_original_parent  = held_object.get_parent()
-			
-			held_object_original_parent.remove_child(held_object)
-			grabPoint.add_child(held_object)
-			held_object.set_owner(grabPoint)
-			held_object.global_transform = original_position
+	held_object_original_parent  = held_object.get_parent()
+	
+	held_object_original_parent.remove_child(held_object)
+	grabPoint.add_child(held_object)
+	held_object.set_owner(grabPoint)
+	held_object.global_transform = original_position
 	
 func drop_object():
 	var original_position = held_object.global_transform
@@ -315,16 +255,46 @@ func drop_object():
 	held_object.global_transform = original_position
 	held_object.apply_impulse(Vector3(0, 0, 0), grab_point_velocity)
 	
-	
-	
 	held_object = null
 
+
+func _process(delta_t):
+	_update_hand_model(hand_model, hand_skel);
+	_update_hand_pointer(hand_pointer)
+	
+	var object_to_pickup = detect_grabbing_object()
+	if object_to_pickup and not held_object:
+		grab_object(object_to_pickup)
+	elif not object_to_pickup and held_object:
+		drop_object()
+	
+	#if controller_id == LEFT_TRACKER_ID:
+		#get_node("../../OutputNode/Viewport/OtherLabel").text = enteredBodies as String
+	
+	if held_object:
+		get_node("../../OutputNode/Viewport/OtherLabel").text = held_object.get_name()
+	else:
+		get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
+	
+	# If we are on desktop or don't have hand tracking we set a debug pose on the left hand
+	if (controller_id == LEFT_TRACKER_ID && !ovr_hand_tracking):
+		for i in range(0, _hand_bone_mappings.size()):
+			hand_skel.set_bone_pose(_hand_bone_mappings[i], Transform(_test_pose_left_ThumbsUp[i]));
+
+	_t += delta_t;
+	if (_t > 1.0):
+		_t = 0.0;
+
+		# here we print every second the state of the pinches
+		print("%s Pinches: %.3f %.3f %.3f %.3f" %
+			["Left" if controller_id == LEFT_TRACKER_ID else "Right",
+			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.INDEX),
+			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.MIDDLE),
+			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.RING),
+			get_joystick_axis(FINGER_PINCH_STRENGTH_AXIS.PINKY)]);
+			
+
 func _physics_process(delta):
-	detect_grabbing_object()
-	
-	
-	
-	
 	if held_object:
 		var palm_global_transform = grabPoint.global_transform
 		#held_object.global_transform = grabPoint.global_transform
