@@ -87,13 +87,13 @@ func _process(delta_t):
 	#elif not gripping and held_object:
 	#	drop_object()
 	
+	#if controller_id == LEFT_TRACKER_ID:
+		#get_node("../../OutputNode/Viewport/OtherLabel").text = enteredBodies as String
 	
-	get_node("../../OutputNode/Viewport/OtherLabel").text = enteredBodies as String
-	
-	#if held_object:
-	#	get_node("../../OutputNode/Viewport/OtherLabel").text = held_object.get_name()
-	#else:
-	#	get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
+	if held_object:
+		get_node("../../OutputNode/Viewport/OtherLabel").text = held_object.get_name()
+	else:
+		get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
 	
 	#if gripping:
 	#	get_node("../../OutputNode/Viewport/GripLabel").text = "Gripping"
@@ -119,14 +119,14 @@ func _process(delta_t):
 
 
 func _initialize_hands():
-	hand_skel = $HandModel/Armature/Skeleton if controller_id == LEFT_TRACKER_ID else $HandModel/Armature/Skeleton
+	hand_skel = $HandModel/Armature/Skeleton
 
 	_vrapi_bone_orientations.resize(24);
 	_clear_bone_rest(hand_skel);
 
 
 func _get_tracker_label():
-	return "Oculus Tracked Left Hand" if controller_id == LEFT_TRACKER_ID else "Oculus Tracked Right Hand"
+	return "Oculus Tracked Left Hand"
 
 
 # The rotations we get from the OVR sdk are absolute and not relative
@@ -216,12 +216,6 @@ func _on_finger_pinch_release(button):
 #Grabbing stuff
 
 var fingertips = [
-	"",
-	"ThumbTip",
-	"IndexTip",
-	"MiddleTip",
-	"RingTip",
-	"PinkyTip",
 	$HandModel/Armature/Skeleton/IndexTip,
 	$HandModel/Armature/Skeleton/MiddleTip,
 	$HandModel/Armature/Skeleton/RingTip,
@@ -236,11 +230,12 @@ var enteredBodies = {}
 #Ring = 4
 #Pinky = 5
 
-func _on_body_entered_finger_area(body, finger_num):
+func _on_body_entered_finger_area(body, fingerName):
+	
 	if not body in enteredBodies:
-		enteredBodies[body] = [fingertips[finger_num]]
+		enteredBodies[body] = [fingerName]
 	else:
-		enteredBodies[body].append(fingertips[finger_num])
+		enteredBodies[body].append(fingerName)
 		
 	#if not body in enteredBodies:
 	#	enteredBodies[body] = 1
@@ -248,8 +243,9 @@ func _on_body_entered_finger_area(body, finger_num):
 	#	enteredBodies[body] += 1
 
 
-func _on_body_exited_finger_area(body, finger_num):
-	enteredBodies[body].erase(fingertips[finger_num])
+func _on_body_exited_finger_area(body, fingerName):
+	
+	enteredBodies[body].erase(fingerName)
 	
 	if enteredBodies[body].empty():
 		enteredBodies.erase(body)
@@ -260,9 +256,22 @@ func _on_body_exited_finger_area(body, finger_num):
 	#	enteredBodies.erase(body)
 
 
-func detect_grabbing_objects():
-	for finger in fingertips:
-		var overlapping = finger.get_overlapping_bodies()
+func detect_grabbing_object():
+	var objects = enteredBodies.keys()
+	var num_fingers = 0
+	var grippingObject = null
+	
+	
+	for object in enteredBodies:
+		var fingers = enteredBodies[object]
+		if num_fingers < len(fingers) and len(fingers) >= 2:
+			num_fingers = len(fingers)
+			grippingObject = object
+	
+	held_object = grippingObject
+
+	
+	
 
 
 func get_closest_rigidbody(grab_range, bodies):
@@ -311,6 +320,11 @@ func drop_object():
 	held_object = null
 
 func _physics_process(delta):
+	detect_grabbing_object()
+	
+	
+	
+	
 	if held_object:
 		var palm_global_transform = grabPoint.global_transform
 		#held_object.global_transform = grabPoint.global_transform

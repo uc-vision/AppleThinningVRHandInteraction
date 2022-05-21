@@ -80,36 +80,12 @@ transform = Transform( 1, 0, -8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0
 
 [node name="LeftHand" parent="ARVROrigin" instance=ExtResource( 2 )]
 
-[node name="Skeleton" parent="ARVROrigin/LeftHand/HandModel/Armature" index="0"]
-bones/0/bound_children = [ NodePath("BoneAttachment 11") ]
-bones/2/bound_children = [ NodePath("BoneAttachment") ]
-bones/5/bound_children = [ NodePath("ThumbTip") ]
-bones/6/bound_children = [ NodePath("BoneAttachment 6") ]
-bones/7/bound_children = [ NodePath("BoneAttachment 5") ]
-bones/8/bound_children = [ NodePath("BoneAttachment 2"), NodePath("BoneAttachment 3"), NodePath("BoneAttachment 4") ]
-bones/9/bound_children = [ NodePath("IndexTip") ]
-bones/11/bound_children = [ NodePath("BoneAttachment 10") ]
-bones/12/bound_children = [ NodePath("BoneAttachment 7"), NodePath("BoneAttachment 8"), NodePath("BoneAttachment 9") ]
-bones/13/bound_children = [ NodePath("MiddleTip") ]
-bones/17/bound_children = [ NodePath("RingTip") ]
-bones/22/bound_children = [ NodePath("PinkyTip") ]
-
 [node name="RightHand" parent="ARVROrigin" instance=ExtResource( 3 )]
-
-[node name="Skeleton" parent="ARVROrigin/RightHand/HandModel/Armature" index="0"]
-bones/0/bound_children = [ NodePath("BoneAttachment 5"), NodePath("BoneAttachment 6"), NodePath("BoneAttachment 7"), NodePath("BoneAttachment 8"), NodePath("BoneAttachment 9"), NodePath("BoneAttachment 10"), NodePath("BoneAttachment 11"), NodePath("BoneAttachment 12"), NodePath("BoneAttachment 13"), NodePath("BoneAttachment 14"), NodePath("BoneAttachment 15"), NodePath("BoneAttachment 16") ]
-bones/2/bound_children = [ NodePath("BoneAttachment 3") ]
-bones/3/bound_children = [ NodePath("BoneAttachment 2") ]
-bones/4/bound_children = [ NodePath("BoneAttachment") ]
-bones/5/bound_children = [ NodePath("ThumbTip") ]
-bones/9/bound_children = [ NodePath("IndexTip") ]
-bones/10/bound_children = [ NodePath("BoneAttachment 4") ]
-bones/13/bound_children = [ NodePath("MiddleTip") ]
-bones/17/bound_children = [ NodePath("RingTip") ]
-bones/22/bound_children = [ NodePath("PinkyTip") ]
 
 [node name="RedBox" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0101171, 2, -0.50724 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="RedBox"]
 shape = SubResource( 33 )
@@ -120,6 +96,8 @@ material/0 = null
 
 [node name="GreenBox" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202161, 2, -0.364039 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="GreenBox"]
 shape = SubResource( 18 )
@@ -130,6 +108,8 @@ material/0 = SubResource( 20 )
 
 [node name="BlueBox" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19447, 2, -0.440355 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="BlueBox"]
 shape = SubResource( 21 )

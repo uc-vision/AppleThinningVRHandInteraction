@@ -358,6 +358,8 @@ transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.0570
 bone_name = "b_r_thumb_null"
 
 [node name="Area" type="Area" parent="HandModel/Armature/Skeleton/ThumbTip"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/ThumbTip/Area"]
 transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
@@ -373,6 +375,8 @@ transform = Transform( 0.992608, 0.0543431, -0.108515, 0.109344, -0.0125266, 0.9
 bone_name = "b_r_index_null"
 
 [node name="Area" type="Area" parent="HandModel/Armature/Skeleton/IndexTip"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/IndexTip/Area"]
 transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
@@ -388,6 +392,8 @@ transform = Transform( 0.987593, 0.0968457, -0.123618, 0.132458, -0.0908865, 0.9
 bone_name = "b_r_middle_null"
 
 [node name="Area" type="Area" parent="HandModel/Armature/Skeleton/MiddleTip"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/MiddleTip/Area"]
 transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
@@ -403,6 +409,8 @@ transform = Transform( 0.978622, -0.029105, -0.203596, 0.195193, -0.180434, 0.96
 bone_name = "b_r_ring_null"
 
 [node name="Area" type="Area" parent="HandModel/Armature/Skeleton/RingTip"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/RingTip/Area"]
 transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
@@ -418,6 +426,8 @@ transform = Transform( 0.965993, 0.0123385, -0.25827, 0.249915, -0.300748, 0.920
 bone_name = "b_r_pinky_null"
 
 [node name="Area" type="Area" parent="HandModel/Armature/Skeleton/PinkyTip"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="HandModel/Armature/Skeleton/PinkyTip/Area"]
 transform = Transform( 1, -2.98023e-08, -3.72529e-09, 2.98023e-08, 1, 1.49012e-08, 3.72529e-08, 3.35276e-08, 1, 0, 0, 0 )
@@ -433,13 +443,13 @@ visible = false
 
 [connection signal="button_pressed" from="." to="." method="_on_RightHand_pinch_pressed"]
 [connection signal="button_release" from="." to="." method="_on_finger_pinch_release"]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/ThumbTip/Area" to="." method="_on_body_entered_finger_area" binds= [ 1 ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/ThumbTip/Area" to="." method="_on_body_exited_finger_area" binds= [ 1 ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/IndexTip/Area" to="." method="_on_body_entered_finger_area" binds= [ 2 ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/IndexTip/Area" to="." method="_on_body_exited_finger_area" binds= [ 2 ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/MiddleTip/Area" to="." method="_on_body_entered_finger_area" binds= [ 3 ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/MiddleTip/Area" to="." method="_on_body_exited_finger_area" binds= [ 3 ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/RingTip/Area" to="." method="_on_body_entered_finger_area" binds= [ 4 ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/RingTip/Area" to="." method="_on_body_exited_finger_area" binds= [ 4 ]]
-[connection signal="body_entered" from="HandModel/Armature/Skeleton/PinkyTip/Area" to="." method="_on_body_entered_finger_area" binds= [ 5 ]]
-[connection signal="body_exited" from="HandModel/Armature/Skeleton/PinkyTip/Area" to="." method="_on_body_exited_finger_area" binds= [ 5 ]]
+[connection signal="body_entered" from="HandModel/Armature/Skeleton/ThumbTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "ThumbTip" ]]
+[connection signal="body_exited" from="HandModel/Armature/Skeleton/ThumbTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "ThumbTip" ]]
+[connection signal="body_entered" from="HandModel/Armature/Skeleton/IndexTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "IndexTip" ]]
+[connection signal="body_exited" from="HandModel/Armature/Skeleton/IndexTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "IndexTip" ]]
+[connection signal="body_entered" from="HandModel/Armature/Skeleton/MiddleTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "MiddleTip" ]]
+[connection signal="body_exited" from="HandModel/Armature/Skeleton/MiddleTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "MiddleTip" ]]
+[connection signal="body_entered" from="HandModel/Armature/Skeleton/RingTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "RingTip" ]]
+[connection signal="body_exited" from="HandModel/Armature/Skeleton/RingTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "RingTip" ]]
+[connection signal="body_entered" from="HandModel/Armature/Skeleton/PinkyTip/Area" to="." method="_on_body_entered_finger_area" binds= [ "PinkyTip" ]]
+[connection signal="body_exited" from="HandModel/Armature/Skeleton/PinkyTip/Area" to="." method="_on_body_exited_finger_area" binds= [ "PinkyTip" ]]
