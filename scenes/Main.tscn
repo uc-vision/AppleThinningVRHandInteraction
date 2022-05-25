@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://addons/godot_ovrmobile/example_scenes/touch_controller.dae" type="PackedScene" id=1]
 [ext_resource path="res://scenes/LeftHand.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://addons/godot_ovrmobile/example_scenes/oculus_touch_controller.gd" type="Script" id=5]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=6]
 [ext_resource path="res://scenes/OutputNode.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Floor.tscn" type="PackedScene" id=8]
 
 [sub_resource type="BoxShape" id=33]
 extents = Vector3( 0.0250738, 0.0250371, 0.0248237 )
@@ -35,12 +36,6 @@ size = Vector3( 0.04, 0.04, 0.04 )
 
 [sub_resource type="SpatialMaterial" id=23]
 albedo_color = Color( 0, 0, 1, 1 )
-
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 10, 0.1, 10 )
-
-[sub_resource type="CubeMesh" id=4]
-size = Vector3( 30, 0.05, 30 )
 
 [sub_resource type="ViewportTexture" id=10]
 viewport_path = NodePath("OutputNode/Viewport")
@@ -198,16 +193,6 @@ shape = SubResource( 21 )
 mesh = SubResource( 22 )
 material/0 = SubResource( 23 )
 
-[node name="Floor" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0856336, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Floor"]
-shape = SubResource( 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Floor"]
-mesh = SubResource( 4 )
-material/0 = null
-
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.440088, 0.204434, -0.507151, -0.83726, 1.5186, 124.325, -240.98 )
 shadow_enabled = true
@@ -229,6 +214,8 @@ shape = SubResource( 15 )
 [node name="MeshInstance" type="MeshInstance" parent="Table"]
 mesh = SubResource( 16 )
 material/0 = SubResource( 17 )
+
+[node name="Floor" parent="." instance=ExtResource( 8 )]
 
 [connection signal="button_pressed" from="ARVROrigin/LeftTouchController" to="ARVROrigin/LeftTouchController" method="_on_LeftTouchController_button_pressed"]
 [connection signal="button_pressed" from="ARVROrigin/RightTouchController" to="ARVROrigin/RightTouchController" method="_on_RightTouchController_button_pressed"]
