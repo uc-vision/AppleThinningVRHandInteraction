@@ -167,26 +167,9 @@ func _on_finger_pinch_release(button):
 
 
 
-
-
-
-
 #Grabbing stuff
 
-var fingertips = [
-	$HandModel/Armature/Skeleton/IndexTip,
-	$HandModel/Armature/Skeleton/MiddleTip,
-	$HandModel/Armature/Skeleton/RingTip,
-	$HandModel/Armature/Skeleton/PinkyTip,
-]
-
 var enteredBodies = {}
-
-#Thumb = 1
-#Index = 2
-#Middle = 3
-#Ring = 4
-#Pinky = 5
 
 func _on_body_entered_finger_area(body, fingerName):
 	
@@ -194,11 +177,6 @@ func _on_body_entered_finger_area(body, fingerName):
 		enteredBodies[body] = [fingerName]
 	else:
 		enteredBodies[body].append(fingerName)
-		
-	#if not body in enteredBodies:
-	#	enteredBodies[body] = 1
-	#else:
-	#	enteredBodies[body] += 1
 
 
 func _on_body_exited_finger_area(body, fingerName):
@@ -207,11 +185,6 @@ func _on_body_exited_finger_area(body, fingerName):
 	
 	if enteredBodies[body].empty():
 		enteredBodies.erase(body)
-		
-	#enteredBodies[body] -= 1
-	
-	#if enteredBodies[body] == 0:
-	#	enteredBodies.erase(body)
 
 
 func detect_grabbing_object():
@@ -219,12 +192,12 @@ func detect_grabbing_object():
 	var num_fingers = 0
 	var grabbingObject = null
 	
-	
 	for object in enteredBodies:
 		var fingers = enteredBodies[object]
-		if num_fingers < len(fingers) and len(fingers) >= 2:
+		if "ThumbTip" in fingers and num_fingers < len(fingers) and len(fingers) >= 2:
 			num_fingers = len(fingers)
 			grabbingObject = object
+			if num_fingers >= 3: break
 	
 	return grabbingObject
 
@@ -296,9 +269,6 @@ func _process(delta_t):
 
 func _physics_process(delta):
 	if held_object:
-		var palm_global_transform = grabPoint.global_transform
-		#held_object.global_transform = grabPoint.global_transform
-			
 		
 		
 		# Get grab point velocity. Useful when wanting to throw objects
@@ -310,10 +280,10 @@ func _physics_process(delta):
 			# Get the average velocity, instead of just adding them together.
 			grab_point_velocity = grab_point_velocity / prior_grab_point_velocities.size()
 
-		prior_grab_point_velocities.append((palm_global_transform.origin - prior_grab_point_position) / delta)
+		prior_grab_point_velocities.append((grabPoint.global_transform.origin - prior_grab_point_position) / delta)
 
-		grab_point_velocity += (palm_global_transform.origin - prior_grab_point_position) / delta
-		prior_grab_point_position = palm_global_transform.origin
+		grab_point_velocity += (grabPoint.global_transform.origin - prior_grab_point_position) / delta
+		prior_grab_point_position = grabPoint.global_transform.origin
 
 		if prior_grab_point_velocities.size() > 30:
 			prior_grab_point_velocities.remove(0)
