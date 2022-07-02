@@ -61,9 +61,9 @@ var _t = 0.0
 #GESTURE DETECTION
 var tracking_confidence = 1.0;
 
-onready var hand_model : Spatial = $HandModel
-onready var hand_pointer : Spatial = $HandModel/HandPointer
-onready var grabPoint: Spatial = $GrabPoint
+onready var hand_model : Spatial = $HandContainer/HandModel
+onready var hand_pointer : Spatial = $HandContainer/HandModel/HandPointer
+onready var grabPoint: Spatial = $HandContainer/GrabPoint
 var defaultClickLocationColour = null
 
 func _ready():
@@ -77,7 +77,7 @@ func _ready():
 
 
 func _initialize_hands():
-	hand_skel = $HandModel/Armature/Skeleton
+	hand_skel = $HandContainer/HandModel/Armature/Skeleton
 
 	_vrapi_bone_orientations.resize(24);
 	_clear_bone_rest(hand_skel);
@@ -129,78 +129,7 @@ func _update_hand_pointer(model: Spatial):
 			model.global_transform = ovr_hand_tracking.get_pointer_pose(controller_id)
 		else:
 			model.visible = false
-
-func _on_LeftHand_pinch_pressed(button):
-	if (button == FINGER_PINCH.INDEX_PINCH): 
-		var clickLocation = $HandModel/HandPointer/RayCast/RayReticle
-		var material = clickLocation.get_surface_material(0)
-		defaultClickLocationColour = material.albedo_color
-		material.albedo_color = Color(1, 0, 0)
-		#does not work??
-		clickLocation.set_surface_material(0, material)
-
-
-func _on_RightHand_pinch_pressed(button):
-	if (button == FINGER_PINCH.INDEX_PINCH): 
-		var clickLocation = $HandModel/HandPointer/RayCast/RayReticle
-		var material = clickLocation.get_surface_material(0)
-		defaultClickLocationColour = material.albedo_color
-		material.albedo_color = Color(1, 0, 0)
-		#does not work??
-		clickLocation.set_surface_material(0, material)
-
-
-func _on_finger_pinch_release(button):
-	if (button == FINGER_PINCH.INDEX_PINCH):
-		var clickLocation = $HandModel/HandPointer/RayCast/RayReticle
-		var material = clickLocation.get_surface_material(0)
-		if defaultClickLocationColour:
-			material.albedo_color = defaultClickLocationColour
-		else:
-			material.albedo_color = Color(1, 1, 1)
-		#does not work??
-		clickLocation.set_surface_material(0, material)
-
-
-
-
-
-
-
-#Grabbing stuff
-
-var enteredBodies = {}
-
-func _on_body_entered_finger_area(body, fingerName):
 	
-	if not body in enteredBodies:
-		enteredBodies[body] = [fingerName]
-	else:
-		enteredBodies[body].append(fingerName)
-
-
-func _on_body_exited_finger_area(body, fingerName):
-	
-	enteredBodies[body].erase(fingerName)
-	
-	if enteredBodies[body].empty():
-		enteredBodies.erase(body)
-
-
-func detect_grabbing_object():
-	var objects = enteredBodies.keys()
-	var num_fingers = 0
-	var grabbingObject = null
-	
-	for object in enteredBodies:
-		var fingers = enteredBodies[object]
-		if "ThumbTip" in fingers and num_fingers < len(fingers) and len(fingers) >= 2:
-			num_fingers = len(fingers)
-			grabbingObject = object
-			if num_fingers >= 3: break
-	
-	return grabbingObject
-
 	
 	
 func grab_object(object_to_pickup):
@@ -235,19 +164,21 @@ func _process(delta_t):
 	_update_hand_model(hand_model, hand_skel);
 	_update_hand_pointer(hand_pointer)
 	
-	var object_to_pickup = detect_grabbing_object()
+	#This function is for the respective hand interaction mechanics
+	var object_to_pickup = $HandContainer.detect_grabbing_object()
+	
+	
+	
+	
 	if object_to_pickup and not held_object:
 		grab_object(object_to_pickup)
 	elif not object_to_pickup and held_object:
 		drop_object()
 	
-	#if controller_id == LEFT_TRACKER_ID:
-		#get_node("../../OutputNode/Viewport/OtherLabel").text = enteredBodies as String
-	
-	if held_object:
-		get_node("../../OutputNode/Viewport/OtherLabel").text = held_object.get_name()
-	else:
-		get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
+	#if held_object:
+	#	get_node("../../OutputNode/Viewport/OtherLabel").text = held_object.get_name()
+	#else:
+	#	get_node("../../OutputNode/Viewport/OtherLabel").text = "Not Holding anything"
 	
 	# If we are on desktop or don't have hand tracking we set a debug pose on the left hand
 	if (controller_id == LEFT_TRACKER_ID && !ovr_hand_tracking):
@@ -269,8 +200,6 @@ func _process(delta_t):
 
 func _physics_process(delta):
 	if held_object:
-		
-		
 		# Get grab point velocity. Useful when wanting to throw objects
 		grab_point_velocity = Vector3(0, 0, 0)
 		if prior_grab_point_velocities.size() > 0:
