@@ -62,7 +62,6 @@ var _t = 0.0
 var tracking_confidence = 1.0;
 
 onready var hand_model : Spatial = $HandContainer/HandModel
-onready var hand_pointer : Spatial = $HandContainer/HandModel/HandPointer
 onready var grabPoint: Spatial = $HandContainer/GrabPoint
 var defaultClickLocationColour = null
 
@@ -120,15 +119,6 @@ func _update_hand_model(model : Spatial, skel: Skeleton):
 		return true;
 	else:
 		return false;
-
-
-func _update_hand_pointer(model: Spatial):
-	if (ovr_hand_tracking): # check if the hand tracking API was loaded
-		if (ovr_hand_tracking.is_pointer_pose_valid(controller_id)):
-			model.visible = true
-			model.global_transform = ovr_hand_tracking.get_pointer_pose(controller_id)
-		else:
-			model.visible = false
 	
 	
 	
@@ -162,7 +152,6 @@ func drop_object():
 
 func _process(delta_t):
 	_update_hand_model(hand_model, hand_skel);
-	_update_hand_pointer(hand_pointer)
 	
 	#This function is for the respective hand interaction mechanics
 	var object_to_pickup = $HandContainer.detect_grabbing_object()
