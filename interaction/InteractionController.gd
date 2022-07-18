@@ -1,9 +1,34 @@
 extends Node
 
-onready var hand = get_parent()
+onready var palm_area = $HandModel/Armature/Skeleton/Palm/Palm_Area
 onready var grab_range = $HandModel/Armature/Skeleton/Palm/Grab_Range
 
+	
+func get_closest_rigidbody():
+	var bodies = grab_range.get_overlapping_bodies()
+	var closest_body: RigidBody = null
+	var closest_distance = null
+	for body in bodies:
+		var curr_distance = grab_range.global_transform.origin.distance_to(body.global_transform.origin)
+		# closest_body == null is first case
+		if body is RigidBody and (closest_body == null or curr_distance < closest_distance):
+			closest_body = body
+			closest_distance = curr_distance
+	return closest_body
 
+
+#Interaction Mechanic 1
+
+func detect_grabbing_object_1():
+	if palm_area.get_overlapping_areas().size() > 0:
+		return get_closest_rigidbody()
+	return null
+
+
+#Interaction Mechanic 2
+
+
+onready var hand = get_parent()
 enum ovrHandFingers {
 	Thumb		= 0,
 	Index		= 1,
@@ -66,7 +91,7 @@ func get_finger_angle_estimate(finger):
 
 onready var last_detected_gripping = false
 
-func detect_grabbing_object():
+func detect_grabbing_object_2():
 	if (hand.tracking_confidence <= 0.5): return last_detected_gripping;
 	var fingers_gripping = 0
 	
@@ -80,14 +105,41 @@ func detect_grabbing_object():
 	last_detected_gripping = false
 	return false
 
-func get_closest_rigidbody():
-	var bodies = grab_range.get_overlapping_bodies()
-	var closest_body: RigidBody = null
-	var closest_distance = null
-	for body in bodies:
-		var curr_distance = grab_range.global_transform.origin.distance_to(body.global_transform.origin)
-		# closest_body == null is first case
-		if body is RigidBody and (closest_body == null or curr_distance < closest_distance):
-			closest_body = body
-			closest_distance = curr_distance
-	return closest_body
+
+#Interaction Mechanic 3
+
+#This interaction mechanic uses areas on the users fingers to detect when 
+#fingers are inside of grabable objects and then the detect_grabbing_object 
+#function returns the gripping object if the users thumb and at least one other 
+#finger are inside of the object.
+
+var enteredBodies = {}
+
+func _on_body_entered_finger_area(body, fingerName):
+	
+	if not body in enteredBodies:
+		enteredBodies[body] = [fingerName]
+	else:
+		enteredBodies[body].append(fingerName)
+
+
+func _on_body_exited_finger_area(body, fingerName):
+	
+	enteredBodies[body].erase(fingerName)
+	
+	if enteredBodies[body].empty():
+		enteredBodies.erase(body)
+
+func detect_grabbing_object_3():
+	var objects = enteredBodies.keys()
+	var num_fingers = 0
+	var grabbingObject = null
+	
+	for object in enteredBodies:
+		var fingers = enteredBodies[object]
+		if "ThumbTip" in fingers and num_fingers < len(fingers) and len(fingers) >= 2:
+			num_fingers = len(fingers)
+			grabbingObject = object
+			if num_fingers >= 3: break
+	
+	return grabbingObject

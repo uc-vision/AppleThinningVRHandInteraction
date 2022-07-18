@@ -154,7 +154,7 @@ func _process(delta_t):
 	_update_hand_model(hand_model, hand_skel);
 	
 	#This function is for the respective hand interaction mechanics
-	var object_to_pickup = $HandContainer.detect_grabbing_object()
+	var object_to_pickup = $HandContainer.detect_grabbing_object_3()
 	
 	
 	
