@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
@@ -51,6 +51,18 @@ albedo_color = Color( 0.533333, 0.533333, 0.533333, 1 )
 [sub_resource type="SphereMesh" id=36]
 
 [sub_resource type="SpatialMaterial" id=37]
+
+[sub_resource type="SphereShape" id=38]
+
+[sub_resource type="SphereMesh" id=39]
+
+[sub_resource type="SpatialMaterial" id=40]
+
+[sub_resource type="SphereShape" id=41]
+
+[sub_resource type="SphereMesh" id=42]
+
+[sub_resource type="SpatialMaterial" id=43]
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 6 )
@@ -214,6 +226,7 @@ transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.555459, 1.26628, 0.544
 script = ExtResource( 2 )
 
 [node name="Interaction1" type="Spatial" parent="InteractionSelection"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 
 [node name="Area" type="Area" parent="InteractionSelection/Interaction1"]
 collision_layer = 2
@@ -226,9 +239,35 @@ shape = SubResource( 35 )
 mesh = SubResource( 36 )
 material/0 = SubResource( 37 )
 
+[node name="Interaction2" type="Spatial" parent="InteractionSelection"]
+
+[node name="Area" type="Area" parent="InteractionSelection/Interaction2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Interaction2/Area"]
+shape = SubResource( 38 )
+
+[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction2/Area"]
+mesh = SubResource( 39 )
+material/0 = SubResource( 40 )
+
+[node name="Interaction3" type="Spatial" parent="InteractionSelection"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+
+[node name="Area" type="Area" parent="InteractionSelection/Interaction3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Interaction3/Area"]
+shape = SubResource( 41 )
+
+[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction3/Area"]
+mesh = SubResource( 42 )
+material/0 = SubResource( 43 )
+
 [connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
+[connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
+[connection signal="area_entered" from="InteractionSelection/Interaction3/Area" to="InteractionSelection" method="_on_interaction3_area_entered"]
 
 [editable path="ARVROrigin"]
 [editable path="ARVROrigin/LeftHand"]
 [editable path="ARVROrigin/RightHand"]
 [editable path="OutputNode"]
+[editable path="Floor"]
