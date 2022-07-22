@@ -1,38 +1,11 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Interactables.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=6]
 [ext_resource path="res://scenes/OutputNode.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Floor.tscn" type="PackedScene" id=8]
-
-[sub_resource type="BoxShape" id=33]
-extents = Vector3( 0.0250738, 0.0250371, 0.0248237 )
-
-[sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="CubeMesh" id=34]
-material = SubResource( 5 )
-size = Vector3( 0.05, 0.05, 0.05 )
-
-[sub_resource type="BoxShape" id=18]
-extents = Vector3( 0.035315, 0.0348225, 0.0351416 )
-
-[sub_resource type="CubeMesh" id=19]
-size = Vector3( 0.07, 0.07, 0.07 )
-
-[sub_resource type="SpatialMaterial" id=20]
-albedo_color = Color( 0, 1, 0, 1 )
-
-[sub_resource type="BoxShape" id=21]
-extents = Vector3( 0.0193418, 0.0207481, 0.020035 )
-
-[sub_resource type="CubeMesh" id=22]
-size = Vector3( 0.04, 0.04, 0.04 )
-
-[sub_resource type="SpatialMaterial" id=23]
-albedo_color = Color( 0, 0, 1, 1 )
 
 [sub_resource type="ViewportTexture" id=10]
 viewport_path = NodePath("OutputNode/Viewport")
@@ -52,17 +25,35 @@ albedo_color = Color( 0.533333, 0.533333, 0.533333, 1 )
 
 [sub_resource type="SpatialMaterial" id=37]
 
+[sub_resource type="ViewportTexture" id=44]
+viewport_path = NodePath("InteractionSelection/Interaction1/Spatial/Viewport")
+
 [sub_resource type="SphereShape" id=38]
 
 [sub_resource type="SphereMesh" id=39]
 
 [sub_resource type="SpatialMaterial" id=40]
 
+[sub_resource type="ViewportTexture" id=45]
+viewport_path = NodePath("InteractionSelection/Interaction2/Spatial/Viewport")
+
 [sub_resource type="SphereShape" id=41]
 
 [sub_resource type="SphereMesh" id=42]
 
 [sub_resource type="SpatialMaterial" id=43]
+
+[sub_resource type="ViewportTexture" id=46]
+viewport_path = NodePath("InteractionSelection/Interaction3/Spatial/Viewport")
+
+[sub_resource type="SphereShape" id=47]
+
+[sub_resource type="SphereMesh" id=48]
+
+[sub_resource type="SpatialMaterial" id=49]
+
+[sub_resource type="ViewportTexture" id=50]
+viewport_path = NodePath("InteractionSelection/Reset/Spatial/Viewport")
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 6 )
@@ -161,42 +152,6 @@ transform = Transform( 0.978622, -0.029105, -0.203596, 0.195193, -0.180434, 0.96
 [node name="PinkyTip" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="21"]
 transform = Transform( 0.965993, 0.0123385, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663178, -0.953624, -0.293603, -13.7907, -5.1931, 2.17617 )
 
-[node name="RedBox" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0101171, 2, -0.50724 )
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape" type="CollisionShape" parent="RedBox"]
-shape = SubResource( 33 )
-
-[node name="MeshInstance" type="MeshInstance" parent="RedBox"]
-mesh = SubResource( 34 )
-material/0 = null
-
-[node name="GreenBox" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202161, 2, -0.364039 )
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape" type="CollisionShape" parent="GreenBox"]
-shape = SubResource( 18 )
-
-[node name="MeshInstance" type="MeshInstance" parent="GreenBox"]
-mesh = SubResource( 19 )
-material/0 = SubResource( 20 )
-
-[node name="BlueBox" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19447, 2, -0.440355 )
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape" type="CollisionShape" parent="BlueBox"]
-shape = SubResource( 21 )
-
-[node name="MeshInstance" type="MeshInstance" parent="BlueBox"]
-mesh = SubResource( 22 )
-material/0 = SubResource( 23 )
-
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.440088, 0.204434, -0.507151, -0.83726, 1.5186, 124.325, -240.98 )
 shadow_enabled = true
@@ -239,6 +194,28 @@ shape = SubResource( 35 )
 mesh = SubResource( 36 )
 material/0 = SubResource( 37 )
 
+[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction1"]
+
+[node name="Spatial" type="Spatial" parent="InteractionSelection/Interaction1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
+
+[node name="Viewport" type="Viewport" parent="InteractionSelection/Interaction1/Spatial"]
+size = Vector2( 100, 100 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="InteractionSelection/Interaction1/Spatial/Viewport"]
+margin_right = 100.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Interaction 1"
+align = 1
+valign = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Interaction1/Spatial"]
+transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
+texture = SubResource( 44 )
+
 [node name="Interaction2" type="Spatial" parent="InteractionSelection"]
 
 [node name="Area" type="Area" parent="InteractionSelection/Interaction2"]
@@ -249,6 +226,26 @@ shape = SubResource( 38 )
 [node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction2/Area"]
 mesh = SubResource( 39 )
 material/0 = SubResource( 40 )
+
+[node name="Spatial" type="Spatial" parent="InteractionSelection/Interaction2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
+
+[node name="Viewport" type="Viewport" parent="InteractionSelection/Interaction2/Spatial"]
+size = Vector2( 100, 100 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="InteractionSelection/Interaction2/Spatial/Viewport"]
+margin_right = 100.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Interaction 2"
+align = 1
+valign = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Interaction2/Spatial"]
+transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
+texture = SubResource( 45 )
 
 [node name="Interaction3" type="Spatial" parent="InteractionSelection"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
@@ -262,9 +259,66 @@ shape = SubResource( 41 )
 mesh = SubResource( 42 )
 material/0 = SubResource( 43 )
 
+[node name="Spatial" type="Spatial" parent="InteractionSelection/Interaction3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
+
+[node name="Viewport" type="Viewport" parent="InteractionSelection/Interaction3/Spatial"]
+size = Vector2( 100, 100 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="InteractionSelection/Interaction3/Spatial/Viewport"]
+margin_right = 100.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Interaction 3"
+align = 1
+valign = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Interaction3/Spatial"]
+transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
+texture = SubResource( 46 )
+
+[node name="Reset" type="Spatial" parent="InteractionSelection"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
+
+[node name="Area" type="Area" parent="InteractionSelection/Reset"]
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Reset/Area"]
+shape = SubResource( 47 )
+
+[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Reset/Area"]
+mesh = SubResource( 48 )
+material/0 = SubResource( 49 )
+
+[node name="Spatial" type="Spatial" parent="InteractionSelection/Reset"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
+
+[node name="Viewport" type="Viewport" parent="InteractionSelection/Reset/Spatial"]
+size = Vector2( 100, 100 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="InteractionSelection/Reset/Spatial/Viewport"]
+margin_right = 100.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Add
+Blocks"
+align = 1
+valign = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Reset/Spatial"]
+transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
+texture = SubResource( 50 )
+
+[node name="Interactables" parent="." instance=ExtResource( 3 )]
+
 [connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction3/Area" to="InteractionSelection" method="_on_interaction3_area_entered"]
+[connection signal="area_entered" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_entered"]
+[connection signal="area_exited" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_exited"]
 
 [editable path="ARVROrigin"]
 [editable path="ARVROrigin/LeftHand"]
