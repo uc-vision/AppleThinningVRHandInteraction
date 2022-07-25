@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/godot_ovrmobile/example_scenes/touch_controller.dae" type="PackedScene" id=1]
-[ext_resource path="res://scenes/RightHand.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/LeftHand.tscn" type="PackedScene" id=3]
+[ext_resource path="res://interaction/RightHand.tscn" type="PackedScene" id=2]
+[ext_resource path="res://interaction/LeftHand.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot_ovrmobile/example_scenes/oculus_touch_controller.gd" type="Script" id=4]
 [ext_resource path="res://scripts/arvr_origin.gd" type="Script" id=5]
 
