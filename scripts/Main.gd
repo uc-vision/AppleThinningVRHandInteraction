@@ -22,14 +22,8 @@ func _on_reset_area_exited(area):
 		var material = resetAreaMesh.get_surface_material(0)
 		material.albedo_color = Color(1, 1, 1)
 		resetAreaMesh.set_surface_material(0, material)
-		get_node("OutputNode/Viewport/GripLabel").text = ""
 		canReset = true
 
 
 func addInteractables():
 	add_child(interactablesResourse.instance())
-	
-	
-
-func _process(delta):
-	get_node("OutputNode/Viewport/OtherLabel").text = canReset as String

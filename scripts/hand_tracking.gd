@@ -152,9 +152,15 @@ func drop_object():
 
 func _process(delta_t):
 	_update_hand_model(hand_model, hand_skel);
-	
-	#This function is for the respective hand interaction mechanics
-	var object_to_pickup = $HandContainer.detect_grabbing_object_3()
+	var selectedInteractionMechanic = get_tree().root.get_node("Main/InteractionSelection").selectedInteraction
+	var object_to_pickup = null
+	match selectedInteractionMechanic:
+		1:
+			object_to_pickup = $HandContainer.detect_grabbing_object_1()
+		2:
+			object_to_pickup = $HandContainer.detect_grabbing_object_2()
+		3:
+			object_to_pickup = $HandContainer.detect_grabbing_object_3()
 	
 	
 	

@@ -60,20 +60,6 @@ script = ExtResource( 6 )
 
 [node name="ARVROrigin" parent="." instance=ExtResource( 1 )]
 
-[node name="Skeleton" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature" index="0"]
-bones/0/bound_children = [ NodePath("BoneAttachment 11") ]
-bones/2/bound_children = [ NodePath("BoneAttachment") ]
-bones/5/bound_children = [ NodePath("ThumbTip") ]
-bones/6/bound_children = [ NodePath("BoneAttachment 6") ]
-bones/7/bound_children = [ NodePath("BoneAttachment 5") ]
-bones/8/bound_children = [ NodePath("BoneAttachment 2"), NodePath("BoneAttachment 3"), NodePath("BoneAttachment 4") ]
-bones/9/bound_children = [ NodePath("IndexTip") ]
-bones/11/bound_children = [ NodePath("BoneAttachment 10") ]
-bones/12/bound_children = [ NodePath("BoneAttachment 7"), NodePath("BoneAttachment 8"), NodePath("BoneAttachment 9") ]
-bones/13/bound_children = [ NodePath("MiddleTip") ]
-bones/17/bound_children = [ NodePath("RingTip") ]
-bones/22/bound_children = [ NodePath("PinkyTip") ]
-
 [node name="BoneAttachment" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="0"]
 transform = Transform( 0.715416, 0.480301, 0.507437, -0.520631, 0.850801, -0.0712857, -0.465966, -0.213188, 0.858735, 3.59585, -2.80285, -1.91577 )
 
@@ -116,18 +102,6 @@ transform = Transform( 0.978622, -0.029105, -0.203596, 0.195193, -0.180434, 0.96
 [node name="PinkyTip" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="16"]
 transform = Transform( 0.965993, 0.0123384, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663178, -0.953624, -0.293603, 13.7907, 5.19311, -2.17617 )
 
-[node name="Skeleton" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature" index="0"]
-bones/0/bound_children = [ NodePath("BoneAttachment 5"), NodePath("BoneAttachment 6"), NodePath("BoneAttachment 7"), NodePath("BoneAttachment 8"), NodePath("BoneAttachment 9"), NodePath("BoneAttachment 10"), NodePath("BoneAttachment 11"), NodePath("BoneAttachment 12"), NodePath("BoneAttachment 13"), NodePath("BoneAttachment 14"), NodePath("BoneAttachment 15"), NodePath("BoneAttachment 16") ]
-bones/2/bound_children = [ NodePath("BoneAttachment 3") ]
-bones/3/bound_children = [ NodePath("BoneAttachment 2") ]
-bones/4/bound_children = [ NodePath("BoneAttachment") ]
-bones/5/bound_children = [ NodePath("ThumbTip") ]
-bones/9/bound_children = [ NodePath("IndexTip") ]
-bones/10/bound_children = [ NodePath("BoneAttachment 4") ]
-bones/13/bound_children = [ NodePath("MiddleTip") ]
-bones/17/bound_children = [ NodePath("RingTip") ]
-bones/22/bound_children = [ NodePath("PinkyTip") ]
-
 [node name="BoneAttachment" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="0"]
 transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.0570919, -0.349873, -0.310125, 0.883974, -8.31233, 6.69126, 4.37118 )
 
@@ -157,9 +131,6 @@ transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.44
 shadow_enabled = true
 
 [node name="OutputNode" parent="." instance=ExtResource( 7 )]
-
-[node name="OtherLabel" parent="OutputNode/Viewport" index="1"]
-text = "0"
 
 [node name="Sprite3D" parent="OutputNode" index="1"]
 texture = SubResource( 10 )
@@ -219,6 +190,8 @@ texture = SubResource( 44 )
 [node name="Interaction2" type="Spatial" parent="InteractionSelection"]
 
 [node name="Area" type="Area" parent="InteractionSelection/Interaction2"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Interaction2/Area"]
 shape = SubResource( 38 )
@@ -251,6 +224,8 @@ texture = SubResource( 45 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
 [node name="Area" type="Area" parent="InteractionSelection/Interaction3"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Interaction3/Area"]
 shape = SubResource( 41 )
@@ -283,6 +258,8 @@ texture = SubResource( 46 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
 
 [node name="Area" type="Area" parent="InteractionSelection/Reset"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Reset/Area"]
 shape = SubResource( 47 )
