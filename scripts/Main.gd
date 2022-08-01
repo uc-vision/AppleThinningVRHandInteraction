@@ -5,6 +5,8 @@ onready var resetArea = $InteractionSelection/Reset/Area
 onready var canReset = true
 onready var interactablesResourse = load("res://scenes/Interactables.tscn")
 
+onready var interactablesContainer = $InteractablesContainer
+
 
 func _on_reset_area_entered(area):
 	var material = resetAreaMesh.get_surface_material(0)
@@ -12,6 +14,7 @@ func _on_reset_area_entered(area):
 	resetAreaMesh.set_surface_material(0, material)
 	
 	if canReset:
+		removeInteractables()
 		addInteractables()
 		canReset = false
 		
@@ -26,4 +29,10 @@ func _on_reset_area_exited(area):
 
 
 func addInteractables():
-	add_child(interactablesResourse.instance())
+	interactablesContainer.add_child(interactablesResourse.instance())
+
+func removeInteractables():
+	for n in interactablesContainer.get_children():
+		interactablesContainer.remove_child(n)
+		n.queue_free()
+
