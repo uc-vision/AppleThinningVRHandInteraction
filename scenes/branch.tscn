@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/HealthySmallApple.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/HealthyLargeApple.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CylinderMesh" id=55]
+top_radius = 0.005
+bottom_radius = 0.005
+height = 1.0
+
+[node name="branch" type="Spatial"]
+
+[node name="branchMesh" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, -0.587 )
+mesh = SubResource( 55 )
+material/0 = null
+
+[node name="HealthyLargeApple" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.0313678, -0.587 )
+mode = 1
+
+[node name="HealthySmallApple" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.023, -0.586 )
+mode = 1
+
+[node name="HealthyLargeApple2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.031, -0.587 )
+mode = 1
+
+[node name="HealthyLargeApple3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.031, -0.587 )
+mode = 1
+
+[node name="HealthySmallApple2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.023, -0.586 )
+mode = 1
+
+[node name="HealthySmallApple3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.023, -0.586 )
+mode = 1
+
+[node name="HealthySmallApple4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.023, -0.586 )
+mode = 1
+
+[node name="HealthyLargeApple5" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.031, -0.587 )
+mode = 1
+
+[node name="HealthyLargeApple6" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.031, -0.587 )
+mode = 1
+
+[node name="HealthySmallApple5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.023, -0.586 )
+mode = 1
+
+[node name="HealthySmallApple6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.023, -0.586 )
+mode = 1

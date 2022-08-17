@@ -9,6 +9,9 @@ var grab_point_velocity = Vector3(0, 0, 0)
 var prior_grab_point_velocities = []
 var prior_grab_point_position = Vector3(0, 0, 0)
 
+
+var apple_pick_sound_player
+
 # Current hand pinch mapping for the tracked hands
 # Godot itself also exposes some of these constants via JOY_VR_* and JOY_OCULUS_*
 # this enum here is to document everything in place and includes the pinch event mappings
@@ -74,6 +77,8 @@ func _ready():
 
 	ovr_utilities = load("res://addons/godot_ovrmobile/OvrUtilities.gdns")
 	if (ovr_utilities): ovr_utilities = ovr_utilities.new()
+	
+	apple_pick_sound_player = get_tree().root.get_node("Main/ApplePickSound")
 
 
 func _initialize_hands():
@@ -174,7 +179,9 @@ func _process(delta_t):
 	
 	
 	if object_to_pickup and not held_object:
+		apple_pick_sound_player.play()
 		grab_object(object_to_pickup)
+		
 	elif not object_to_pickup and held_object:
 		drop_object()
 			
