@@ -145,9 +145,12 @@ func drop_object():
 	var original_position = held_object.global_transform
 	
 	grabPoint.remove_child(held_object)
-	held_object_original_parent.add_child(held_object)
-	held_object.set_owner(held_object_original_parent)
-	held_object_original_parent  = null
+	#held_object_original_parent.add_child(held_object)
+	#held_object.set_owner(held_object_original_parent)
+	#held_object_original_parent  = null
+	var removedInteractablesContainer = get_tree().root.get_node("Main/RemovedInteractables")
+	removedInteractablesContainer.add_child(held_object)
+	held_object.set_owner(removedInteractablesContainer)
 	
 	held_object.mode = RigidBody.MODE_RIGID
 	held_object.global_transform = original_position

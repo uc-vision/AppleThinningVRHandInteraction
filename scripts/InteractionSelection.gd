@@ -6,6 +6,7 @@ onready var interaction2Mesh = $Interaction2/Area/MeshInstance
 onready var interaction3Mesh = $Interaction3/Area/MeshInstance
 
 var selectedInteraction = 1
+var previouslySelectedInteraction = 1
 
 var interaction1Title = "Interaction style 1"
 var interaction1Description = "This interaction uses an Area object in your palm to sense when your fingertips have entered this palm area and interpret this as a grip. To grip an object simply move your fingertips into your palms by bending your fingers."
@@ -23,6 +24,18 @@ func _ready():
 	get_tree().root.get_node("Main/OutputNode/Viewport/TitleLabel").text = interaction1Title
 	get_tree().root.get_node("Main/OutputNode/Viewport/BottomLabel").text = interaction1Description
 	
+func _process(delta):
+	if selectedInteraction != previouslySelectedInteraction:
+		var area = Area
+		previouslySelectedInteraction = selectedInteraction
+		match selectedInteraction:
+			1:
+				_on_interaction1_area_entered(area)
+			2:
+				_on_interaction2_area_entered(area)
+			3:
+				_on_interaction3_area_entered(area)
+				
 
 func _on_interaction1_area_entered(area):
 	resetMeshes()
