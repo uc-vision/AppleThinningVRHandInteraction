@@ -363,3 +363,4 @@ unit_db = 30.0
 [editable path="ARVROrigin/RightHand"]
 [editable path="OutputNode"]
 [editable path="Floor"]
+[editable path="BranchContainer/branch"]

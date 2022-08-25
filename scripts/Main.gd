@@ -6,10 +6,14 @@ onready var canReset = true
 onready var branchResourse = load("res://scenes/branch.tscn")
 
 onready var branchContainer = $BranchContainer
+var healthyApplesOnBranch
+var totalApplesOnBranch
+var damagedApplesAtStart
 
 onready var timeLabel = $OutputNode/Viewport/TimeLabel
 var interactionMechanicsAvaliable = [1, 2, 3]
 var timesTaken = []
+var damagedApplesPicked = []
 var selectedInteractionMechanic
 var removedInteractablesContainer
 var leftHand
@@ -18,6 +22,10 @@ var rightHand
 var completed = false
 
 func _ready():
+	healthyApplesOnBranch = getCountHealthyApples()
+	totalApplesOnBranch = getCountTotalApples()
+	damagedApplesAtStart = getCountDamagedApples()
+	
 	#Choose interaction mechanic
 	interactionMechanicsAvaliable.shuffle()
 	selectedInteractionMechanic = interactionMechanicsAvaliable[0]
@@ -32,18 +40,21 @@ func _ready():
 var timeTaken = 0
 
 func _process(delta):
-	var applesOnBranch = branchContainer.get_child(0).get_child_count()
+	healthyApplesOnBranch = getCountHealthyApples()
+	totalApplesOnBranch = getCountTotalApples()
 	if not completed:
 		timeLabel.text = timeTaken as String
-	if not completed and applesOnBranch <= 1 and interactionMechanicsAvaliable.size() == 0:
+	if not completed and healthyApplesOnBranch <= 0 and interactionMechanicsAvaliable.size() == 0:
 		timesTaken.append(timeTaken)
-		timeLabel.text = timesTaken as String
+		damagedApplesPicked.append(damagedApplesAtStart - getCountDamagedApples())
+		timeLabel.text = timesTaken as String + "   " + damagedApplesPicked as String
 		completed = true
 		
-	if applesOnBranch != 12:
+	if totalApplesOnBranch != 7:
 		timeTaken += delta
-	if applesOnBranch <= 1 and interactionMechanicsAvaliable.size() > 0 and not leftHand.held_object and not rightHand.held_object:
+	if healthyApplesOnBranch <= 0 and interactionMechanicsAvaliable.size() > 0 and not leftHand.held_object and not rightHand.held_object:
 		timesTaken.append(timeTaken)
+		damagedApplesPicked.append(damagedApplesAtStart - getCountDamagedApples())
 		timeTaken = 0
 		selectedInteractionMechanic = interactionMechanicsAvaliable[0]
 		interactionMechanicsAvaliable.remove(0)
@@ -53,6 +64,32 @@ func _process(delta):
 		addInteractables()
 	#timeLabel.text = interactionMechanicsAvaliable as String + "   Selected: " + selectedInteractionMechanic as String
 	
+
+func getCountHealthyApples():
+	var children = get_tree().root.get_node("Main/BranchContainer/branch").get_children()
+	var countChildren = 0
+	for child in children:
+		if child.get_groups().has("HealthyLarge") or child.get_groups().has("HealthySmall"):
+				countChildren += 1
+	return countChildren
+	
+	
+func getCountTotalApples():
+	var children = get_tree().root.get_node("Main/BranchContainer/branch").get_children()
+	var countChildren = 0
+	for child in children:
+		if child.get_groups().has("Apple"):
+				countChildren += 1
+	return countChildren
+	
+func getCountDamagedApples():
+	var children = get_tree().root.get_node("Main/BranchContainer/branch").get_children()
+	var countChildren = 0
+	for child in children:
+		if child.get_groups().has("Damaged"):
+				countChildren += 1
+	return countChildren
+
 
 func _on_reset_area_entered(area):
 	var material = resetAreaMesh.get_surface_material(0)

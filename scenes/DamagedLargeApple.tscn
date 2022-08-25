@@ -8,6 +8,7 @@ radius = 0.03
 [node name="DamagedLargeApple" type="RigidBody" groups=["Apple", "Damaged"]]
 collision_layer = 3
 collision_mask = 3
+mode = 1
 linear_damp = 0.5
 angular_damp = 5.0
 
