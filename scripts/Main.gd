@@ -8,9 +8,10 @@ onready var branchResourse = load("res://scenes/branch.tscn")
 onready var branchContainer = $BranchContainer
 var healthyApplesOnBranch
 var totalApplesOnBranch
+var totalApplesOnBranchAtStart
 var damagedApplesAtStart
 
-onready var timeLabel = $OutputNode/Viewport/TimeLabel
+onready var timeLabel = $InformationNode/Viewport/TimeLabel
 var interactionMechanicsAvaliable = [1, 2, 3]
 var timesTaken = []
 var damagedApplesPicked = []
@@ -24,6 +25,7 @@ var completed = false
 func _ready():
 	healthyApplesOnBranch = getCountHealthyApples()
 	totalApplesOnBranch = getCountTotalApples()
+	totalApplesOnBranchAtStart = totalApplesOnBranch
 	damagedApplesAtStart = getCountDamagedApples()
 	
 	#Choose interaction mechanic
@@ -50,7 +52,7 @@ func _process(delta):
 		timeLabel.text = timesTaken as String + "   " + damagedApplesPicked as String
 		completed = true
 		
-	if totalApplesOnBranch != 7:
+	if totalApplesOnBranch != totalApplesOnBranchAtStart:
 		timeTaken += delta
 	if healthyApplesOnBranch <= 0 and interactionMechanicsAvaliable.size() > 0 and not leftHand.held_object and not rightHand.held_object:
 		timesTaken.append(timeTaken)

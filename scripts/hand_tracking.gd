@@ -129,7 +129,7 @@ func _update_hand_model(model : Spatial, skel: Skeleton):
 	
 	
 func grab_object(object_to_pickup):
-	#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
+	#get_node("../../InformationNode/Viewport/OtherLabel").text = rigid_body.get_name()
 	held_object = object_to_pickup
 	held_object.mode = RigidBody.MODE_STATIC
 	var original_position = held_object.global_transform

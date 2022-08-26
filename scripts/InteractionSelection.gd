@@ -21,8 +21,8 @@ func _ready():
 	var material = interaction1Mesh.get_surface_material(0)
 	material.albedo_color = Color(0, 1, 0)
 	interaction1Mesh.set_surface_material(0, material)
-	get_tree().root.get_node("Main/OutputNode/Viewport/TitleLabel").text = interaction1Title
-	get_tree().root.get_node("Main/OutputNode/Viewport/BottomLabel").text = interaction1Description
+	get_tree().root.get_node("Main/InformationNode/Viewport/TitleLabel").text = interaction1Title
+	get_tree().root.get_node("Main/InformationNode/Viewport/BottomLabel").text = interaction1Description
 	
 func _process(delta):
 	if selectedInteraction != previouslySelectedInteraction:
@@ -43,8 +43,8 @@ func _on_interaction1_area_entered(area):
 	material.albedo_color = Color(0, 1, 0)
 	interaction1Mesh.set_surface_material(0, material)
 	selectedInteraction = 1
-	get_tree().root.get_node("Main/OutputNode/Viewport/TitleLabel").text = interaction1Title
-	get_tree().root.get_node("Main/OutputNode/Viewport/BottomLabel").text = interaction1Description
+	get_tree().root.get_node("Main/InformationNode/Viewport/TitleLabel").text = interaction1Title
+	get_tree().root.get_node("Main/InformationNode/Viewport/BottomLabel").text = interaction1Description
 
 
 func _on_interaction2_area_entered(area):
@@ -53,8 +53,8 @@ func _on_interaction2_area_entered(area):
 	material.albedo_color = Color(0, 1, 0)
 	interaction2Mesh.set_surface_material(0, material)
 	selectedInteraction = 2
-	get_tree().root.get_node("Main/OutputNode/Viewport/TitleLabel").text = interaction2Title
-	get_tree().root.get_node("Main/OutputNode/Viewport/BottomLabel").text = interaction2Description
+	get_tree().root.get_node("Main/InformationNode/Viewport/TitleLabel").text = interaction2Title
+	get_tree().root.get_node("Main/InformationNode/Viewport/BottomLabel").text = interaction2Description
 
 func _on_interaction3_area_entered(area):
 	resetMeshes()
@@ -62,8 +62,8 @@ func _on_interaction3_area_entered(area):
 	material.albedo_color = Color(0, 1, 0)
 	interaction3Mesh.set_surface_material(0, material)
 	selectedInteraction = 3
-	get_tree().root.get_node("Main/OutputNode/Viewport/TitleLabel").text = interaction3Title
-	get_tree().root.get_node("Main/OutputNode/Viewport/BottomLabel").text = interaction3Description
+	get_tree().root.get_node("Main/InformationNode/Viewport/TitleLabel").text = interaction3Title
+	get_tree().root.get_node("Main/InformationNode/Viewport/BottomLabel").text = interaction3Description
 	
 	
 func resetMeshes():
