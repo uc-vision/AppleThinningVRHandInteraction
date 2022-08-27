@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Spatial
+"
+
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("Viewport")
+
+[node name="DataNode" type="Spatial"]
+script = SubResource( 1 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 300, 300 )
+
+[node name="Interaction1Label" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -250.0
+text = "Interaction 1"
+valign = 1
+autowrap = true
+
+[node name="Interaction1Time" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -170.0
+text = "Time:"
+valign = 1
+autowrap = true
+
+[node name="Interaction1Mispicks" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 150.0
+margin_top = -170.0
+text = "Mispicks:"
+valign = 1
+autowrap = true
+
+[node name="Interaction2Label" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -50.0
+text = "Interaction 2"
+valign = 1
+autowrap = true
+
+[node name="Interaction2Time" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 30.0
+text = "Time:"
+valign = 1
+autowrap = true
+
+[node name="Interaction2Mispicks" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 150.0
+margin_top = 30.0
+text = "Mispicks:"
+valign = 1
+autowrap = true
+
+[node name="Interaction3Label" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 150.0
+text = "Interaction 3"
+valign = 1
+autowrap = true
+
+[node name="Interaction3Time" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 230.0
+text = "Time:"
+valign = 1
+autowrap = true
+
+[node name="Interaction3Mispicks" type="Label" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 150.0
+margin_top = 230.0
+text = "Mispicks:"
+valign = 1
+autowrap = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+flip_v = true
+texture = SubResource( 2 )

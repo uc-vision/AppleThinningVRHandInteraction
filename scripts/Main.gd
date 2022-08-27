@@ -11,7 +11,6 @@ var totalApplesOnBranch
 var totalApplesOnBranchAtStart
 var damagedApplesAtStart
 
-onready var timeLabel = $InformationNode/Viewport/TimeLabel
 var interactionMechanicsAvaliable = [1, 2, 3]
 var timesTaken = []
 var damagedApplesPicked = []
@@ -22,6 +21,7 @@ var rightHand
 
 var completed = false
 
+
 func _ready():
 	healthyApplesOnBranch = getCountHealthyApples()
 	totalApplesOnBranch = getCountTotalApples()
@@ -29,6 +29,7 @@ func _ready():
 	damagedApplesAtStart = getCountDamagedApples()
 	
 	#Choose interaction mechanic
+	randomize()
 	interactionMechanicsAvaliable.shuffle()
 	selectedInteractionMechanic = interactionMechanicsAvaliable[0]
 	interactionMechanicsAvaliable.remove(0)
@@ -45,11 +46,11 @@ func _process(delta):
 	healthyApplesOnBranch = getCountHealthyApples()
 	totalApplesOnBranch = getCountTotalApples()
 	if not completed:
-		timeLabel.text = timeTaken as String
+		setInteractionTime()
+		setInteractionMispicks()
 	if not completed and healthyApplesOnBranch <= 0 and interactionMechanicsAvaliable.size() == 0:
 		timesTaken.append(timeTaken)
 		damagedApplesPicked.append(damagedApplesAtStart - getCountDamagedApples())
-		timeLabel.text = timesTaken as String + "   " + damagedApplesPicked as String
 		completed = true
 		
 	if totalApplesOnBranch != totalApplesOnBranchAtStart:
@@ -121,4 +122,11 @@ func removeInteractables(container: Spatial):
 	for n in container.get_children():
 		container.remove_child(n)
 		n.queue_free()
+		
+func setInteractionTime():
+	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Time").text = "Time: " + stepify(timeTaken, 0.01) as String + "s"
+
+func setInteractionMispicks():
+	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Mispicks").text = "Mispicks: " + (damagedApplesAtStart - getCountDamagedApples()) as String
+	
 
