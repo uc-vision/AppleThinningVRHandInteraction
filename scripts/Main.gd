@@ -4,8 +4,10 @@ onready var resetAreaMesh = $InteractionSelection/Reset/Area/MeshInstance
 onready var resetArea = $InteractionSelection/Reset/Area
 onready var canReset = true
 onready var branchResourse = load("res://scenes/branch.tscn")
+onready var tableApplesResourse = load("res://scenes/TableApples.tscn")
 
 onready var branchContainer = $BranchContainer
+onready var tableApplesContainer = $TableApplesContainer
 var healthyApplesOnBranch
 var totalApplesOnBranch
 var totalApplesOnBranchAtStart
@@ -64,6 +66,7 @@ func _process(delta):
 		get_tree().root.get_node("Main/InteractionSelection").selectedInteraction = selectedInteractionMechanic
 		removeInteractables(removedInteractablesContainer)
 		removeInteractables(branchContainer)
+		removeInteractables(tableApplesContainer)
 		addInteractables()
 	#timeLabel.text = interactionMechanicsAvaliable as String + "   Selected: " + selectedInteractionMechanic as String
 	
@@ -117,6 +120,7 @@ func _on_reset_area_exited(area):
 
 func addInteractables():
 	branchContainer.add_child(branchResourse.instance())
+	tableApplesContainer.add_child(tableApplesResourse.instance())
 
 func removeInteractables(container: Spatial):
 	for n in container.get_children():
