@@ -125,8 +125,7 @@ func _update_hand_model(model : Spatial, skel: Skeleton):
 		return true;
 	else:
 		return false;
-	
-	
+
 	
 func grab_object(object_to_pickup):
 	#get_node("../../InformationNode/Viewport/OtherLabel").text = rigid_body.get_name()
@@ -179,14 +178,13 @@ func _process(delta_t):
 			object_to_pickup = $HandContainer.detect_grabbing_object_3()
 	
 	
-	
-	
 	if object_to_pickup and not held_object:
 		apple_pick_sound_player.play()
 		grab_object(object_to_pickup)
 		
 	elif not object_to_pickup and held_object:
 		drop_object()
+	
 			
 
 func _physics_process(delta):

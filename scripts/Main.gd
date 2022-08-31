@@ -68,8 +68,7 @@ func _process(delta):
 		removeInteractables(branchContainer)
 		removeInteractables(tableApplesContainer)
 		addInteractables()
-	#timeLabel.text = interactionMechanicsAvaliable as String + "   Selected: " + selectedInteractionMechanic as String
-	
+
 
 func getCountHealthyApples():
 	var children = get_tree().root.get_node("Main/BranchContainer/branch").get_children()
@@ -78,8 +77,8 @@ func getCountHealthyApples():
 		if child.get_groups().has("HealthyLarge") or child.get_groups().has("HealthySmall"):
 				countChildren += 1
 	return countChildren
-	
-	
+
+
 func getCountTotalApples():
 	var children = get_tree().root.get_node("Main/BranchContainer/branch").get_children()
 	var countChildren = 0
@@ -87,7 +86,8 @@ func getCountTotalApples():
 		if child.get_groups().has("Apple"):
 				countChildren += 1
 	return countChildren
-	
+
+
 func getCountDamagedApples():
 	var children = get_tree().root.get_node("Main/BranchContainer/branch").get_children()
 	var countChildren = 0
@@ -105,6 +105,7 @@ func _on_reset_area_entered(area):
 	if canReset:
 		removeInteractables(removedInteractablesContainer)
 		removeInteractables(branchContainer)
+		removeInteractables(tableApplesContainer)
 		addInteractables()
 		canReset = false
 		
@@ -125,7 +126,8 @@ func addInteractables():
 func removeInteractables(container: Spatial):
 	for n in container.get_children():
 		container.remove_child(n)
-		n.queue_free()
+		n.free()
+
 		
 func setInteractionTime():
 	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Time").text = "Time: " + stepify(timeTaken, 0.01) as String + "s"

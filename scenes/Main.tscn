@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
@@ -10,6 +10,14 @@
 [ext_resource path="res://scenes/Floor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Table.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/TableApples.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/CGTuts_OceanHDRI_Freebie_001.hdr" type="Texture" id=11]
+
+[sub_resource type="PanoramaSky" id=4]
+panorama = ExtResource( 11 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 4 )
 
 [sub_resource type="SphereShape" id=35]
 
@@ -49,6 +57,9 @@ viewport_path = NodePath("InteractionSelection/Reset/Spatial/Viewport")
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 6 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
 
 [node name="ARVROrigin" parent="." instance=ExtResource( 1 )]
 
@@ -274,22 +285,23 @@ unit_db = 30.0
 [node name="RemovedInteractables" type="Spatial" parent="."]
 
 [node name="BranchContainer" type="Spatial" parent="."]
-transform = Transform( 0.819152, 0, -0.573577, 0, 1, 0, 0.573577, 0, 0.819152, 0.25, 1.5, 0 )
+transform = Transform( 0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 0.15, 1.5, 0 )
 
 [node name="branch" parent="BranchContainer" instance=ExtResource( 4 )]
 
 [node name="DataNode" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.245746, 0, -0.573577, 0, 0.3, 0, 0.172073, 0, 0.819152, 1.541, 1.629, -1.895 )
+transform = Transform( 0.281908, 0, -0.34202, 0, 0.3, 0, 0.102606, 0, 0.939693, 0.788, 1.3, -1.692 )
 
 [node name="Table" parent="." instance=ExtResource( 9 )]
-transform = Transform( 0.409576, 0, 0.286788, 0, 0.5, 0, -0.286788, 0, 0.409576, -0.6, 1, -0.5 )
+transform = Transform( 0.469846, 0, 0.17101, 0, 0.5, 0, -0.17101, 0, 0.469846, -0.329, 1, -0.5 )
 
 [node name="InformationNode" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.245746, 0, 0.573577, 0, 0.3, 0, -0.172073, 0, 0.819152, -1.136, 1.3, -1.128 )
+transform = Transform( 0.281908, 0, 0.34202, 0, 0.3, 0, -0.102606, 0, 0.939693, -0.788, 1.3, -1.692 )
 
 [node name="TableApplesContainer" type="Spatial" parent="."]
 
 [node name="TableApples" parent="TableApplesContainer" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372959, 1.0419, -0.644807 )
 
 [connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
