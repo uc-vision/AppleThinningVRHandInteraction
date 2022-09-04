@@ -1,0 +1,227 @@
+[gd_scene load_steps=38 format=2]
+
+[ext_resource path="res://scenes/Star.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/StarsSelection.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/product-sans/Product Sans Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="PrismMesh" id=1]
+size = Vector3( 0.2, 0.1, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=2]
+
+[sub_resource type="PrismMesh" id=3]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=4]
+
+[sub_resource type="PrismMesh" id=5]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=6]
+
+[sub_resource type="PrismMesh" id=7]
+size = Vector3( 0.2, 0.1, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=8]
+
+[sub_resource type="PrismMesh" id=9]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=10]
+
+[sub_resource type="PrismMesh" id=11]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=12]
+
+[sub_resource type="PrismMesh" id=13]
+size = Vector3( 0.2, 0.1, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=14]
+
+[sub_resource type="PrismMesh" id=15]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=16]
+
+[sub_resource type="PrismMesh" id=17]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=18]
+
+[sub_resource type="PrismMesh" id=19]
+size = Vector3( 0.2, 0.1, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=20]
+
+[sub_resource type="PrismMesh" id=21]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=22]
+
+[sub_resource type="PrismMesh" id=23]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=24]
+
+[sub_resource type="PrismMesh" id=25]
+size = Vector3( 0.2, 0.1, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=26]
+
+[sub_resource type="PrismMesh" id=27]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=28]
+
+[sub_resource type="PrismMesh" id=29]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.015 )
+
+[sub_resource type="SpatialMaterial" id=30]
+
+[sub_resource type="CylinderShape" id=31]
+height = 0.0388613
+radius = 0.0997206
+
+[sub_resource type="CylinderMesh" id=32]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.038
+
+[sub_resource type="DynamicFont" id=34]
+size = 400
+outline_size = 10
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="ViewportTexture" id=33]
+viewport_path = NodePath("OKButton/Spatial/Viewport")
+
+[node name="Stars" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Star1" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.640109, 0, 0 )
+
+[node name="MeshInstance1" parent="Star1" index="1"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="MeshInstance2" parent="Star1" index="2"]
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="MeshInstance3" parent="Star1" index="3"]
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="Star2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.320109, 0, 0 )
+
+[node name="MeshInstance1" parent="Star2" index="1"]
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="MeshInstance2" parent="Star2" index="2"]
+mesh = SubResource( 9 )
+material/0 = SubResource( 10 )
+
+[node name="MeshInstance3" parent="Star2" index="3"]
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
+
+[node name="Star3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.000109129, 0, 0 )
+
+[node name="MeshInstance1" parent="Star3" index="1"]
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
+
+[node name="MeshInstance2" parent="Star3" index="2"]
+mesh = SubResource( 15 )
+material/0 = SubResource( 16 )
+
+[node name="MeshInstance3" parent="Star3" index="3"]
+mesh = SubResource( 17 )
+material/0 = SubResource( 18 )
+
+[node name="Star4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.319891, 0, 0 )
+
+[node name="MeshInstance1" parent="Star4" index="1"]
+mesh = SubResource( 19 )
+material/0 = SubResource( 20 )
+
+[node name="MeshInstance2" parent="Star4" index="2"]
+mesh = SubResource( 21 )
+material/0 = SubResource( 22 )
+
+[node name="MeshInstance3" parent="Star4" index="3"]
+mesh = SubResource( 23 )
+material/0 = SubResource( 24 )
+
+[node name="Star5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.639891, 0, 0 )
+
+[node name="MeshInstance1" parent="Star5" index="1"]
+mesh = SubResource( 25 )
+material/0 = SubResource( 26 )
+
+[node name="MeshInstance2" parent="Star5" index="2"]
+mesh = SubResource( 27 )
+material/0 = SubResource( 28 )
+
+[node name="MeshInstance3" parent="Star5" index="3"]
+mesh = SubResource( 29 )
+material/0 = SubResource( 30 )
+
+[node name="OKButton" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.780518, -0.625134, 0, 0.625134, 0.780518, 0, -0.446991, 0.0835586 )
+
+[node name="Area" type="Area" parent="OKButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="OKButton/Area"]
+shape = SubResource( 31 )
+
+[node name="MeshInstance" type="MeshInstance" parent="OKButton/Area/CollisionShape"]
+mesh = SubResource( 32 )
+
+[node name="Spatial" type="Spatial" parent="OKButton"]
+
+[node name="Viewport" type="Viewport" parent="OKButton/Spatial"]
+size = Vector2( 1000, 1000 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="OKButton/Spatial/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 34 )
+text = "OK"
+
+[node name="Sprite3D" type="Sprite3D" parent="OKButton/Spatial"]
+transform = Transform( 0.02, 0, 0, 0, -8.74228e-10, 1, 0, -0.02, -4.37114e-08, 0.040417, 0.0190451, 0.0483998 )
+texture = SubResource( 33 )
+
+[connection signal="area_entered" from="Star1/Area" to="." method="_on_star_area_entered" binds= [ 1 ]]
+[connection signal="area_entered" from="Star2/Area" to="." method="_on_star_area_entered" binds= [ 2 ]]
+[connection signal="area_entered" from="Star3/Area" to="." method="_on_star_area_entered" binds= [ 3 ]]
+[connection signal="area_entered" from="Star4/Area" to="." method="_on_star_area_entered" binds= [ 4 ]]
+[connection signal="area_entered" from="Star5/Area" to="." method="_on_star_area_entered" binds= [ 5 ]]
+[connection signal="area_entered" from="OKButton/Area" to="." method="_on_OK_Button_area_entered"]
+
+[editable path="Star1"]
+[editable path="Star2"]
+[editable path="Star3"]
+[editable path="Star4"]
+[editable path="Star5"]
