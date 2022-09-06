@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
@@ -11,7 +11,10 @@
 [ext_resource path="res://scenes/Table.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/TableApples.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/CGTuts_OceanHDRI_Freebie_001.hdr" type="Texture" id=11]
-[ext_resource path="res://scenes/Stars.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scripts/StarsSelection.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Star.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Fonts/product-sans/Product Sans Regular.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://Assets/Fonts/product-sans/Product Sans Bold.ttf" type="DynamicFontData" id=15]
 
 [sub_resource type="PanoramaSky" id=4]
 panorama = ExtResource( 11 )
@@ -56,6 +59,125 @@ viewport_path = NodePath("InteractionSelection/Interaction3/Spatial/Viewport")
 [sub_resource type="ViewportTexture" id=50]
 viewport_path = NodePath("InteractionSelection/Reset/Spatial/Viewport")
 
+[sub_resource type="DynamicFont" id=84]
+size = 63
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 15 )
+
+[sub_resource type="ViewportTexture" id=85]
+viewport_path = NodePath("Stars/Title/Viewport")
+
+[sub_resource type="PrismMesh" id=52]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=53]
+
+[sub_resource type="PrismMesh" id=54]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=55]
+
+[sub_resource type="PrismMesh" id=56]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=57]
+
+[sub_resource type="PrismMesh" id=58]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=59]
+
+[sub_resource type="PrismMesh" id=60]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=61]
+
+[sub_resource type="PrismMesh" id=62]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=63]
+
+[sub_resource type="PrismMesh" id=64]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=65]
+
+[sub_resource type="PrismMesh" id=66]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=67]
+
+[sub_resource type="PrismMesh" id=68]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=69]
+
+[sub_resource type="PrismMesh" id=70]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=71]
+
+[sub_resource type="PrismMesh" id=72]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=73]
+
+[sub_resource type="PrismMesh" id=74]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=75]
+
+[sub_resource type="PrismMesh" id=76]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=77]
+
+[sub_resource type="PrismMesh" id=78]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=79]
+
+[sub_resource type="PrismMesh" id=80]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=81]
+
+[sub_resource type="CylinderShape" id=31]
+height = 0.0388613
+radius = 0.0997206
+
+[sub_resource type="CylinderMesh" id=32]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.038
+
+[sub_resource type="DynamicFont" id=34]
+size = 400
+outline_size = 10
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 14 )
+
+[sub_resource type="ViewportTexture" id=82]
+viewport_path = NodePath("Stars/OKButton/Spatial/Viewport")
+
+[sub_resource type="DynamicFont" id=86]
+size = 50
+font_data = ExtResource( 14 )
+
+[sub_resource type="ViewportTexture" id=87]
+viewport_path = NodePath("DataCollectionConformation/Viewport")
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 6 )
 
@@ -77,6 +199,72 @@ bones/12/bound_children = [ NodePath("BoneAttachment 7"), NodePath("BoneAttachme
 bones/13/bound_children = [ NodePath("MiddleTip") ]
 bones/17/bound_children = [ NodePath("RingTip") ]
 bones/22/bound_children = [ NodePath("PinkyTip") ]
+
+[node name="BoneAttachment" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="0"]
+transform = Transform( 0.715416, 0.480301, 0.507437, -0.520631, 0.850801, -0.0712857, -0.465966, -0.213188, 0.858735, 3.59585, -2.80285, -1.91577 )
+
+[node name="BoneAttachment 2" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="1"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
+
+[node name="BoneAttachment 3" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="2"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
+
+[node name="BoneAttachment 4" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="3"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109345, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 15.792, -2.06916, -1.2769 )
+
+[node name="BoneAttachment 5" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="4"]
+transform = Transform( 0.994319, -0.0918411, -0.0538007, 0.0547371, 0.00770642, 0.998471, -0.091286, -0.995744, 0.0126898, 13.3754, -2.20219, -1.05505 )
+
+[node name="BoneAttachment 7" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="6"]
+transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
+
+[node name="BoneAttachment 8" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="7"]
+transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
+
+[node name="BoneAttachment 9" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="8"]
+transform = Transform( 0.987593, 0.0968453, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843529, -0.991142, -0.102587, 16.5356, 0.568592, -0.979276 )
+
+[node name="BoneAttachment 10" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="9"]
+transform = Transform( 0.988767, -0.0960949, -0.114484, 0.110551, -0.0453155, 0.992837, -0.100594, -0.99434, -0.034183, 13.8116, 0.264028, -0.702144 )
+
+[node name="ThumbTip" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="12"]
+transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.057092, -0.349873, -0.310124, 0.883975, 9.16781, -7.78987, -4.89121 )
+
+[node name="IndexTip" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="13"]
+transform = Transform( 0.992608, 0.0543433, -0.108515, 0.109344, -0.0125266, 0.993925, 0.0526545, -0.998444, -0.0183762, 16.9417, -1.94251, -1.21591 )
+
+[node name="MiddleTip" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="14"]
+transform = Transform( 0.987593, 0.0968452, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843528, -0.991142, -0.102587, 17.7408, 0.730237, -0.876337 )
+
+[node name="RingTip" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="15"]
+transform = Transform( 0.978622, -0.029105, -0.203596, 0.195193, -0.180434, 0.964025, -0.0647939, -0.983156, -0.170895, 16.3572, 3.55226, -1.49422 )
+
+[node name="PinkyTip" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="16"]
+transform = Transform( 0.965993, 0.0123384, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663178, -0.953624, -0.293603, 13.7907, 5.19311, -2.17617 )
+
+[node name="BoneAttachment" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="0"]
+transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.0570919, -0.349873, -0.310125, 0.883974, -8.31233, 6.69126, 4.37118 )
+
+[node name="BoneAttachment 2" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="1"]
+transform = Transform( 0.707382, 0.518598, 0.480278, -0.649744, 0.744603, 0.152968, -0.278287, -0.420265, 0.863674, -5.92187, 4.49557, 3.43076 )
+
+[node name="BoneAttachment 3" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="2"]
+transform = Transform( 0.715415, 0.480301, 0.507437, -0.520631, 0.850801, -0.0712857, -0.465966, -0.213189, 0.858734, -3.59585, 2.80285, 1.91577 )
+
+[node name="ThumbTip" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="17"]
+transform = Transform( 0.575562, 0.67335, 0.464036, -0.739133, 0.671135, -0.0570921, -0.349873, -0.310125, 0.883974, -9.16781, 7.78987, 4.89121 )
+
+[node name="IndexTip" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="18"]
+transform = Transform( 0.992608, 0.0543431, -0.108515, 0.109344, -0.0125266, 0.993925, 0.0526543, -0.998444, -0.0183763, -16.9417, 1.94251, 1.21591 )
+
+[node name="MiddleTip" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="19"]
+transform = Transform( 0.987593, 0.0968457, -0.123618, 0.132458, -0.0908865, 0.987014, 0.0843533, -0.991142, -0.102587, -17.7408, -0.730237, 0.876336 )
+
+[node name="RingTip" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="20"]
+transform = Transform( 0.978622, -0.029105, -0.203596, 0.195193, -0.180434, 0.964025, -0.0647939, -0.983156, -0.170895, -16.3572, -3.55226, 1.49422 )
+
+[node name="PinkyTip" parent="ARVROrigin/RightHand/HandContainer/HandModel/Armature/Skeleton" index="21"]
+transform = Transform( 0.965993, 0.0123385, -0.25827, 0.249915, -0.300748, 0.920376, -0.0663178, -0.953624, -0.293603, -13.7907, -5.1931, 2.17617 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.440088, 0.204434, -0.507151, -0.83726, 1.5186, 124.325, -240.98 )
@@ -239,33 +427,194 @@ transform = Transform( 0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 0.1
 [node name="branch" parent="BranchContainer" instance=ExtResource( 4 )]
 
 [node name="DataNode" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.281908, 0, -0.34202, 0, 0.3, 0, 0.102606, 0, 0.939693, 0.788, 1.3, -1.692 )
+transform = Transform( 0.0939693, 0, -0.34202, 0, 0.1, 0, 0.034202, 0, 0.939693, 0.788, 1.3, -1.692 )
 
 [node name="Table" parent="." instance=ExtResource( 9 )]
 transform = Transform( 0.469846, 0, 0.17101, 0, 0.5, 0, -0.17101, 0, 0.469846, -0.329, 1, -0.5 )
 
 [node name="InformationNode" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.281908, 0, 0.34202, 0, 0.3, 0, -0.102606, 0, 0.939693, -0.788, 1.3, -1.692 )
+transform = Transform( 0.0939693, 0, 0.34202, 0, 0.1, 0, -0.034202, 0, 0.939693, -0.788, 1.3, -1.692 )
 
 [node name="TableApplesContainer" type="Spatial" parent="."]
 
 [node name="TableApples" parent="TableApplesContainer" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372959, 1.0419, -0.644807 )
 
-[node name="StarsContainer" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.831342 )
+[node name="Stars" type="Spatial" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.5, -0.831 )
+visible = false
+script = ExtResource( 12 )
 
-[node name="Stars" parent="StarsContainer" instance=ExtResource( 12 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+[node name="Title" type="Spatial" parent="Stars"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.325, -0.477 )
+
+[node name="Viewport" type="Viewport" parent="Stars/Title"]
+size = Vector2( 2000, 100 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="Stars/Title/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 84 )
+text = "What rating would you give this interaction mechanic out of 5 stars?"
+
+[node name="Sprite3D" type="Sprite3D" parent="Stars/Title"]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0 )
+texture = SubResource( 85 )
+
+[node name="Star1" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.640109, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star1" index="1"]
+mesh = SubResource( 52 )
+material/0 = SubResource( 53 )
+
+[node name="MeshInstance2" parent="Stars/Star1" index="2"]
+mesh = SubResource( 54 )
+material/0 = SubResource( 55 )
+
+[node name="MeshInstance3" parent="Stars/Star1" index="3"]
+mesh = SubResource( 56 )
+material/0 = SubResource( 57 )
+
+[node name="Star2" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.320109, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star2" index="1"]
+mesh = SubResource( 58 )
+material/0 = SubResource( 59 )
+
+[node name="MeshInstance2" parent="Stars/Star2" index="2"]
+mesh = SubResource( 60 )
+material/0 = SubResource( 61 )
+
+[node name="MeshInstance3" parent="Stars/Star2" index="3"]
+mesh = SubResource( 62 )
+material/0 = SubResource( 63 )
+
+[node name="Star3" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.000109129, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star3" index="1"]
+mesh = SubResource( 64 )
+material/0 = SubResource( 65 )
+
+[node name="MeshInstance2" parent="Stars/Star3" index="2"]
+mesh = SubResource( 66 )
+material/0 = SubResource( 67 )
+
+[node name="MeshInstance3" parent="Stars/Star3" index="3"]
+mesh = SubResource( 68 )
+material/0 = SubResource( 69 )
+
+[node name="Star4" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.319891, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star4" index="1"]
+mesh = SubResource( 70 )
+material/0 = SubResource( 71 )
+
+[node name="MeshInstance2" parent="Stars/Star4" index="2"]
+mesh = SubResource( 72 )
+material/0 = SubResource( 73 )
+
+[node name="MeshInstance3" parent="Stars/Star4" index="3"]
+mesh = SubResource( 74 )
+material/0 = SubResource( 75 )
+
+[node name="Star5" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.639891, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star5" index="1"]
+mesh = SubResource( 76 )
+material/0 = SubResource( 77 )
+
+[node name="MeshInstance2" parent="Stars/Star5" index="2"]
+mesh = SubResource( 78 )
+material/0 = SubResource( 79 )
+
+[node name="MeshInstance3" parent="Stars/Star5" index="3"]
+mesh = SubResource( 80 )
+material/0 = SubResource( 81 )
+
+[node name="OKButton" type="Spatial" parent="Stars"]
+transform = Transform( 1, 0, 0, 0, 0.780518, -0.625134, 0, 0.625134, 0.780518, 0, -0.446991, 0.0835586 )
+
+[node name="Area" type="Area" parent="Stars/OKButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Stars/OKButton/Area"]
+shape = SubResource( 31 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Stars/OKButton/Area/CollisionShape"]
+mesh = SubResource( 32 )
+
+[node name="Spatial" type="Spatial" parent="Stars/OKButton"]
+transform = Transform( 0.025, 0, 0, 0, 9.31323e-10, 1, 0, -0.025, 0, 0.0524799, 0.0216807, 0.0660734 )
+
+[node name="Viewport" type="Viewport" parent="Stars/OKButton/Spatial"]
+size = Vector2( 1000, 1000 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="Stars/OKButton/Spatial/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 34 )
+text = "OK"
+
+[node name="Sprite3D" type="Sprite3D" parent="Stars/OKButton/Spatial"]
+texture = SubResource( 82 )
+
+[node name="DataCollectionConformation" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57024, -1.39267 )
+
+[node name="Viewport" type="Viewport" parent="DataCollectionConformation"]
+size = Vector2( 1000, 1500 )
+msaa = 6
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="DataCollectionConformation/Viewport"]
+anchor_right = 0.95
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 86 )
+text = "Thank you for trying out this demo!
+In this demo you will try out 3 different interaction mechanics for picking up items using the Meta Quests hand tracking, nameley apple fruitlets.
+
+The aim is to pick the apple fruitlets off the branch as fast as possible without removing the red apples.
+
+The table on the left can be used to try out the interaction mecahic before starting on the branch. These apple fruitlets are not counted in the time trial.
+
+By continuing this demo you consent to the data of your time taken, mispicks, and raitings of interaction mechanics being sent to me for review."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Sprite3D" type="Sprite3D" parent="DataCollectionConformation"]
+transform = Transform( 0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, -0.20213, -0.260397 )
+texture = SubResource( 87 )
 
 [connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction3/Area" to="InteractionSelection" method="_on_interaction3_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_entered"]
 [connection signal="area_exited" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_exited"]
+[connection signal="area_entered" from="Stars/Star1/Area" to="Stars" method="_on_star_area_entered" binds= [ 1 ]]
+[connection signal="area_entered" from="Stars/Star2/Area" to="Stars" method="_on_star_area_entered" binds= [ 2 ]]
+[connection signal="area_entered" from="Stars/Star3/Area" to="Stars" method="_on_star_area_entered" binds= [ 3 ]]
+[connection signal="area_entered" from="Stars/Star4/Area" to="Stars" method="_on_star_area_entered" binds= [ 4 ]]
+[connection signal="area_entered" from="Stars/Star5/Area" to="Stars" method="_on_star_area_entered" binds= [ 5 ]]
+[connection signal="area_entered" from="Stars/OKButton/Area" to="." method="_on_StarOK_area_entered"]
 
 [editable path="ARVROrigin"]
 [editable path="ARVROrigin/LeftHand"]
 [editable path="ARVROrigin/RightHand"]
 [editable path="Floor"]
 [editable path="BranchContainer/branch"]
+[editable path="Stars/Star1"]
+[editable path="Stars/Star2"]
+[editable path="Stars/Star3"]
+[editable path="Stars/Star4"]
+[editable path="Stars/Star5"]

@@ -8,20 +8,28 @@ onready var tableApplesResourse = load("res://scenes/TableApples.tscn")
 
 onready var branchContainer = $BranchContainer
 onready var tableApplesContainer = $TableApplesContainer
+onready var table = $Table
+onready var stars = $Stars
+onready var informationNode = $InformationNode
+onready var dataNode = $DataNode
+onready var dataCollectionNode = $DataCollectionConformation
 var healthyApplesOnBranch
 var totalApplesOnBranch
 var totalApplesOnBranchAtStart
 var damagedApplesAtStart
 
 var interactionMechanicsAvaliable = [1, 2, 3]
-var timesTaken = []
-var damagedApplesPicked = []
+var timesTaken = [-1, -1, -1]
+var damagedApplesPicked = [-1, -1, -1]
+var raitings = [-1, -1, -1]
 var selectedInteractionMechanic
 var removedInteractablesContainer
 var leftHand
 var rightHand
 
 var completed = false
+
+var collectingRating = false
 
 
 func _ready():
@@ -45,30 +53,37 @@ func _ready():
 var timeTaken = 0
 
 func _process(delta):
+	if collectingRating or completed: return
 	healthyApplesOnBranch = getCountHealthyApples()
 	totalApplesOnBranch = getCountTotalApples()
+	if totalApplesOnBranch != totalApplesOnBranchAtStart:
+		timeTaken += delta
+		dataCollectionNode.visible = false
 	if not completed:
 		setInteractionTime()
 		setInteractionMispicks()
-	if not completed and healthyApplesOnBranch <= 0 and interactionMechanicsAvaliable.size() == 0:
-		timesTaken.append(timeTaken)
-		damagedApplesPicked.append(damagedApplesAtStart - getCountDamagedApples())
-		completed = true
+	if healthyApplesOnBranch <= 0 and not leftHand.held_object and not rightHand.held_object:
+		complete_section()
 		
-	if totalApplesOnBranch != totalApplesOnBranchAtStart:
-		timeTaken += delta
-	if healthyApplesOnBranch <= 0 and interactionMechanicsAvaliable.size() > 0 and not leftHand.held_object and not rightHand.held_object:
-		timesTaken.append(timeTaken)
-		damagedApplesPicked.append(damagedApplesAtStart - getCountDamagedApples())
-		timeTaken = 0
-		selectedInteractionMechanic = interactionMechanicsAvaliable[0]
-		interactionMechanicsAvaliable.remove(0)
-		get_tree().root.get_node("Main/InteractionSelection").selectedInteraction = selectedInteractionMechanic
-		removeInteractables(removedInteractablesContainer)
-		removeInteractables(branchContainer)
-		removeInteractables(tableApplesContainer)
-		addInteractables()
 
+func complete_section():
+	timesTaken[selectedInteractionMechanic-1] = timeTaken
+	damagedApplesPicked[selectedInteractionMechanic-1] = damagedApplesAtStart - getCountDamagedApples()
+	timeTaken = 0
+	removeInteractables(removedInteractablesContainer)
+	removeInteractables(branchContainer)
+	removeInteractables(tableApplesContainer)
+	removedInteractablesContainer.visible = false
+	branchContainer.visible = false
+	tableApplesContainer.visible = false
+	table.visible = false
+	stars.visible = true
+	collectingRating = true
+	
+func next_interaction():
+	selectedInteractionMechanic = interactionMechanicsAvaliable[0]
+	interactionMechanicsAvaliable.remove(0)
+	get_tree().root.get_node("Main/InteractionSelection").selectedInteraction = selectedInteractionMechanic
 
 func getCountHealthyApples():
 	var children = get_tree().root.get_node("Main/BranchContainer/branch").get_children()
@@ -134,5 +149,33 @@ func setInteractionTime():
 
 func setInteractionMispicks():
 	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Mispicks").text = "Mispicks: " + (damagedApplesAtStart - getCountDamagedApples()) as String
-	
 
+func setInteractionRaiting(raiting):
+	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Raiting").text = "Raiting: " + raiting as String
+
+
+
+func _on_StarOK_area_entered(area):
+	if stars.currentSelection == 0: return
+	if interactionMechanicsAvaliable.size() == 0:
+		raitings[selectedInteractionMechanic-1] = stars.currentSelection
+		setInteractionRaiting(stars.currentSelection)
+		stars.reset_stars()
+		stars.visible = false
+		collectingRating = false
+		completed = true
+		get_tree().root.get_node("Main/InformationNode/Viewport/TitleLabel").text = ""
+		get_tree().root.get_node("Main/InformationNode/Viewport/BottomLabel").text = "Thank you for trying out this demo, If you have any other comments on the interaction mechanics tried please don't hesitate to leave a comment where you found this demo,\n\nAgain, your time taken data, mispicks, and raiting have been sent to me to decide on the prefered interaction mechanic"
+	else:
+		raitings[selectedInteractionMechanic-1] = stars.currentSelection
+		setInteractionRaiting(stars.currentSelection)
+		stars.reset_stars()
+		addInteractables()
+		removedInteractablesContainer.visible = true
+		branchContainer.visible = true
+		tableApplesContainer.visible = true
+		table.visible = true
+		stars.visible = false
+		collectingRating = false
+		next_interaction()
+	

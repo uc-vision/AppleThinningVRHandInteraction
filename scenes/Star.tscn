@@ -5,19 +5,19 @@ height = 0.0152365
 radius = 0.113332
 
 [sub_resource type="PrismMesh" id=6]
-size = Vector3( 0.2, 0.1, 0.015 )
+size = Vector3( 0.2, 0.1, 0.03 )
 
 [sub_resource type="SpatialMaterial" id=7]
 
 [sub_resource type="PrismMesh" id=8]
 left_to_right = 0.7
-size = Vector3( 0.25, 0.05, 0.015 )
+size = Vector3( 0.25, 0.05, 0.03 )
 
 [sub_resource type="SpatialMaterial" id=9]
 
 [sub_resource type="PrismMesh" id=10]
 left_to_right = 0.7
-size = Vector3( 0.25, 0.05, 0.015 )
+size = Vector3( 0.25, 0.05, 0.03 )
 
 [sub_resource type="SpatialMaterial" id=11]
 
