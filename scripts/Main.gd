@@ -18,10 +18,26 @@ var totalApplesOnBranch
 var totalApplesOnBranchAtStart
 var damagedApplesAtStart
 
-var interactionMechanicsAvaliable = [1, 2, 3]
-var timesTaken = [-1, -1, -1]
-var damagedApplesPicked = [-1, -1, -1]
-var raitings = [-1, -1, -1]
+var interactionMechanicsAvaliable = [1, 2, 3, 1, 2, 3, 1, 2, 3]
+
+var data = {
+	1: {
+		"times": [],
+		"damagedPicked": [],
+		"raitings": []
+	},
+	2: {
+		"times": [],
+		"damagedPicked": [],
+		"raitings": []
+	},
+	3: {
+		"times": [],
+		"damagedPicked": [],
+		"raitings": []
+	}
+}
+
 var selectedInteractionMechanic
 var removedInteractablesContainer
 var leftHand
@@ -30,6 +46,9 @@ var rightHand
 var completed = false
 
 var collectingRating = false
+
+var acceptedTerms = false
+
 
 
 func _ready():
@@ -41,35 +60,38 @@ func _ready():
 	#Choose interaction mechanic
 	randomize()
 	interactionMechanicsAvaliable.shuffle()
-	selectedInteractionMechanic = interactionMechanicsAvaliable[0]
-	interactionMechanicsAvaliable.remove(0)
-	get_tree().root.get_node("Main/InteractionSelection").selectedInteraction = selectedInteractionMechanic
+	next_interaction()
 	
 	removedInteractablesContainer = get_tree().root.get_node("Main/RemovedInteractables")
 	
 	leftHand = get_tree().root.get_node("Main/ARVROrigin/LeftHand")
 	rightHand = get_tree().root.get_node("Main/ARVROrigin/RightHand")
+	
+	informationNode.visible = false
+	dataNode.visible = false
+	table.visible = false
+	tableApplesContainer.visible = false
+	branchContainer.visible = false
 
-var timeTaken = 0
+
 
 func _process(delta):
-	if collectingRating or completed: return
+	if collectingRating or completed or not acceptedTerms: return
 	healthyApplesOnBranch = getCountHealthyApples()
 	totalApplesOnBranch = getCountTotalApples()
 	if totalApplesOnBranch != totalApplesOnBranchAtStart:
-		timeTaken += delta
+		data[selectedInteractionMechanic]["times"][-1] = data[selectedInteractionMechanic]["times"][-1] + delta
+		data[selectedInteractionMechanic]["damagedPicked"][-1] = damagedApplesAtStart - getCountDamagedApples()
 		dataCollectionNode.visible = false
 	if not completed:
 		setInteractionTime()
 		setInteractionMispicks()
+		setInteractionRaiting()
 	if healthyApplesOnBranch <= 0 and not leftHand.held_object and not rightHand.held_object:
 		complete_section()
 		
 
 func complete_section():
-	timesTaken[selectedInteractionMechanic-1] = timeTaken
-	damagedApplesPicked[selectedInteractionMechanic-1] = damagedApplesAtStart - getCountDamagedApples()
-	timeTaken = 0
 	removeInteractables(removedInteractablesContainer)
 	removeInteractables(branchContainer)
 	removeInteractables(tableApplesContainer)
@@ -83,6 +105,9 @@ func complete_section():
 func next_interaction():
 	selectedInteractionMechanic = interactionMechanicsAvaliable[0]
 	interactionMechanicsAvaliable.remove(0)
+	data[selectedInteractionMechanic]["times"].append(0)
+	data[selectedInteractionMechanic]["damagedPicked"].append(0)
+	data[selectedInteractionMechanic]["raitings"].append("")
 	get_tree().root.get_node("Main/InteractionSelection").selectedInteraction = selectedInteractionMechanic
 
 func getCountHealthyApples():
@@ -145,21 +170,38 @@ func removeInteractables(container: Spatial):
 
 		
 func setInteractionTime():
-	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Time").text = "Time: " + stepify(timeTaken, 0.01) as String + "s"
+	var node = get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Time")
+	var times = data[selectedInteractionMechanic]["times"]
+	var string = ""
+	for time in times: string += "Time: " + stepify(time, 0.01) as String + "s\n"
+	node.text = string
+	#if node.text == "Time:":
+	#	node.text = "Time: " + stepify(timeTaken, 0.01) as String + "s"
+	#else:
+	#	node.text += "\nTime: " + stepify(timeTaken, 0.01) as String + "s"
 
 func setInteractionMispicks():
-	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Mispicks").text = "Mispicks: " + (damagedApplesAtStart - getCountDamagedApples()) as String
+	var node = get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Mispicks")
+	
+	var damagedPicked = data[selectedInteractionMechanic]["damagedPicked"]
+	var string = ""
+	for indDamagedPicked in damagedPicked: string += "Mispicks: " + indDamagedPicked as String + "\n"
+	node.text = string
 
-func setInteractionRaiting(raiting):
-	get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Raiting").text = "Raiting: " + raiting as String
-
+func setInteractionRaiting():
+	var node = get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Raiting")
+	
+	var raitings = data[selectedInteractionMechanic]["raitings"]
+	var string = ""
+	for raiting in raitings: string += "Raiting: " + raiting as String + "\n"
+	node.text = string
 
 
 func _on_StarOK_area_entered(area):
 	if stars.currentSelection == 0: return
+	data[selectedInteractionMechanic]["raitings"][-1] = stars.currentSelection
+	setInteractionRaiting()
 	if interactionMechanicsAvaliable.size() == 0:
-		raitings[selectedInteractionMechanic-1] = stars.currentSelection
-		setInteractionRaiting(stars.currentSelection)
 		stars.reset_stars()
 		stars.visible = false
 		collectingRating = false
@@ -167,8 +209,7 @@ func _on_StarOK_area_entered(area):
 		get_tree().root.get_node("Main/InformationNode/Viewport/TitleLabel").text = ""
 		get_tree().root.get_node("Main/InformationNode/Viewport/BottomLabel").text = "Thank you for trying out this demo, If you have any other comments on the interaction mechanics tried please don't hesitate to leave a comment where you found this demo,\n\nAgain, your time taken data, mispicks, and raiting have been sent to me to decide on the prefered interaction mechanic"
 	else:
-		raitings[selectedInteractionMechanic-1] = stars.currentSelection
-		setInteractionRaiting(stars.currentSelection)
+		
 		stars.reset_stars()
 		addInteractables()
 		removedInteractablesContainer.visible = true
@@ -179,3 +220,15 @@ func _on_StarOK_area_entered(area):
 		collectingRating = false
 		next_interaction()
 	
+
+
+func _on_StartButton_area_entered(area):
+	$DataCollectionConformation.visible = false
+	
+	informationNode.visible = true
+	dataNode.visible = true
+	table.visible = true
+	tableApplesContainer.visible = true
+	branchContainer.visible = true
+	
+	acceptedTerms = true

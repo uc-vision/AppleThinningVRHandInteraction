@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
@@ -175,8 +175,26 @@ viewport_path = NodePath("Stars/OKButton/Spatial/Viewport")
 size = 50
 font_data = ExtResource( 14 )
 
-[sub_resource type="ViewportTexture" id=87]
+[sub_resource type="ViewportTexture" id=92]
 viewport_path = NodePath("DataCollectionConformation/Viewport")
+
+[sub_resource type="CylinderShape" id=88]
+height = 0.0388613
+radius = 0.0997206
+
+[sub_resource type="CylinderMesh" id=89]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.038
+
+[sub_resource type="DynamicFont" id=90]
+size = 300
+outline_size = 10
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 14 )
+
+[sub_resource type="ViewportTexture" id=93]
+viewport_path = NodePath("DataCollectionConformation/StartButton/Spatial/Viewport")
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 6 )
@@ -567,18 +585,20 @@ text = "OK"
 texture = SubResource( 82 )
 
 [node name="DataCollectionConformation" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57024, -1.39267 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57024, -0.868181 )
 
 [node name="Viewport" type="Viewport" parent="DataCollectionConformation"]
-size = Vector2( 1000, 1500 )
+size = Vector2( 1500, 1500 )
 msaa = 6
 render_target_v_flip = true
 
 [node name="Label" type="Label" parent="DataCollectionConformation/Viewport"]
 anchor_right = 0.95
-anchor_bottom = 1.0
-margin_right = 40.0
-margin_bottom = 14.0
+anchor_bottom = 0.95
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 30.0
+margin_bottom = 30.0
 custom_fonts/font = SubResource( 86 )
 text = "Thank you for trying out this demo!
 In this demo you will try out 3 different interaction mechanics for picking up items using the Meta Quests hand tracking, nameley apple fruitlets.
@@ -593,8 +613,37 @@ valign = 1
 autowrap = true
 
 [node name="Sprite3D" type="Sprite3D" parent="DataCollectionConformation"]
-transform = Transform( 0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, -0.20213, -0.260397 )
-texture = SubResource( 87 )
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, -0.202394 )
+texture = SubResource( 92 )
+
+[node name="StartButton" type="Spatial" parent="DataCollectionConformation"]
+transform = Transform( 1, 0, 0, 0, 0.780518, -0.625134, 0, 0.625134, 0.780518, 0, -0.447, 0.381101 )
+
+[node name="Area" type="Area" parent="DataCollectionConformation/StartButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="DataCollectionConformation/StartButton/Area"]
+shape = SubResource( 88 )
+
+[node name="MeshInstance" type="MeshInstance" parent="DataCollectionConformation/StartButton/Area/CollisionShape"]
+mesh = SubResource( 89 )
+
+[node name="Spatial" type="Spatial" parent="DataCollectionConformation/StartButton"]
+transform = Transform( 0.025, 0, 0, 0, 9.31323e-10, 1, 0, -0.025, 0, 0.0524799, 0.0216807, 0.0660734 )
+
+[node name="Viewport" type="Viewport" parent="DataCollectionConformation/StartButton/Spatial"]
+size = Vector2( 1000, 1000 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="DataCollectionConformation/StartButton/Spatial/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 90 )
+text = "Start"
+
+[node name="Sprite3D2" type="Sprite3D" parent="DataCollectionConformation/StartButton/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241681, -0.395458, 0.0032787 )
+texture = SubResource( 93 )
 
 [connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
@@ -607,6 +656,7 @@ texture = SubResource( 87 )
 [connection signal="area_entered" from="Stars/Star4/Area" to="Stars" method="_on_star_area_entered" binds= [ 4 ]]
 [connection signal="area_entered" from="Stars/Star5/Area" to="Stars" method="_on_star_area_entered" binds= [ 5 ]]
 [connection signal="area_entered" from="Stars/OKButton/Area" to="." method="_on_StarOK_area_entered"]
+[connection signal="area_entered" from="DataCollectionConformation/StartButton/Area" to="." method="_on_StartButton_area_entered"]
 
 [editable path="ARVROrigin"]
 [editable path="ARVROrigin/LeftHand"]
