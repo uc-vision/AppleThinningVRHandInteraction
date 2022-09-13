@@ -50,7 +50,6 @@ var collectingRating = false
 var acceptedTerms = false
 
 
-
 func _ready():
 	healthyApplesOnBranch = getCountHealthyApples()
 	totalApplesOnBranch = getCountTotalApples()
@@ -201,6 +200,13 @@ func _on_StarOK_area_entered(area):
 	if stars.currentSelection == 0: return
 	data[selectedInteractionMechanic]["raitings"][-1] = stars.currentSelection
 	setInteractionRaiting()
+	
+	var interactionNum = selectedInteractionMechanic
+	var timeTaken = data[selectedInteractionMechanic]["times"][-1]
+	var mispicks = data[selectedInteractionMechanic]["damagedPicked"][-1]
+	var rating = stars.currentSelection
+	$HTTPRequest.send_data(interactionNum, timeTaken, mispicks, rating)
+	
 	if interactionMechanicsAvaliable.size() == 0:
 		stars.reset_stars()
 		stars.visible = false
