@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
@@ -15,7 +15,8 @@
 [ext_resource path="res://scenes/Star.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Fonts/product-sans/Product Sans Regular.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://Assets/Fonts/product-sans/Product Sans Bold.ttf" type="DynamicFontData" id=15]
-[ext_resource path="res://scenes/HTTPRequest.gd" type="Script" id=16]
+[ext_resource path="res://scripts/HTTPRequest.gd" type="Script" id=16]
+[ext_resource path="res://scripts/IPAddressRequester.gd" type="Script" id=17]
 
 [sub_resource type="PanoramaSky" id=4]
 panorama = ExtResource( 11 )
@@ -648,6 +649,9 @@ texture = SubResource( 93 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 script = ExtResource( 16 )
+
+[node name="IPAddressRequester" type="HTTPRequest" parent="."]
+script = ExtResource( 17 )
 
 [connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
