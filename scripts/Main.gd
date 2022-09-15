@@ -18,7 +18,7 @@ var totalApplesOnBranch
 var totalApplesOnBranchAtStart
 var damagedApplesAtStart
 
-var interactionMechanicsAvaliable = [1, 2, 3, 1, 2, 3, 1, 2, 3]
+var interactionMechanicsAvaliable = [1, 2, 3]
 
 var data = {
 	1: {
@@ -59,6 +59,7 @@ func _ready():
 	#Choose interaction mechanic
 	randomize()
 	interactionMechanicsAvaliable.shuffle()
+	interactionMechanicsAvaliable = interactionMechanicsAvaliable + interactionMechanicsAvaliable + interactionMechanicsAvaliable
 	next_interaction()
 	
 	removedInteractablesContainer = get_tree().root.get_node("Main/RemovedInteractables")
