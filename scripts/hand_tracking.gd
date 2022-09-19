@@ -9,6 +9,9 @@ var grab_point_velocity = Vector3(0, 0, 0)
 var prior_grab_point_velocities = []
 var prior_grab_point_position = Vector3(0, 0, 0)
 
+
+var apple_pick_sound_player
+
 # Current hand pinch mapping for the tracked hands
 # Godot itself also exposes some of these constants via JOY_VR_* and JOY_OCULUS_*
 # this enum here is to document everything in place and includes the pinch event mappings
@@ -74,6 +77,8 @@ func _ready():
 
 	ovr_utilities = load("res://addons/godot_ovrmobile/OvrUtilities.gdns")
 	if (ovr_utilities): ovr_utilities = ovr_utilities.new()
+	
+	apple_pick_sound_player = get_tree().root.get_node("Main/ApplePickSound")
 
 
 func _initialize_hands():
@@ -120,11 +125,10 @@ func _update_hand_model(model : Spatial, skel: Skeleton):
 		return true;
 	else:
 		return false;
-	
-	
+
 	
 func grab_object(object_to_pickup):
-	#get_node("../../OutputNode/Viewport/OtherLabel").text = rigid_body.get_name()
+	#get_node("../../InformationNode/Viewport/OtherLabel").text = rigid_body.get_name()
 	held_object = object_to_pickup
 	held_object.mode = RigidBody.MODE_STATIC
 	var original_position = held_object.global_transform
@@ -140,9 +144,12 @@ func drop_object():
 	var original_position = held_object.global_transform
 	
 	grabPoint.remove_child(held_object)
-	held_object_original_parent.add_child(held_object)
-	held_object.set_owner(held_object_original_parent)
-	held_object_original_parent  = null
+	#held_object_original_parent.add_child(held_object)
+	#held_object.set_owner(held_object_original_parent)
+	#held_object_original_parent  = null
+	var removedInteractablesContainer = get_tree().root.get_node("Main/RemovedInteractables")
+	removedInteractablesContainer.add_child(held_object)
+	held_object.set_owner(removedInteractablesContainer)
 	
 	held_object.mode = RigidBody.MODE_RIGID
 	held_object.global_transform = original_position
@@ -171,12 +178,13 @@ func _process(delta_t):
 			object_to_pickup = $HandContainer.detect_grabbing_object_3()
 	
 	
-	
-	
 	if object_to_pickup and not held_object:
+		apple_pick_sound_player.play()
 		grab_object(object_to_pickup)
+		
 	elif not object_to_pickup and held_object:
 		drop_object()
+	
 			
 
 func _physics_process(delta):

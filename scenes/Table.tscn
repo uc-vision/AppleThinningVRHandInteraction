@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CubeMesh" id=51]
+size = Vector3( 1, 0.008, 1 )
+
+[sub_resource type="BoxShape" id=52]
+extents = Vector3( 0.5, 0.1, 0.5 )
+
+[sub_resource type="CubeMesh" id=53]
+size = Vector3( 1, 0.02, 0.008 )
+
+[sub_resource type="BoxShape" id=54]
+extents = Vector3( 0.5, 0.01, 0.004 )
+
+[node name="Table" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 51 )
+skeleton = NodePath("Bottom")
+
+[node name="Bottom" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/Bottom"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0958295, 0 )
+shape = SubResource( 52 )
+
+[node name="Side1" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014, 0.496 )
+mesh = SubResource( 53 )
+skeleton = NodePath("../MeshInstance/Bottom")
+
+[node name="Bottom" type="StaticBody" parent="Side1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Side1/Bottom"]
+shape = SubResource( 54 )
+
+[node name="Side2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014, -0.496 )
+mesh = SubResource( 53 )
+skeleton = NodePath("../MeshInstance/Bottom")
+
+[node name="Bottom" type="StaticBody" parent="Side2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Side2/Bottom"]
+shape = SubResource( 54 )
+
+[node name="Side3" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.496, 0.0140001, 0 )
+mesh = SubResource( 53 )
+skeleton = NodePath("../MeshInstance/Bottom")
+
+[node name="Bottom" type="StaticBody" parent="Side3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Side3/Bottom"]
+shape = SubResource( 54 )
+
+[node name="Side4" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.496, 0.0140001, 2.98023e-08 )
+mesh = SubResource( 53 )
+skeleton = NodePath("../MeshInstance/Bottom")
+
+[node name="Bottom" type="StaticBody" parent="Side4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Side4/Bottom"]
+shape = SubResource( 54 )

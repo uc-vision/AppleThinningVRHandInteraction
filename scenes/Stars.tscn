@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/Star.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/StarsSelection.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/product-sans/Product Sans Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="CylinderShape" id=31]
+height = 0.0388613
+radius = 0.0997206
+
+[sub_resource type="CylinderMesh" id=32]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.038
+
+[sub_resource type="DynamicFont" id=34]
+size = 400
+outline_size = 10
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="ViewportTexture" id=53]
+viewport_path = NodePath("Stars/OKButton/Spatial/Viewport")
+
+[node name="Stars" type="Spatial"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.5, -0.831342 )
+script = ExtResource( 2 )
+
+[node name="Star1" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.640109, 0, 0 )
+
+[node name="Star2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.320109, 0, 0 )
+
+[node name="Star3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.000109129, 0, 0 )
+
+[node name="Star4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.319891, 0, 0 )
+
+[node name="Star5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.639891, 0, 0 )
+
+[node name="OKButton" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.780518, -0.625134, 0, 0.625134, 0.780518, 0, -0.446991, 0.0835586 )
+
+[node name="Area" type="Area" parent="OKButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="OKButton/Area"]
+shape = SubResource( 31 )
+
+[node name="MeshInstance" type="MeshInstance" parent="OKButton/Area/CollisionShape"]
+mesh = SubResource( 32 )
+
+[node name="Spatial" type="Spatial" parent="OKButton"]
+transform = Transform( 0.025, 0, 0, 0, 9.31323e-10, 1, 0, -0.025, 0, 0.0524799, 0.0216807, 0.0660734 )
+
+[node name="Viewport" type="Viewport" parent="OKButton/Spatial"]
+size = Vector2( 1000, 1000 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="OKButton/Spatial/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 34 )
+text = "OK"
+
+[node name="Sprite3D" type="Sprite3D" parent="OKButton/Spatial"]
+texture = SubResource( 53 )
+
+[connection signal="area_entered" from="Star1/Area" to="." method="_on_star_area_entered" binds= [ 1 ]]
+[connection signal="area_entered" from="Star2/Area" to="." method="_on_star_area_entered" binds= [ 2 ]]
+[connection signal="area_entered" from="Star3/Area" to="." method="_on_star_area_entered" binds= [ 3 ]]
+[connection signal="area_entered" from="Star4/Area" to="." method="_on_star_area_entered" binds= [ 4 ]]
+[connection signal="area_entered" from="Star5/Area" to="." method="_on_star_area_entered" binds= [ 5 ]]
+
+[editable path="Star1"]
+[editable path="Star2"]
+[editable path="Star3"]
+[editable path="Star4"]
+[editable path="Star5"]

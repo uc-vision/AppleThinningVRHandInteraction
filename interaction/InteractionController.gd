@@ -89,20 +89,20 @@ func get_finger_angle_estimate(finger):
 	angle += _get_bone_angle_diff(_ovrHandFingers_Bone1Start[finger]+2);
 	return angle;
 
-onready var last_detected_gripping = false
+onready var last_detected_gripping = null
 
 func detect_grabbing_object_2():
 	if (hand.tracking_confidence <= 0.5): return last_detected_gripping;
 	var fingers_gripping = 0
-	
 	for i in range(0, 5):
 		var finger_angle = get_finger_angle_estimate(i)
-		if finger_angle > 60:
+		if finger_angle > 90:
 			fingers_gripping += 1
 	if fingers_gripping > 2:
-		last_detected_gripping = true
-		return get_closest_rigidbody()
-	last_detected_gripping = false
+		var closest = get_closest_rigidbody()
+		last_detected_gripping = closest
+		return closest
+	last_detected_gripping = null
 	return false
 
 

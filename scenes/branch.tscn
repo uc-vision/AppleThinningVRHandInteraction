@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/HealthySmallApple.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/HealthyLargeApple.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/DamagedLargeApple.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/DamagedSmallApple.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CylinderMesh" id=55]
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.5
+
+[sub_resource type="SpatialMaterial" id=56]
+albedo_color = Color( 0.74902, 0.380392, 0, 1 )
+
+[node name="branch" type="Spatial"]
+
+[node name="branchMesh" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, -0.587 )
+mesh = SubResource( 55 )
+material/0 = SubResource( 56 )
+
+[node name="DamagedSmallApple2" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.939872, -0.260031, 0.221412, 0.26665, 0.963794, 0, -0.213396, 0.0590395, 0.97518, 0, -0.0384113, -0.594101 )
+
+[node name="HealthyLargeApple2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.940122, 0.340839, 0, -0.340839, 0.940122, 0, 0, 0, 1, -0.0435792, -0.031, -0.594216 )
+mode = 1
+
+[node name="HealthySmallApple2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.340507, -0.0754879, 0.937207, -0.541541, 0.799094, 0.261117, -0.768628, -0.596447, 0.231217, 0.00468247, -0.0389384, -0.55479 )
+mode = 1
+
+[node name="DamagedLargeApple2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.870012, 0.156482, -0.467539, 0.213373, 0.735386, 0.643179, 0.444468, -0.659334, 0.606405, -0.0256809, -0.0110544, -0.551807 )
+
+[node name="HealthyLargeApple3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.928564, -0.35567, 0.106152, 0.371173, 0.88978, -0.265559, 0, 0.285989, 0.958233, 0.0359555, -0.031, -0.58259 )
+mode = 1
+
+[node name="HealthySmallApple3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.946125, -0.320366, -0.0470431, 0.193179, 0.675063, -0.71202, 0.259864, 0.664572, 0.700582, -0.00121146, -0.023, -0.625259 )
+mode = 1
+
+[node name="DamagedLargeApple3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.944706, -0.306805, 0.115766, 0.220495, 0.333017, -0.916778, 0.242719, 0.891611, 0.382252, 0.0374389, -0.00964904, -0.628943 )
+
+[node name="DamagedSmallApple3" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.939872, -0.260031, 0.221412, 0.167813, 0.916264, 0.36373, -0.297454, -0.304704, 0.904807, -0.243679, -0.028301, -0.582544 )
+
+[node name="HealthyLargeApple4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.887915, 0.321912, -0.328603, -0.201017, 0.914054, 0.352275, 0.413762, -0.246736, 0.876312, -0.281987, -0.0445374, -0.610689 )
+mode = 1
+
+[node name="HealthySmallApple4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.340507, -0.0754879, 0.937207, -0.916869, 0.194212, 0.34876, -0.208344, -0.97805, -0.00308238, -0.238997, 0.00400098, -0.553161 )
+mode = 1
+
+[node name="DamagedLargeApple4" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.511705, 0.623142, -0.591483, 0.428477, 0.411628, 0.804344, 0.744692, -0.665024, -0.0563695, -0.278114, -0.0054003, -0.566807 )
+
+[node name="HealthyLargeApple5" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.527678, -0.662743, -0.531345, 0.818752, 0.563451, 0.110312, 0.226279, -0.493248, 0.839943, -0.207724, -0.0287401, -0.571391 )
+mode = 1
+
+[node name="HealthySmallApple5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.946125, -0.320366, -0.0470431, 0.185987, 0.656602, -0.730947, 0.265059, 0.682818, 0.680811, -0.241208, -0.0281269, -0.616195 )
+mode = 1
+
+[node name="DamagedLargeApple5" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.791977, -0.609764, -0.0310162, 0.470664, 0.642091, -0.60514, 0.388907, 0.464658, 0.795515, -0.20054, -0.0414127, -0.610921 )
+
+[node name="HealthyLargeApple6" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.773871, 0.207623, -0.598346, 0.260075, 0.757239, 0.599125, 0.577483, -0.61926, 0.532007, -0.260526, -0.0625914, -0.577025 )
+mode = 1
+
+[node name="DamagedSmallApple4" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.902945, 0.0744495, -0.423257, 0.108685, 0.992424, -0.0572953, 0.415785, -0.0977362, -0.904196, 0.21684, -0.030989, -0.594352 )
+
+[node name="HealthyLargeApple7" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.862952, -0.492642, 0.112332, -0.491912, 0.869898, 0.0360645, -0.115484, -0.0241354, -0.993016, 0.261392, -0.0283725, -0.571297 )
+mode = 1
+
+[node name="HealthySmallApple6" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.0813799, 0.160578, -0.983663, -0.808213, 0.566904, 0.159409, 0.58324, 0.807981, 0.0836473, 0.200646, -0.013848, -0.631401 )
+mode = 1
+
+[node name="DamagedLargeApple6" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.695855, -0.605803, 0.385731, 0.0143641, 0.525247, 0.850828, -0.718039, 0.597594, -0.356794, 0.242366, -0.0105022, -0.624127 )
+
+[node name="HealthyLargeApple8" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.732756, 0.571301, 0.369708, 0.565942, 0.813302, -0.135088, -0.377861, 0.110247, -0.919276, 0.180836, -0.0417603, -0.596604 )
+mode = 1
+
+[node name="HealthySmallApple7" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.990373, 0.0587265, 0.125352, -0.093339, 0.385413, -0.918012, -0.102224, -0.920874, -0.376221, 0.219035, -0.0182393, -0.563189 )
+mode = 1
+
+[node name="DamagedLargeApple7" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.926642, 0.370394, 0.0643668, 0.142897, 0.505381, -0.850982, -0.347727, -0.779358, -0.521235, 0.182352, -0.0391811, -0.554582 )
+
+[node name="HealthyLargeApple9" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.885112, -0.294461, 0.360376, -0.117892, 0.890984, 0.438463, -0.450199, 0.345603, -0.823334, 0.240421, -0.0613739, -0.591069 )
+mode = 1

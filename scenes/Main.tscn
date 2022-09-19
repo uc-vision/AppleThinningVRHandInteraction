@@ -1,14 +1,29 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Interactables.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/DataNode.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/branch.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Audio/apple-picking-sound.wav" type="AudioStream" id=5]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=6]
-[ext_resource path="res://scenes/OutputNode.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/InformationNode.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Floor.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Table.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/TableApples.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/CGTuts_OceanHDRI_Freebie_001.hdr" type="Texture" id=11]
+[ext_resource path="res://scripts/StarsSelection.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Star.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Fonts/product-sans/Product Sans Regular.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://Assets/Fonts/product-sans/Product Sans Bold.ttf" type="DynamicFontData" id=15]
+[ext_resource path="res://scripts/HTTPRequest.gd" type="Script" id=16]
+[ext_resource path="res://scripts/IPAddressRequester.gd" type="Script" id=17]
 
-[sub_resource type="ViewportTexture" id=10]
-viewport_path = NodePath("OutputNode/Viewport")
+[sub_resource type="PanoramaSky" id=4]
+panorama = ExtResource( 11 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 4 )
 
 [sub_resource type="SphereShape" id=35]
 
@@ -46,22 +61,164 @@ viewport_path = NodePath("InteractionSelection/Interaction3/Spatial/Viewport")
 [sub_resource type="ViewportTexture" id=50]
 viewport_path = NodePath("InteractionSelection/Reset/Spatial/Viewport")
 
-[sub_resource type="CubeMesh" id=51]
-size = Vector3( 1, 0.008, 1 )
+[sub_resource type="DynamicFont" id=84]
+size = 63
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 15 )
 
-[sub_resource type="BoxShape" id=52]
-extents = Vector3( 0.5, 0.1, 0.5 )
+[sub_resource type="ViewportTexture" id=85]
+viewport_path = NodePath("Stars/Title/Viewport")
 
-[sub_resource type="CubeMesh" id=53]
-size = Vector3( 1, 0.02, 0.008 )
+[sub_resource type="PrismMesh" id=52]
+size = Vector3( 0.2, 0.1, 0.03 )
 
-[sub_resource type="BoxShape" id=54]
-extents = Vector3( 0.5, 0.01, 0.004 )
+[sub_resource type="SpatialMaterial" id=53]
+
+[sub_resource type="PrismMesh" id=54]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=55]
+
+[sub_resource type="PrismMesh" id=56]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=57]
+
+[sub_resource type="PrismMesh" id=58]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=59]
+
+[sub_resource type="PrismMesh" id=60]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=61]
+
+[sub_resource type="PrismMesh" id=62]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=63]
+
+[sub_resource type="PrismMesh" id=64]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=65]
+
+[sub_resource type="PrismMesh" id=66]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=67]
+
+[sub_resource type="PrismMesh" id=68]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=69]
+
+[sub_resource type="PrismMesh" id=70]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=71]
+
+[sub_resource type="PrismMesh" id=72]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=73]
+
+[sub_resource type="PrismMesh" id=74]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=75]
+
+[sub_resource type="PrismMesh" id=76]
+size = Vector3( 0.2, 0.1, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=77]
+
+[sub_resource type="PrismMesh" id=78]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=79]
+
+[sub_resource type="PrismMesh" id=80]
+left_to_right = 0.7
+size = Vector3( 0.25, 0.05, 0.03 )
+
+[sub_resource type="SpatialMaterial" id=81]
+
+[sub_resource type="CylinderShape" id=31]
+height = 0.0388613
+radius = 0.0997206
+
+[sub_resource type="CylinderMesh" id=32]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.038
+
+[sub_resource type="DynamicFont" id=34]
+size = 400
+outline_size = 10
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 14 )
+
+[sub_resource type="ViewportTexture" id=82]
+viewport_path = NodePath("Stars/OKButton/Spatial/Viewport")
+
+[sub_resource type="DynamicFont" id=86]
+size = 50
+font_data = ExtResource( 14 )
+
+[sub_resource type="ViewportTexture" id=92]
+viewport_path = NodePath("DataCollectionConformation/Viewport")
+
+[sub_resource type="CylinderShape" id=88]
+height = 0.0388613
+radius = 0.0997206
+
+[sub_resource type="CylinderMesh" id=89]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.038
+
+[sub_resource type="DynamicFont" id=90]
+size = 300
+outline_size = 10
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 14 )
+
+[sub_resource type="ViewportTexture" id=93]
+viewport_path = NodePath("DataCollectionConformation/StartButton/Spatial/Viewport")
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 6 )
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
 [node name="ARVROrigin" parent="." instance=ExtResource( 1 )]
+
+[node name="Skeleton" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature" index="0"]
+bones/0/bound_children = [ NodePath("BoneAttachment 11") ]
+bones/2/bound_children = [ NodePath("BoneAttachment") ]
+bones/5/bound_children = [ NodePath("ThumbTip") ]
+bones/6/bound_children = [ NodePath("BoneAttachment 6") ]
+bones/7/bound_children = [ NodePath("BoneAttachment 5") ]
+bones/8/bound_children = [ NodePath("BoneAttachment 2"), NodePath("BoneAttachment 3"), NodePath("BoneAttachment 4") ]
+bones/9/bound_children = [ NodePath("IndexTip") ]
+bones/11/bound_children = [ NodePath("BoneAttachment 10") ]
+bones/12/bound_children = [ NodePath("BoneAttachment 7"), NodePath("BoneAttachment 8"), NodePath("BoneAttachment 9") ]
+bones/13/bound_children = [ NodePath("MiddleTip") ]
+bones/17/bound_children = [ NodePath("RingTip") ]
+bones/22/bound_children = [ NodePath("PinkyTip") ]
 
 [node name="BoneAttachment" parent="ARVROrigin/LeftHand/HandContainer/HandModel/Armature/Skeleton" index="0"]
 transform = Transform( 0.715416, 0.480301, 0.507437, -0.520631, 0.850801, -0.0712857, -0.465966, -0.213188, 0.858735, 3.59585, -2.80285, -1.91577 )
@@ -133,15 +290,11 @@ transform = Transform( 0.965993, 0.0123385, -0.25827, 0.249915, -0.300748, 0.920
 transform = Transform( 0.932251, -0.159972, 0.324527, -0.298522, -0.846881, 0.440088, 0.204434, -0.507151, -0.83726, 1.5186, 124.325, -240.98 )
 shadow_enabled = true
 
-[node name="OutputNode" parent="." instance=ExtResource( 7 )]
-
-[node name="Sprite3D" parent="OutputNode" index="1"]
-texture = SubResource( 10 )
-
 [node name="Floor" parent="." instance=ExtResource( 8 )]
 
 [node name="InteractionSelection" type="Spatial" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.555459, 1.26628, 0.544826 )
+visible = false
 script = ExtResource( 2 )
 
 [node name="Interaction1" type="Spatial" parent="InteractionSelection"]
@@ -281,76 +434,245 @@ valign = 1
 transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
 texture = SubResource( 50 )
 
-[node name="InteractablesContainer" type="Spatial" parent="."]
+[node name="ApplePickSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3 )
+stream = ExtResource( 5 )
+unit_db = 30.0
 
-[node name="Interactables" parent="InteractablesContainer" instance=ExtResource( 3 )]
+[node name="RemovedInteractables" type="Spatial" parent="."]
 
-[node name="Table" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.5 )
+[node name="BranchContainer" type="Spatial" parent="."]
+transform = Transform( 0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 0.15, 1.5, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Table"]
-mesh = SubResource( 51 )
-skeleton = NodePath("Bottom")
-material/0 = null
+[node name="branch" parent="BranchContainer" instance=ExtResource( 4 )]
 
-[node name="Bottom" type="StaticBody" parent="Table/MeshInstance"]
+[node name="DataNode" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.0939693, 0, -0.34202, 0, 0.1, 0, 0.034202, 0, 0.939693, 0.788, 1.3, -1.692 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Table/MeshInstance/Bottom"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0958295, 0 )
-shape = SubResource( 52 )
+[node name="Table" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.469846, 0, 0.17101, 0, 0.5, 0, -0.17101, 0, 0.469846, -0.329, 1, -0.5 )
 
-[node name="Side1" type="MeshInstance" parent="Table"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014, 0.496 )
-mesh = SubResource( 53 )
-skeleton = NodePath("../MeshInstance/Bottom")
-material/0 = null
+[node name="InformationNode" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.0939693, 0, 0.34202, 0, 0.1, 0, -0.034202, 0, 0.939693, -0.788, 1.3, -1.692 )
 
-[node name="Bottom" type="StaticBody" parent="Table/Side1"]
+[node name="TableApplesContainer" type="Spatial" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="Table/Side1/Bottom"]
-shape = SubResource( 54 )
+[node name="TableApples" parent="TableApplesContainer" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372959, 1.0419, -0.644807 )
 
-[node name="Side2" type="MeshInstance" parent="Table"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.014, -0.496 )
-mesh = SubResource( 53 )
-skeleton = NodePath("../MeshInstance/Bottom")
-material/0 = null
+[node name="Stars" type="Spatial" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.5, -0.831 )
+visible = false
+script = ExtResource( 12 )
 
-[node name="Bottom" type="StaticBody" parent="Table/Side2"]
+[node name="Title" type="Spatial" parent="Stars"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.325, -0.477 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Table/Side2/Bottom"]
-shape = SubResource( 54 )
+[node name="Viewport" type="Viewport" parent="Stars/Title"]
+size = Vector2( 2000, 100 )
+transparent_bg = true
+render_target_v_flip = true
 
-[node name="Side3" type="MeshInstance" parent="Table"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.496, 0.0140001, 0 )
-mesh = SubResource( 53 )
-skeleton = NodePath("../MeshInstance/Bottom")
-material/0 = null
+[node name="Label" type="Label" parent="Stars/Title/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 84 )
+text = "What rating would you give this interaction mechanic out of 5 stars?"
 
-[node name="Bottom" type="StaticBody" parent="Table/Side3"]
+[node name="Sprite3D" type="Sprite3D" parent="Stars/Title"]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0 )
+texture = SubResource( 85 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Table/Side3/Bottom"]
-shape = SubResource( 54 )
+[node name="Star1" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.640109, 0, 0 )
 
-[node name="Side4" type="MeshInstance" parent="Table"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.496, 0.0140001, 2.98023e-08 )
-mesh = SubResource( 53 )
-skeleton = NodePath("../MeshInstance/Bottom")
-material/0 = null
+[node name="MeshInstance1" parent="Stars/Star1" index="1"]
+mesh = SubResource( 52 )
+material/0 = SubResource( 53 )
 
-[node name="Bottom" type="StaticBody" parent="Table/Side4"]
+[node name="MeshInstance2" parent="Stars/Star1" index="2"]
+mesh = SubResource( 54 )
+material/0 = SubResource( 55 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Table/Side4/Bottom"]
-shape = SubResource( 54 )
+[node name="MeshInstance3" parent="Stars/Star1" index="3"]
+mesh = SubResource( 56 )
+material/0 = SubResource( 57 )
+
+[node name="Star2" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.320109, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star2" index="1"]
+mesh = SubResource( 58 )
+material/0 = SubResource( 59 )
+
+[node name="MeshInstance2" parent="Stars/Star2" index="2"]
+mesh = SubResource( 60 )
+material/0 = SubResource( 61 )
+
+[node name="MeshInstance3" parent="Stars/Star2" index="3"]
+mesh = SubResource( 62 )
+material/0 = SubResource( 63 )
+
+[node name="Star3" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.000109129, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star3" index="1"]
+mesh = SubResource( 64 )
+material/0 = SubResource( 65 )
+
+[node name="MeshInstance2" parent="Stars/Star3" index="2"]
+mesh = SubResource( 66 )
+material/0 = SubResource( 67 )
+
+[node name="MeshInstance3" parent="Stars/Star3" index="3"]
+mesh = SubResource( 68 )
+material/0 = SubResource( 69 )
+
+[node name="Star4" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.319891, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star4" index="1"]
+mesh = SubResource( 70 )
+material/0 = SubResource( 71 )
+
+[node name="MeshInstance2" parent="Stars/Star4" index="2"]
+mesh = SubResource( 72 )
+material/0 = SubResource( 73 )
+
+[node name="MeshInstance3" parent="Stars/Star4" index="3"]
+mesh = SubResource( 74 )
+material/0 = SubResource( 75 )
+
+[node name="Star5" parent="Stars" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0.639891, 0, 0 )
+
+[node name="MeshInstance1" parent="Stars/Star5" index="1"]
+mesh = SubResource( 76 )
+material/0 = SubResource( 77 )
+
+[node name="MeshInstance2" parent="Stars/Star5" index="2"]
+mesh = SubResource( 78 )
+material/0 = SubResource( 79 )
+
+[node name="MeshInstance3" parent="Stars/Star5" index="3"]
+mesh = SubResource( 80 )
+material/0 = SubResource( 81 )
+
+[node name="OKButton" type="Spatial" parent="Stars"]
+transform = Transform( 1, 0, 0, 0, 0.780518, -0.625134, 0, 0.625134, 0.780518, 0, -0.446991, 0.0835586 )
+
+[node name="Area" type="Area" parent="Stars/OKButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Stars/OKButton/Area"]
+shape = SubResource( 31 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Stars/OKButton/Area/CollisionShape"]
+mesh = SubResource( 32 )
+
+[node name="Spatial" type="Spatial" parent="Stars/OKButton"]
+transform = Transform( 0.025, 0, 0, 0, 9.31323e-10, 1, 0, -0.025, 0, 0.0524799, 0.0216807, 0.0660734 )
+
+[node name="Viewport" type="Viewport" parent="Stars/OKButton/Spatial"]
+size = Vector2( 1000, 1000 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="Stars/OKButton/Spatial/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 34 )
+text = "OK"
+
+[node name="Sprite3D" type="Sprite3D" parent="Stars/OKButton/Spatial"]
+texture = SubResource( 82 )
+
+[node name="DataCollectionConformation" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57024, -0.868181 )
+
+[node name="Viewport" type="Viewport" parent="DataCollectionConformation"]
+size = Vector2( 1500, 1500 )
+msaa = 6
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="DataCollectionConformation/Viewport"]
+anchor_right = 0.95
+anchor_bottom = 0.95
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 30.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 86 )
+text = "Thank you for trying out this demo!
+In this demo you will try out 3 different interaction mechanics for picking up items using the Meta Quests hand tracking, nameley apple fruitlets.
+
+The aim is to pick the apple fruitlets off the branch as fast as possible without removing the red apples.
+
+The table on the left can be used to try out the interaction mecahic before starting on the branch. These apple fruitlets are not counted in the time trial.
+
+By continuing this demo you consent to the data of your time taken, mispicks, and raitings of interaction mechanics being sent to me for review."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Sprite3D" type="Sprite3D" parent="DataCollectionConformation"]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, -0.202394 )
+texture = SubResource( 92 )
+
+[node name="StartButton" type="Spatial" parent="DataCollectionConformation"]
+transform = Transform( 1, 0, 0, 0, 0.780518, -0.625134, 0, 0.625134, 0.780518, 0, -0.447, 0.381101 )
+
+[node name="Area" type="Area" parent="DataCollectionConformation/StartButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="DataCollectionConformation/StartButton/Area"]
+shape = SubResource( 88 )
+
+[node name="MeshInstance" type="MeshInstance" parent="DataCollectionConformation/StartButton/Area/CollisionShape"]
+mesh = SubResource( 89 )
+
+[node name="Spatial" type="Spatial" parent="DataCollectionConformation/StartButton"]
+transform = Transform( 0.025, 0, 0, 0, 9.31323e-10, 1, 0, -0.025, 0, 0.0524799, 0.0216807, 0.0660734 )
+
+[node name="Viewport" type="Viewport" parent="DataCollectionConformation/StartButton/Spatial"]
+size = Vector2( 1000, 1000 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Label" type="Label" parent="DataCollectionConformation/StartButton/Spatial/Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 90 )
+text = "Start"
+
+[node name="Sprite3D2" type="Sprite3D" parent="DataCollectionConformation/StartButton/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241681, -0.395458, 0.0032787 )
+texture = SubResource( 93 )
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+script = ExtResource( 16 )
+
+[node name="IPAddressRequester" type="HTTPRequest" parent="."]
+script = ExtResource( 17 )
 
 [connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Interaction3/Area" to="InteractionSelection" method="_on_interaction3_area_entered"]
 [connection signal="area_entered" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_entered"]
 [connection signal="area_exited" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_exited"]
+[connection signal="area_entered" from="Stars/Star1/Area" to="Stars" method="_on_star_area_entered" binds= [ 1 ]]
+[connection signal="area_entered" from="Stars/Star2/Area" to="Stars" method="_on_star_area_entered" binds= [ 2 ]]
+[connection signal="area_entered" from="Stars/Star3/Area" to="Stars" method="_on_star_area_entered" binds= [ 3 ]]
+[connection signal="area_entered" from="Stars/Star4/Area" to="Stars" method="_on_star_area_entered" binds= [ 4 ]]
+[connection signal="area_entered" from="Stars/Star5/Area" to="Stars" method="_on_star_area_entered" binds= [ 5 ]]
+[connection signal="area_entered" from="Stars/OKButton/Area" to="." method="_on_StarOK_area_entered"]
+[connection signal="area_entered" from="DataCollectionConformation/StartButton/Area" to="." method="_on_StartButton_area_entered"]
 
 [editable path="ARVROrigin"]
 [editable path="ARVROrigin/LeftHand"]
 [editable path="ARVROrigin/RightHand"]
-[editable path="OutputNode"]
 [editable path="Floor"]
+[editable path="BranchContainer/branch"]
+[editable path="Stars/Star1"]
+[editable path="Stars/Star2"]
+[editable path="Stars/Star3"]
+[editable path="Stars/Star4"]
+[editable path="Stars/Star5"]
