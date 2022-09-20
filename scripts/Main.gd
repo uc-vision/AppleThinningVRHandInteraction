@@ -82,7 +82,6 @@ func _process(delta):
 	if totalApplesOnBranch != totalApplesOnBranchAtStart:
 		data[selectedInteractionMechanic]["times"][-1] = data[selectedInteractionMechanic]["times"][-1] + delta
 		data[selectedInteractionMechanic]["damagedPicked"][-1] = damagedApplesAtStart - getCountDamagedApples()
-		dataCollectionNode.visible = false
 	if not completed:
 		setInteractionTime()
 		setInteractionMispicks()
@@ -99,6 +98,9 @@ func complete_section():
 	branchContainer.visible = false
 	tableApplesContainer.visible = false
 	table.visible = false
+	informationNode.visible = false
+	dataNode.visible = false
+	
 	stars.visible = true
 	collectingRating = true
 	
@@ -212,6 +214,8 @@ func _on_StarOK_area_entered(area):
 		stars.reset_stars()
 		stars.visible = false
 		collectingRating = false
+		informationNode.visible = true
+		dataNode.visible = true
 		completed = true
 		get_tree().root.get_node("Main/InformationNode/Viewport/TitleLabel").text = ""
 		get_tree().root.get_node("Main/InformationNode/Viewport/BottomLabel").text = "Thank you for trying out this demo, If you have any other comments on the interaction mechanics tried please don't hesitate to leave a comment where you found this demo,\n\nAgain, your time taken data, mispicks, and raiting have been sent to me to decide on the prefered interaction mechanic"
@@ -225,6 +229,8 @@ func _on_StarOK_area_entered(area):
 		table.visible = true
 		stars.visible = false
 		collectingRating = false
+		informationNode.visible = true
+		dataNode.visible = true
 		next_interaction()
 	
 
@@ -239,3 +245,7 @@ func _on_StartButton_area_entered(area):
 	branchContainer.visible = true
 	
 	acceptedTerms = true
+	
+	var toRemove = $DataCollectionConformation
+	remove_child(toRemove)
+	toRemove.free()
