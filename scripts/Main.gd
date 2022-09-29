@@ -79,7 +79,7 @@ func _process(delta):
 	if collectingRating or completed or not acceptedTerms: return
 	healthyApplesOnBranch = getCountHealthyApples()
 	totalApplesOnBranch = getCountTotalApples()
-	if totalApplesOnBranch != totalApplesOnBranchAtStart:
+	if totalApplesOnBranch != totalApplesOnBranchAtStart and healthyApplesOnBranch != 0:
 		data[selectedInteractionMechanic]["times"][-1] = data[selectedInteractionMechanic]["times"][-1] + delta
 		data[selectedInteractionMechanic]["damagedPicked"][-1] = damagedApplesAtStart - getCountDamagedApples()
 	if not completed:
@@ -177,10 +177,6 @@ func setInteractionTime():
 	var string = ""
 	for time in times: string += "Time: " + stepify(time, 0.01) as String + "s\n"
 	node.text = string
-	#if node.text == "Time:":
-	#	node.text = "Time: " + stepify(timeTaken, 0.01) as String + "s"
-	#else:
-	#	node.text += "\nTime: " + stepify(timeTaken, 0.01) as String + "s"
 
 func setInteractionMispicks():
 	var node = get_node("DataNode/Viewport/Interaction" + selectedInteractionMechanic as String + "Mispicks")

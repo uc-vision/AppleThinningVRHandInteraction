@@ -9,13 +9,13 @@ var selectedInteraction = 1
 var previouslySelectedInteraction = 1
 
 var interaction1Title = "Interaction style 1"
-var interaction1Description = "This interaction uses an Area object in your palm to sense when your fingertips have entered this palm area and interpret this as a grip. To grip an object simply move your fingertips into your palms by bending your fingers.\n\nRemember you can use both hands!"
+var interaction1Description = "This interaction uses an Area object in your palm to sense when your fingertips have entered this palm area and interpret this as a grip. To grip an object simply move your fingertips into your palms by bending your fingers.\n\nRemember you can use both hands!\n\nPick off all of the Green Apples while leaving the Red Apples"
 
 var interaction2Title = "Interaction style 2"
-var interaction2Description = "This interaction mechanic uses the angle of your fingers to detect gripping. To grip an object simply bend your fingers.\n\nRemember you can use both hands!"
+var interaction2Description = "This interaction mechanic uses the angle of your fingers to detect gripping. To grip an object simply bend your fingers.\n\nRemember you can use both hands!\n\nPick off all of the Green Apples while leaving the Red Apples"
 
 var interaction3Title = "Interaction style 3"
-var interaction3Description = "This interaction mechanic uses areas on the fingertips to sense when they are interacting with objects. To grip an object simply make sure your thumb and at least one other finger is on or in the object you want to pick up. This can be easily achieved using a pinching motion.\n\nRemember you can use both hands!"
+var interaction3Description = "This interaction mechanic uses areas on the fingertips to sense when they are interacting with objects. To grip an object simply make sure your thumb and at least one other finger is on or in the object you want to pick up. This can be easily achieved using a pinching motion.\n\nRemember you can use both hands!\n\nPick off all of the Green Apples while leaving the Red Apples"
 
 func _ready():
 	var material = interaction1Mesh.get_surface_material(0)
