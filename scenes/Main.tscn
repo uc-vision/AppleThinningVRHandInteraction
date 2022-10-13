@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://scenes/ARVROrigin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/InteractionSelection.gd" type="Script" id=2]
@@ -24,42 +24,6 @@ panorama = ExtResource( 11 )
 [sub_resource type="Environment" id=3]
 background_mode = 2
 background_sky = SubResource( 4 )
-
-[sub_resource type="SphereShape" id=35]
-
-[sub_resource type="SphereMesh" id=36]
-
-[sub_resource type="SpatialMaterial" id=37]
-
-[sub_resource type="ViewportTexture" id=44]
-viewport_path = NodePath("InteractionSelection/Interaction1/Spatial/Viewport")
-
-[sub_resource type="SphereShape" id=38]
-
-[sub_resource type="SphereMesh" id=39]
-
-[sub_resource type="SpatialMaterial" id=40]
-
-[sub_resource type="ViewportTexture" id=45]
-viewport_path = NodePath("InteractionSelection/Interaction2/Spatial/Viewport")
-
-[sub_resource type="SphereShape" id=41]
-
-[sub_resource type="SphereMesh" id=42]
-
-[sub_resource type="SpatialMaterial" id=43]
-
-[sub_resource type="ViewportTexture" id=46]
-viewport_path = NodePath("InteractionSelection/Interaction3/Spatial/Viewport")
-
-[sub_resource type="SphereShape" id=47]
-
-[sub_resource type="SphereMesh" id=48]
-
-[sub_resource type="SpatialMaterial" id=49]
-
-[sub_resource type="ViewportTexture" id=50]
-viewport_path = NodePath("InteractionSelection/Reset/Spatial/Viewport")
 
 [sub_resource type="DynamicFont" id=84]
 size = 63
@@ -292,154 +256,15 @@ shadow_enabled = true
 
 [node name="Floor" parent="." instance=ExtResource( 8 )]
 
-[node name="InteractionSelection" type="Spatial" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.555459, 1.26628, 0.544826 )
-visible = false
-script = ExtResource( 2 )
-
-[node name="Interaction1" type="Spatial" parent="InteractionSelection"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="Area" type="Area" parent="InteractionSelection/Interaction1"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Interaction1/Area"]
-shape = SubResource( 35 )
-
-[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction1/Area"]
-mesh = SubResource( 36 )
-material/0 = SubResource( 37 )
-
-[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction1"]
-
-[node name="Spatial" type="Spatial" parent="InteractionSelection/Interaction1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
-
-[node name="Viewport" type="Viewport" parent="InteractionSelection/Interaction1/Spatial"]
-size = Vector2( 100, 100 )
-transparent_bg = true
-render_target_v_flip = true
-
-[node name="Label" type="Label" parent="InteractionSelection/Interaction1/Spatial/Viewport"]
-margin_right = 100.0
-margin_bottom = 100.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Interaction 1"
-align = 1
-valign = 1
-
-[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Interaction1/Spatial"]
-transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
-texture = SubResource( 44 )
-
-[node name="Interaction2" type="Spatial" parent="InteractionSelection"]
-
-[node name="Area" type="Area" parent="InteractionSelection/Interaction2"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Interaction2/Area"]
-shape = SubResource( 38 )
-
-[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction2/Area"]
-mesh = SubResource( 39 )
-material/0 = SubResource( 40 )
-
-[node name="Spatial" type="Spatial" parent="InteractionSelection/Interaction2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
-
-[node name="Viewport" type="Viewport" parent="InteractionSelection/Interaction2/Spatial"]
-size = Vector2( 100, 100 )
-transparent_bg = true
-render_target_v_flip = true
-
-[node name="Label" type="Label" parent="InteractionSelection/Interaction2/Spatial/Viewport"]
-margin_right = 100.0
-margin_bottom = 100.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Interaction 2"
-align = 1
-valign = 1
-
-[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Interaction2/Spatial"]
-transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
-texture = SubResource( 45 )
-
-[node name="Interaction3" type="Spatial" parent="InteractionSelection"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-
-[node name="Area" type="Area" parent="InteractionSelection/Interaction3"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Interaction3/Area"]
-shape = SubResource( 41 )
-
-[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Interaction3/Area"]
-mesh = SubResource( 42 )
-material/0 = SubResource( 43 )
-
-[node name="Spatial" type="Spatial" parent="InteractionSelection/Interaction3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
-
-[node name="Viewport" type="Viewport" parent="InteractionSelection/Interaction3/Spatial"]
-size = Vector2( 100, 100 )
-transparent_bg = true
-render_target_v_flip = true
-
-[node name="Label" type="Label" parent="InteractionSelection/Interaction3/Spatial/Viewport"]
-margin_right = 100.0
-margin_bottom = 100.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Interaction 3"
-align = 1
-valign = 1
-
-[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Interaction3/Spatial"]
-transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
-texture = SubResource( 46 )
-
-[node name="Reset" type="Spatial" parent="InteractionSelection"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
-
-[node name="Area" type="Area" parent="InteractionSelection/Reset"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="InteractionSelection/Reset/Area"]
-shape = SubResource( 47 )
-
-[node name="MeshInstance" type="MeshInstance" parent="InteractionSelection/Reset/Area"]
-mesh = SubResource( 48 )
-material/0 = SubResource( 49 )
-
-[node name="Spatial" type="Spatial" parent="InteractionSelection/Reset"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.10679, 0, 0 )
-
-[node name="Viewport" type="Viewport" parent="InteractionSelection/Reset/Spatial"]
-size = Vector2( 100, 100 )
-transparent_bg = true
-render_target_v_flip = true
-
-[node name="Label" type="Label" parent="InteractionSelection/Reset/Spatial/Viewport"]
-margin_right = 100.0
-margin_bottom = 100.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Reset Apples"
-align = 1
-valign = 1
-
-[node name="Sprite3D" type="Sprite3D" parent="InteractionSelection/Reset/Spatial"]
-transform = Transform( -6.55671e-08, 0, -1, 0, 1.5, 0, 1.5, 0, -4.37114e-08, 0.100307, 0, 0 )
-texture = SubResource( 50 )
-
 [node name="ApplePickSound" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3 )
 stream = ExtResource( 5 )
 unit_db = 30.0
 
 [node name="RemovedInteractables" type="Spatial" parent="."]
+
+[node name="InteractionSelection" type="Spatial" parent="."]
+script = ExtResource( 2 )
 
 [node name="BranchContainer" type="Spatial" parent="."]
 transform = Transform( 0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, 0.939693, 0.15, 1.5, 0 )
@@ -653,11 +478,6 @@ script = ExtResource( 16 )
 [node name="IPAddressRequester" type="HTTPRequest" parent="."]
 script = ExtResource( 17 )
 
-[connection signal="area_entered" from="InteractionSelection/Interaction1/Area" to="InteractionSelection" method="_on_interaction1_area_entered"]
-[connection signal="area_entered" from="InteractionSelection/Interaction2/Area" to="InteractionSelection" method="_on_interaction2_area_entered"]
-[connection signal="area_entered" from="InteractionSelection/Interaction3/Area" to="InteractionSelection" method="_on_interaction3_area_entered"]
-[connection signal="area_entered" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_entered"]
-[connection signal="area_exited" from="InteractionSelection/Reset/Area" to="." method="_on_reset_area_exited"]
 [connection signal="area_entered" from="Stars/Star1/Area" to="Stars" method="_on_star_area_entered" binds= [ 1 ]]
 [connection signal="area_entered" from="Stars/Star2/Area" to="Stars" method="_on_star_area_entered" binds= [ 2 ]]
 [connection signal="area_entered" from="Stars/Star3/Area" to="Stars" method="_on_star_area_entered" binds= [ 3 ]]

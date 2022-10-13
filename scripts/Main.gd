@@ -204,7 +204,7 @@ func _on_StarOK_area_entered(area):
 	var timeTaken = data[selectedInteractionMechanic]["times"][-1]
 	var mispicks = data[selectedInteractionMechanic]["damagedPicked"][-1]
 	var rating = stars.currentSelection
-	$HTTPRequest.send_data(interactionNum, timeTaken, mispicks, rating)
+	#$HTTPRequest.send_data(interactionNum, timeTaken, mispicks, rating)
 	
 	if interactionMechanicsAvaliable.size() == 0:
 		stars.reset_stars()
@@ -228,6 +228,8 @@ func _on_StarOK_area_entered(area):
 		informationNode.visible = true
 		dataNode.visible = true
 		next_interaction()
+	
+	
 	
 
 
