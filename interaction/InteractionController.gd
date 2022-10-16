@@ -19,6 +19,9 @@ func get_closest_rigidbody():
 
 #Interaction Mechanic 1
 
+#This interaction simply detects whether any of the users fingers have entered into the palm_area.
+#and if there are any, then the function returns the closest pickupable object
+
 func detect_grabbing_object_1():
 	if palm_area.get_overlapping_areas().size() > 0:
 		return get_closest_rigidbody()
@@ -26,6 +29,12 @@ func detect_grabbing_object_1():
 
 
 #Interaction Mechanic 2
+
+#This interaction behaves similarly to the first, but calculates the angle of bend of each of the 
+#users fingers and then returns the closest pickupable object if at least two fingers are bent to 
+#at least 90 degrees
+
+#Has a lot of complicated setup for getting the angle of bend for each joint in each finger
 
 
 onready var hand = get_parent()

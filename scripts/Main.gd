@@ -1,4 +1,5 @@
 extends Spatial
+var COLLECTING_DATA = false
 
 onready var resetAreaMesh = $InteractionSelection/Reset/Area/MeshInstance
 onready var resetArea = $InteractionSelection/Reset/Area
@@ -204,7 +205,8 @@ func _on_StarOK_area_entered(area):
 	var timeTaken = data[selectedInteractionMechanic]["times"][-1]
 	var mispicks = data[selectedInteractionMechanic]["damagedPicked"][-1]
 	var rating = stars.currentSelection
-	#$HTTPRequest.send_data(interactionNum, timeTaken, mispicks, rating)
+	if (COLLECTING_DATA):
+		$HTTPRequest.send_data(interactionNum, timeTaken, mispicks, rating)
 	
 	if interactionMechanicsAvaliable.size() == 0:
 		stars.reset_stars()
